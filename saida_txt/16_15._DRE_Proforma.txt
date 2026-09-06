@@ -276,7 +276,7 @@ Indicador: Receita Bruta
     Eliminações / 4T23: -570,6510
     Consolidado / 4T23: 13.062,4760
     Financeira / 4T23: 564,6390
-    Seguradora / 4T23: 0
+    Seguradora / 4T23: 0,0000
     Eliminações / 4T23: -75,9100
     Cons. Pro-Forma / 4T23: 13.551,2050
     Varejo / 2023: 44.980,4610
@@ -651,7 +651,7 @@ Indicador: Impostos e Cancelamentos
     Eliminações / 4T23: 0,0000
     Consolidado / 4T23: -2.512,7350
     Financeira / 4T23: 0,0000
-    Seguradora / 4T23: 0
+    Seguradora / 4T23: 0,0000
     Eliminações / 4T23: 0,0000
     Cons. Pro-Forma / 4T23: -2.512,7350
     Varejo / 2023: -8.425,7140
@@ -1026,7 +1026,7 @@ Indicador: Receita Líquida
     Eliminações / 4T23: -570,6510
     Consolidado / 4T23: 10.549,7410
     Financeira / 4T23: 564,6390
-    Seguradora / 4T23: 0
+    Seguradora / 4T23: 0,0000
     Eliminações / 4T23: -75,9100
     Cons. Pro-Forma / 4T23: 11.038,4700
     Varejo / 2023: 36.554,7470
@@ -1401,7 +1401,7 @@ Indicador: Custo Total
     Eliminações / 4T23: 0,0000
     Consolidado / 4T23: -7.356,9450
     Financeira / 4T23: -79,3230
-    Seguradora / 4T23: 0
+    Seguradora / 4T23: 0,0000
     Eliminações / 4T23: 0,0000
     Cons. Pro-Forma / 4T23: -7.436,2680
     Varejo / 2023: -26.571,2180
@@ -1776,7 +1776,7 @@ Indicador: Lucro Bruto
     Eliminações / 4T23: -570,6510
     Consolidado / 4T23: 3.192,7960
     Financeira / 4T23: 485,3160
-    Seguradora / 4T23: 0
+    Seguradora / 4T23: 0,0000
     Eliminações / 4T23: -75,9100
     Cons. Pro-Forma / 4T23: 3.602,2020
     Varejo / 2023: 9.983,5290
@@ -2151,7 +2151,7 @@ Indicador: Despesas com vendas
     Eliminações / 4T23: 570,6510
     Consolidado / 4T23: -2.036,0396
     Financeira / 4T23: -130,5820
-    Seguradora / 4T23: 0
+    Seguradora / 4T23: 0,0000
     Eliminações / 4T23: 31,8440
     Cons. Pro-Forma / 4T23: -2.134,7776
     Varejo / 2023: -6.846,3560
@@ -2526,7 +2526,7 @@ Indicador: Despesas gerais e administrativas
     Eliminações / 4T23: 0,0000
     Consolidado / 4T23: -342,0963
     Financeira / 4T23: -2,4650
-    Seguradora / 4T23: 0
+    Seguradora / 4T23: 0,0000
     Eliminações / 4T23: 0,0000
     Cons. Pro-Forma / 4T23: -344,5613
     Varejo / 2023: -1.265,1390
@@ -2901,7 +2901,7 @@ Indicador: Perda em liquidação duvidosa
     Eliminações / 4T23: 0,0000
     Consolidado / 4T23: -104,6610
     Financeira / 4T23: -310,1770
-    Seguradora / 4T23: 0
+    Seguradora / 4T23: 0,0000
     Eliminações / 4T23: 0,0000
     Cons. Pro-Forma / 4T23: -414,8380
     Varejo / 2023: -386,1420
@@ -3276,7 +3276,7 @@ Indicador: Equivalência patrimonial
     Eliminações / 4T23: 1,7050
     Consolidado / 4T23: 9,3430
     Financeira / 4T23: 0,0000
-    Seguradora / 4T23: 0
+    Seguradora / 4T23: 0,0000
     Eliminações / 4T23: -9,3430
     Cons. Pro-Forma / 4T23: 0,0000
     Varejo / 2023: -117,6340
@@ -4776,7 +4776,7 @@ Indicador: Depreciação e amortização
     Eliminações / 4T23: 0,0000
     Consolidado / 4T23: -305,4150
     Financeira / 4T23: -1,4940
-    Seguradora / 4T23: 0
+    Seguradora / 4T23: 0,0000
     Eliminações / 4T23: 0,0000
     Cons. Pro-Forma / 4T23: -306,9090
     Varejo / 2023: -1.218,0780
@@ -5526,7 +5526,7 @@ Indicador: Resultado Financeiro
     Eliminações / 4T23: 0,0000
     Consolidado / 4T23: -227,1600
     Financeira / 4T23: 0,0000
-    Seguradora / 4T23: 0
+    Seguradora / 4T23: 0,0000
     Eliminações / 4T23: 44,2960
     Cons. Pro-Forma / 4T23: -182,8640
     Varejo / 2023: -1.685,2360
@@ -6276,7 +6276,7 @@ Indicador: IR / CS
     Eliminações / 4T23: 0,0000
     Consolidado / 4T23: 196,1880
     Financeira / 4T23: -6,9360
-    Seguradora / 4T23: 0
+    Seguradora / 4T23: 0,0000
     Eliminações / 4T23: 0,0000
     Cons. Pro-Forma / 4T23: 189,2520
     Varejo / 2023: 1.057,5050
@@ -7026,7 +7026,7 @@ Indicador: Margem Bruta
     Eliminações / 4T23: 1,0000
     Consolidado / 4T23: 0,3026
     Financeira / 4T23: 0,8595
-    Seguradora / 4T23: 0
+    Seguradora / 4T23: 0,0000
     Eliminações / 4T23: 1,0000
     Cons. Pro-Forma / 4T23: 0,3263
     Varejo / 2023: 0,2731
@@ -7401,7 +7401,7 @@ Indicador: Margem EBITDA
     Eliminações / 4T23: -0,0030
     Consolidado / 4T23: 0,0520
     Financeira / 4T23: 0,0311
-    Seguradora / 4T23: 0
+    Seguradora / 4T23: 0,0000
     Eliminações / 4T23: 0,7036
     Cons. Pro-Forma / 4T23: 0,0464
     Varejo / 2023: 0,0237
@@ -7776,7 +7776,7 @@ Indicador: Margem Líquida
     Eliminações / 4T23: -0,0030
     Consolidado / 4T23: 0,0201
     Financeira / 4T23: 0,0161
-    Seguradora / 4T23: 0
+    Seguradora / 4T23: 0,0000
     Eliminações / 4T23: 0,1201
     Cons. Pro-Forma / 4T23: 0,0192
     Varejo / 2023: -0,0268

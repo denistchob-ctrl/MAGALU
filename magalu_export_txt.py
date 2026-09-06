@@ -37,7 +37,7 @@ import numpy as np
 import pandas as pd
 
 from magalu_loader import MagaluDataLoader
-
+from magalu_limpeza import limpar_loader
 
 def _nome_arquivo_seguro(nome_guia, prefixo_numero=None):
     """Transforma o nome da guia num nome de arquivo seguro (sem espaços/acentos problemáticos)."""
@@ -150,13 +150,13 @@ def exportar_tudo_em_um_arquivo(loader: MagaluDataLoader, caminho_saida="saida_t
     print(f"Gerado arquivo consolidado: {caminho_saida}")
     return caminho_saida
 
-
 if __name__ == "__main__":
-    caminho_planilha = "RESULTADO_2T26_POR.xlsx"
+    caminho_planilha = ".\\BD\\RESULTADO_2T26_POR.xlsx"
     loader = MagaluDataLoader(caminho_planilha)
+    relatorios = limpar_loader(loader)   # limpa loader.dados, loader.colunas e loader.arrays "in place"
 
     # Um .txt por guia
     exportar_guias_para_txt(loader, pasta_saida="saida_txt")
 
     # (Opcional) um único .txt com tudo junto
-    exportar_tudo_em_um_arquivo(loader, caminho_saida="saida_txt/00_TODAS_AS_GUIAS.txt")
+    #exportar_tudo_em_um_arquivo(loader, caminho_saida="saida_txt/00_TODAS_AS_GUIAS.txt")
