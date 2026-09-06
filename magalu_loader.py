@@ -72,7 +72,7 @@ class MagaluDataLoader:
     """Carrega todas as guias da planilha de resultados do Magazine Luiza."""
 
     def __init__(self, caminho_arquivo, carregar_ao_iniciar=True):
-        self.caminho_arquivo = caminho_arquivo
+        self.caminho_arquivo = ".\\BD\\" + caminho_arquivo
         self.wb = openpyxl.load_workbook(caminho_arquivo, data_only=True)
 
         self.dados = {}      # nome_guia -> DataFrame (índice=indicador, colunas=período)
@@ -284,8 +284,8 @@ if __name__ == "__main__":
     print("\nExemplo -> Indicadores da guia '1. Indicadores':")
     print(loader.listar_indicadores("1. Indicadores")[:10])
 
-    print("\nExemplo -> Série de EBITDA:")
-    print(loader.get_series("1. Indicadores", "EBITDA"))
+    print("\nExemplo -> Série de Vendas Totais (incluindo marketplace):")
+    print(loader.get_series("1. Indicadores", "Vendas Totais (incluindo marketplace)"))
 
-    print("\nExemplo -> Buscar indicadores com 'margem':")
-    print(loader.buscar_indicador("margem")[:10])
+    print("\nExemplo -> Buscar indicadores com 'margem' no nome :")
+    print(loader.buscar_indicador("margem")[:10], sep="\n")

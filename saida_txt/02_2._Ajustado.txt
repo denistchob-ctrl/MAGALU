@@ -1,0 +1,3498 @@
+====================================================================================================
+GUIA: 2. Ajustado
+====================================================================================================
+Quantidade de indicadores (linhas): 18
+Quantidade de colunas/períodos: 190
+
+----------------------------------------------------------------------------------------------------
+Indicador: Receita Bruta
+----------------------------------------------------------------------------------------------------
+    1T19 Ajustado: 5.313,2130
+    AV: 1,2274
+    Ajustes Não Recorrentes: 0,0000
+    1T19: 5.313,2130
+    AV: 1,2274
+    2T19 Ajustado: 5.196,1620
+    AV: 1,2061
+    Ajustes Não Recorrentes: 0,0000
+    2T19: 5.196,1620
+    AV: 1,2061
+    3T19 Ajustado: 5.999,4340
+    AV: 1,2334
+    Ajustes Não Recorrentes: 0,0000
+    3T19: 5.999,4340
+    AV: 1,2334
+    4T19 Ajustado: 7.868,3240
+    AV: 1,2323
+    Ajustes Não Recorrentes: 0,0000
+    4T19: 7.868,3240
+    AV: 1,2323
+    2019 Ajustado: 24.377,1330
+    AV: 1,2258
+    Ajustes Não Recorrentes: 0,0000
+    2019: 24.377,1330
+    AV: 1,2258
+    1T20 Ajustado: 6.486,2850
+    AV: 1,2391
+    Ajustes Não Recorrentes: 0,0000
+    1T20: 6.486,2850
+    AV: 1,2391
+    2T20 Ajustado: 6.816,5590
+    AV: 1,2242
+    Ajustes Não Recorrentes: 0,0000
+    2T20: 6.816,5590
+    AV: 1,2242
+    3T20 Ajustado: 10.349,4820
+    AV: 1,2457
+    Ajustes Não Recorrentes: 0,0000
+    3T20: 10.349,4820
+    AV: 1,2457
+    4T20 Ajustado: 12.463,7090
+    AV: 1,2382
+    Ajustes Não Recorrentes: 0,0000
+    4T20: 12.463,7090
+    AV: 1,2382
+    2020 Ajustado: 36.116,0350
+    AV: 1,2378
+    Ajustes Não Recorrentes: 0,0000
+    2020: 36.116,0350
+    AV: 1,2378
+    1T21 Ajustado: 10.118,3820
+    AV: 1,2261
+    Ajustes Não Recorrentes: 0,0000
+    1T21: 10.118,3820
+    AV: 1,2261
+    2T21 Ajustado: 10.912,8310
+    AV: 1,2107
+    Ajustes Não Recorrentes: 0,0000
+    2T21: 10.912,8310
+    AV: 1,2107
+    3T21 Ajustado: 10.474,9340
+    AV: 1,2163
+    Ajustes Não Recorrentes: 0,0000
+    3T21: 10.474,9340
+    AV: 1,2163
+    4T21 Ajustado: 11.476,5400
+    AV: 1,2209
+    Ajustes Não Recorrentes: 0,0000
+    4T21: 11.476,5400
+    AV: 1,2209
+    2021 Ajustado: 42.982,6870
+    AV: 1,2184
+    Ajustes Não Recorrentes: 0,0000
+    2021: 42.982,6870
+    AV: 1,2184
+    1T22 Ajustado: 10.576,9400
+    AV: 1,2071
+    Ajustes Não Recorrentes: 0,0000
+    1T22: 10.576,9400
+    AV: 1,2071
+    2T22 Ajustado: 10.367,2080
+    AV: 1,2108
+    Ajustes Não Recorrentes: 0,0000
+    2T22: 10.367,2080
+    AV: 1,2108
+    3T22 Ajustado: 10.729,0480
+    AV: 1,2182
+    Ajustes Não Recorrentes: 0,0000
+    3T22: 10.729,0480
+    AV: 1,2182
+    4T22 Ajustado: 13.515,8100
+    AV: 1,2103
+    Ajustes Não Recorrentes: 0,0000
+    4T22: 13.515,8100
+    AV: 1,2103
+    2022 Ajustado: 45.189,0060
+    AV: 1,2115
+    Ajustes Não Recorrentes: 0,0000
+    2022: 45.189,0060
+    AV: 1,2115
+    1T23 Ajustado: 11.311,5470
+    AV: 1,2475
+    Ajustes Não Recorrentes: 0,0000
+    1T23: 11.311,5470
+    AV: 1,2475
+    2T23 Ajustado: 10.645,9440
+    AV: 1,2419
+    Ajustes Não Recorrentes: 0,0000
+    2T23: 10.645,9440
+    AV: 1,2419
+    3T23 Ajustado: 10.571,0160
+    AV: 1,2322
+    Ajustes Não Recorrentes: 0,0000
+    3T23: 10.571,0160
+    AV: 1,2322
+    4T23 Ajustado: 13.062,4760
+    AV: 1,2382
+    Ajustes Não Recorrentes: 0,0000
+    4T23: 13.062,4760
+    AV: 1,2382
+    2023 Ajustado: 45.590,9830
+    AV: 1,2400
+    Ajustes Não Recorrentes: 0,0000
+    2023: 45.590,9830
+    AV: 1,2400
+    1T24 Ajustado: 11.530,0640
+    AV: 1,2479
+    Ajustes Não Recorrentes: 0,0000
+    1T24: 11.530,0640
+    AV: 1,2479
+    2T24 Ajustado: 11.177,3370
+    AV: 1,2406
+    Ajustes Não Recorrentes: 0,0000
+    2T24: 11.177,3370
+    AV: 1,2406
+    3T24 Ajustado: 11.165,5470
+    AV: 1,2404
+    Ajustes Não Recorrentes: 0,0000
+    3T24: 11.165,5470
+    AV: 1,2404
+    4T24 Ajustado: 13.404,0930
+    AV: 1,2426
+    Ajustes Não Recorrentes: 0,0000
+    4T24: 13.404,0930
+    AV: 1,2426
+    2024 Ajustado: 47.277,0410
+    AV: 1,2429
+    Ajustes Não Recorrentes: 0,0000
+    2024: 47.277,0410
+    AV: 1,2429
+    1T25 Ajustado: 11.633,8680
+    AV: 1,2391
+    Ajustes Não Recorrentes: 0,0000
+    1T25: 11.633,8680
+    AV: 1,2391
+    2T25 Ajustado: 11.364,3260
+    AV: 1,2441
+    Ajustes Não Recorrentes: 0,0000
+    2T25: 11.364,3260
+    AV: 1,2441
+    3T25 Ajustado: 11.318,6190
+    AV: 1,2539
+    Ajustes Não Recorrentes: 0,0000
+    3T25: 11.318,6190
+    AV: 1,2539
+    4T25 Ajustado: 13.845,1200
+    AV: 1,2414
+    Ajustes Não Recorrentes: 0,0000
+    4T25: 13.845,1200
+    AV: 1,2414
+    2025 Ajustado: 48.161,9330
+    AV: 1,2444
+    Ajustes Não Recorrentes: 0,0000
+    2025: 48.161,9330
+    AV: 1,2444
+    1T26 Ajustado: 11.422,9830
+    AV: 1,2409
+    Ajustes Não Recorrentes: 0,0000
+    1T26: 11.422,9830
+    AV: 1,2409
+    2T26 Ajustado: 11.110,6080
+    AV: 1,2486
+    Ajustes Não Recorrentes: 0,0000
+    2T26: 11.110,6080
+    AV: 1,2486
+    1S26 Ajustado: 22.533,5910
+    AV: 1,2446
+    Ajustes Não Recorrentes: 0,0000
+    1S26: 22.533,5910
+    AV: 1,2446
+
+----------------------------------------------------------------------------------------------------
+Indicador: Impostos e Cancelamentos
+----------------------------------------------------------------------------------------------------
+    1T19 Ajustado: -984,2290
+    AV: -0,2274
+    Ajustes Não Recorrentes: 0,0000
+    1T19: -984,2290
+    AV: -0,2274
+    2T19 Ajustado: -888,0600
+    AV: -0,2061
+    Ajustes Não Recorrentes: 0,0000
+    2T19: -888,0600
+    AV: -0,2061
+    3T19 Ajustado: -1.135,2360
+    AV: -0,2334
+    Ajustes Não Recorrentes: 0,0000
+    3T19: -1.135,2360
+    AV: -0,2334
+    4T19 Ajustado: -1.483,2980
+    AV: -0,2323
+    Ajustes Não Recorrentes: 0,0000
+    4T19: -1.483,2980
+    AV: -0,2323
+    2019 Ajustado: -4.490,8230
+    AV: -0,2258
+    Ajustes Não Recorrentes: 0,0000
+    2019: -4.490,8230
+    AV: -0,2258
+    1T20 Ajustado: -1.251,5360
+    AV: -0,2391
+    Ajustes Não Recorrentes: 0,0000
+    1T20: -1.251,5360
+    AV: -0,2391
+    2T20 Ajustado: -1.248,3150
+    AV: -0,2242
+    Ajustes Não Recorrentes: 0,0000
+    2T20: -1.248,3150
+    AV: -0,2242
+    3T20 Ajustado: -2.041,1560
+    AV: -0,2457
+    Ajustes Não Recorrentes: 0,0000
+    3T20: -2.041,1560
+    AV: -0,2457
+    4T20 Ajustado: -2.397,9160
+    AV: -0,2382
+    Ajustes Não Recorrentes: 0,0000
+    4T20: -2.397,9160
+    AV: -0,2382
+    2020 Ajustado: -6.938,9230
+    AV: -0,2378
+    Ajustes Não Recorrentes: 0,0000
+    2020: -6.938,9230
+    AV: -0,2378
+    1T21 Ajustado: -1.865,5690
+    AV: -0,2261
+    Ajustes Não Recorrentes: 0,0000
+    1T21: -1.865,5690
+    AV: -0,2261
+    2T21 Ajustado: -1.899,5230
+    AV: -0,2107
+    Ajustes Não Recorrentes: 0,0000
+    2T21: -1.899,5230
+    AV: -0,2107
+    3T21 Ajustado: -1.862,9010
+    AV: -0,2163
+    Ajustes Não Recorrentes: 0,0000
+    3T21: -1.862,9010
+    AV: -0,2163
+    4T21 Ajustado: -2.076,5440
+    AV: -0,2209
+    Ajustes Não Recorrentes: 0,0000
+    4T21: -2.076,5440
+    AV: -0,2209
+    2021 Ajustado: -7.704,5370
+    AV: -0,2184
+    Ajustes Não Recorrentes: 0,0000
+    2021: -7.704,5370
+    AV: -0,2184
+    1T22 Ajustado: -1.814,7640
+    AV: -0,2071
+    Ajustes Não Recorrentes: 0,0000
+    1T22: -1.814,7640
+    AV: -0,2071
+    2T22 Ajustado: -1.804,8190
+    AV: -0,2108
+    Ajustes Não Recorrentes: 0,0000
+    2T22: -1.804,8190
+    AV: -0,2108
+    3T22 Ajustado: -1.922,0290
+    AV: -0,2182
+    Ajustes Não Recorrentes: 0,0000
+    3T22: -1.922,0290
+    AV: -0,2182
+    4T22 Ajustado: -2.348,3920
+    AV: -0,2103
+    Ajustes Não Recorrentes: 0,0000
+    4T22: -2.348,3920
+    AV: -0,2103
+    2022 Ajustado: -7.890,0040
+    AV: -0,2115
+    Ajustes Não Recorrentes: 0,0000
+    2022: -7.890,0040
+    AV: -0,2115
+    1T23 Ajustado: -2.244,2130
+    AV: -0,2475
+    Ajustes Não Recorrentes: 0,0000
+    1T23: -2.244,2130
+    AV: -0,2475
+    2T23 Ajustado: -2.073,6880
+    AV: -0,2419
+    Ajustes Não Recorrentes: 0,0000
+    2T23: -2.073,6880
+    AV: -0,2419
+    3T23 Ajustado: -1.992,1980
+    AV: -0,2322
+    Ajustes Não Recorrentes: 0,0000
+    3T23: -1.992,1980
+    AV: -0,2322
+    4T23 Ajustado: -2.512,7350
+    AV: -0,2382
+    Ajustes Não Recorrentes: 0,0000
+    4T23: -2.512,7350
+    AV: -0,2382
+    2023 Ajustado: -8.822,8340
+    AV: -0,2400
+    Ajustes Não Recorrentes: 0,0000
+    2023: -8.822,8340
+    AV: -0,2400
+    1T24 Ajustado: -2.290,7990
+    AV: -0,2479
+    Ajustes Não Recorrentes: 0,0000
+    1T24: -2.290,7990
+    AV: -0,2479
+    2T24 Ajustado: -2.167,3700
+    AV: -0,2406
+    Ajustes Não Recorrentes: 0,0000
+    2T24: -2.167,3700
+    AV: -0,2406
+    3T24 Ajustado: -2.164,0040
+    AV: -0,2404
+    Ajustes Não Recorrentes: 0,0000
+    3T24: -2.164,0040
+    AV: -0,2404
+    4T24 Ajustado: -2.616,8000
+    AV: -0,2426
+    Ajustes Não Recorrentes: 0,0000
+    4T24: -2.616,8000
+    AV: -0,2426
+    2024 Ajustado: -9.238,9730
+    AV: -0,2429
+    Ajustes Não Recorrentes: 0,0000
+    2024: -9.238,9730
+    AV: -0,2429
+    1T25 Ajustado: -2.244,8830
+    AV: -0,2391
+    Ajustes Não Recorrentes: 0,0000
+    1T25: -2.244,8830
+    AV: -0,2391
+    2T25 Ajustado: -2.229,6600
+    AV: -0,2441
+    Ajustes Não Recorrentes: 0,0000
+    2T25: -2.229,6600
+    AV: -0,2441
+    3T25 Ajustado: -2.291,9680
+    AV: -0,2539
+    Ajustes Não Recorrentes: 0,0000
+    3T25: -2.291,9680
+    AV: -0,2539
+    4T25 Ajustado: -2.692,0350
+    AV: -0,2414
+    Ajustes Não Recorrentes: 0,0000
+    4T25: -2.692,0350
+    AV: -0,2414
+    2025 Ajustado: -9.458,5460
+    AV: -0,2444
+    Ajustes Não Recorrentes: 0,0000
+    2025: -9.458,5460
+    AV: -0,2444
+    1T26 Ajustado: -2.217,2520
+    AV: -0,2409
+    Ajustes Não Recorrentes: 0,0000
+    1T26: -2.217,2520
+    AV: -0,2409
+    2T26 Ajustado: -2.211,8810
+    AV: -0,2486
+    Ajustes Não Recorrentes: 0,0000
+    2T26: -2.211,8810
+    AV: -0,2486
+    1S26 Ajustado: -4.429,1330
+    AV: -0,2446
+    Ajustes Não Recorrentes: 0,0000
+    1S26: -4.429,1330
+    AV: -0,2446
+
+----------------------------------------------------------------------------------------------------
+Indicador: Receita Líquida
+----------------------------------------------------------------------------------------------------
+    1T19 Ajustado: 4.328,9840
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    1T19: 4.328,9840
+    AV: 1,0000
+    2T19 Ajustado: 4.308,1020
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    2T19: 4.308,1020
+    AV: 1,0000
+    3T19 Ajustado: 4.864,1980
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    3T19: 4.864,1980
+    AV: 1,0000
+    4T19 Ajustado: 6.385,0260
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    4T19: 6.385,0260
+    AV: 1,0000
+    2019 Ajustado: 19.886,3100
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    2019: 19.886,3100
+    AV: 1,0000
+    1T20 Ajustado: 5.234,7490
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    1T20: 5.234,7490
+    AV: 1,0000
+    2T20 Ajustado: 5.568,2440
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    2T20: 5.568,2440
+    AV: 1,0000
+    3T20 Ajustado: 8.308,3260
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    3T20: 8.308,3260
+    AV: 1,0000
+    4T20 Ajustado: 10.065,7930
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    4T20: 10.065,7930
+    AV: 1,0000
+    2020 Ajustado: 29.177,1120
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    2020: 29.177,1120
+    AV: 1,0000
+    1T21 Ajustado: 8.252,8130
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    1T21: 8.252,8130
+    AV: 1,0000
+    2T21 Ajustado: 9.013,3080
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    2T21: 9.013,3080
+    AV: 1,0000
+    3T21 Ajustado: 8.612,0330
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    3T21: 8.612,0330
+    AV: 1,0000
+    4T21 Ajustado: 9.399,9960
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    4T21: 9.399,9960
+    AV: 1,0000
+    2021 Ajustado: 35.278,1500
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    2021: 35.278,1500
+    AV: 1,0000
+    1T22 Ajustado: 8.762,1760
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    1T22: 8.762,1760
+    AV: 1,0000
+    2T22 Ajustado: 8.562,3890
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    2T22: 8.562,3890
+    AV: 1,0000
+    3T22 Ajustado: 8.807,0190
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    3T22: 8.807,0190
+    AV: 1,0000
+    4T22 Ajustado: 11.167,4180
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    4T22: 11.167,4180
+    AV: 1,0000
+    2022 Ajustado: 37.299,0020
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    2022: 37.299,0020
+    AV: 1,0000
+    1T23 Ajustado: 9.067,3340
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    1T23: 9.067,3340
+    AV: 1,0000
+    2T23 Ajustado: 8.572,2560
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    2T23: 8.572,2560
+    AV: 1,0000
+    3T23 Ajustado: 8.578,8180
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    3T23: 8.578,8180
+    AV: 1,0000
+    4T23 Ajustado: 10.549,7410
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    4T23: 10.549,7410
+    AV: 1,0000
+    2023 Ajustado: 36.768,1490
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    2023: 36.768,1490
+    AV: 1,0000
+    1T24 Ajustado: 9.239,2650
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    1T24: 9.239,2650
+    AV: 1,0000
+    2T24 Ajustado: 9.009,9670
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    2T24: 9.009,9670
+    AV: 1,0000
+    3T24 Ajustado: 9.001,5430
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    3T24: 9.001,5430
+    AV: 1,0000
+    4T24 Ajustado: 10.787,2930
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    4T24: 10.787,2930
+    AV: 1,0000
+    2024 Ajustado: 38.038,0680
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    2024: 38.038,0680
+    AV: 1,0000
+    1T25 Ajustado: 9.388,9850
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    1T25: 9.388,9850
+    AV: 1,0000
+    2T25 Ajustado: 9.134,6660
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    2T25: 9.134,6660
+    AV: 1,0000
+    3T25 Ajustado: 9.026,6510
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    3T25: 9.026,6510
+    AV: 1,0000
+    4T25 Ajustado: 11.153,0850
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    4T25: 11.153,0850
+    AV: 1,0000
+    2025 Ajustado: 38.703,3870
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    2025: 38.703,3870
+    AV: 1,0000
+    1T26 Ajustado: 9.205,7310
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    1T26: 9.205,7310
+    AV: 1,0000
+    2T26 Ajustado: 8.898,7270
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    2T26: 8.898,7270
+    AV: 1,0000
+    1S26 Ajustado: 18.104,4580
+    AV: 1,0000
+    Ajustes Não Recorrentes: 0,0000
+    1S26: 18.104,4580
+    AV: 1,0000
+
+----------------------------------------------------------------------------------------------------
+Indicador: Custo Total
+----------------------------------------------------------------------------------------------------
+    1T19 Ajustado: -3.117,5650
+    AV: -0,7202
+    Ajustes Não Recorrentes: 0,0000
+    1T19: -3.117,5650
+    AV: -0,7202
+    2T19 Ajustado: -3.043,8680
+    AV: -0,7065
+    Ajustes Não Recorrentes: -172,0000
+    2T19: -3.215,8680
+    AV: -0,7465
+    3T19 Ajustado: -3.375,2790
+    AV: -0,6939
+    Ajustes Não Recorrentes: -64,0000
+    3T19: -3.439,2790
+    AV: -0,7071
+    4T19 Ajustado: -4.559,6370
+    AV: -0,7141
+    Ajustes Não Recorrentes: 0,0000
+    4T19: -4.559,6370
+    AV: -0,7141
+    2019 Ajustado: -14.096,3490
+    AV: -0,7088
+    Ajustes Não Recorrentes: -236,0000
+    2019: -14.332,3490
+    AV: -0,7207
+    1T20 Ajustado: -3.814,2760
+    AV: -0,7286
+    Ajustes Não Recorrentes: 0,0000
+    1T20: -3.814,2760
+    AV: -0,7286
+    2T20 Ajustado: -4.133,0410
+    AV: -0,7423
+    Ajustes Não Recorrentes: 0,0000
+    2T20: -4.133,0410
+    AV: -0,7423
+    3T20 Ajustado: -6.129,5920
+    AV: -0,7378
+    Ajustes Não Recorrentes: 0,0000
+    3T20: -6.129,5920
+    AV: -0,7378
+    4T20 Ajustado: -7.580,2420
+    AV: -0,7531
+    Ajustes Não Recorrentes: 0,0000
+    4T20: -7.580,2420
+    AV: -0,7531
+    2020 Ajustado: -21.657,1510
+    AV: -0,7423
+    Ajustes Não Recorrentes: 0,0000
+    2020: -21.657,1510
+    AV: -0,7423
+    1T21 Ajustado: -6.182,7110
+    AV: -0,7492
+    Ajustes Não Recorrentes: 0,0000
+    1T21: -6.182,7110
+    AV: -0,7492
+    2T21 Ajustado: -6.705,0390
+    AV: -0,7439
+    Ajustes Não Recorrentes: 0,0000
+    2T21: -6.705,0390
+    AV: -0,7439
+    3T21 Ajustado: -6.482,8510
+    AV: -0,7528
+    Ajustes Não Recorrentes: -395,0490
+    3T21: -6.877,9000
+    AV: -0,7986
+    4T21 Ajustado: -7.025,6950
+    AV: -0,7474
+    Ajustes Não Recorrentes: 0,0000
+    4T21: -7.025,6950
+    AV: -0,7474
+    2021 Ajustado: -26.396,2960
+    AV: -0,7482
+    Ajustes Não Recorrentes: -395,0490
+    2021: -26.791,3450
+    AV: -0,7594
+    1T22 Ajustado: -6.330,4260
+    AV: -0,7225
+    Ajustes Não Recorrentes: 0,0000
+    1T22: -6.330,4260
+    AV: -0,7225
+    2T22 Ajustado: -6.109,6140
+    AV: -0,7135
+    Ajustes Não Recorrentes: 0,0000
+    2T22: -6.109,6140
+    AV: -0,7135
+    3T22 Ajustado: -6.352,3450
+    AV: -0,7213
+    Ajustes Não Recorrentes: 0,0000
+    3T22: -6.352,3450
+    AV: -0,7213
+    4T22 Ajustado: -8.067,7210
+    AV: -0,7224
+    Ajustes Não Recorrentes: 0,0000
+    4T22: -8.067,7210
+    AV: -0,7224
+    2022 Ajustado: -26.860,1060
+    AV: -0,7201
+    Ajustes Não Recorrentes: 0,0000
+    2022: -26.860,1060
+    AV: -0,7201
+    1T23 Ajustado: -6.588,0410
+    AV: -0,7266
+    Ajustes Não Recorrentes: 0,0000
+    1T23: -6.588,0410
+    AV: -0,7266
+    2T23 Ajustado: -6.103,6110
+    AV: -0,7120
+    Ajustes Não Recorrentes: 0,0000
+    2T23: -6.103,6110
+    AV: -0,7120
+    3T23 Ajustado: -5.969,4070
+    AV: -0,6958
+    Ajustes Não Recorrentes: -586,2620
+    3T23: -6.555,6690
+    AV: -0,7642
+    4T23 Ajustado: -7.356,9450
+    AV: -0,6974
+    Ajustes Não Recorrentes: 0,0000
+    4T23: -7.356,9450
+    AV: -0,6974
+    2023 Ajustado: -26.018,0040
+    AV: -0,7076
+    Ajustes Não Recorrentes: -586,2620
+    2023: -26.604,2660
+    AV: -0,7236
+    1T24 Ajustado: -6.475,8690
+    AV: -0,7009
+    Ajustes Não Recorrentes: 0,0000
+    1T24: -6.475,8690
+    AV: -0,7009
+    2T24 Ajustado: -6.227,6880
+    AV: -0,6912
+    Ajustes Não Recorrentes: 0,0000
+    2T24: -6.227,6880
+    AV: -0,6912
+    3T24 Ajustado: -6.163,9900
+    AV: -0,6848
+    Ajustes Não Recorrentes: 0,0000
+    3T24: -6.163,9900
+    AV: -0,6848
+    4T24 Ajustado: -7.543,2650
+    AV: -0,6993
+    Ajustes Não Recorrentes: 0,0000
+    4T24: -7.543,2650
+    AV: -0,6993
+    2024 Ajustado: -26.410,8120
+    AV: -0,6943
+    Ajustes Não Recorrentes: 0,0000
+    2024: -26.410,8120
+    AV: -0,6943
+    1T25 Ajustado: -6.511,9970
+    AV: -0,6936
+    Ajustes Não Recorrentes: 0,0000
+    1T25: -6.511,9970
+    AV: -0,6936
+    2T25 Ajustado: -6.346,1870
+    AV: -0,6947
+    Ajustes Não Recorrentes: 0,0000
+    2T25: -6.346,1870
+    AV: -0,6947
+    3T25 Ajustado: -6.183,9860
+    AV: -0,6851
+    Ajustes Não Recorrentes: 0,0000
+    3T25: -6.183,9860
+    AV: -0,6851
+    4T25 Ajustado: -7.807,5940
+    AV: -0,7000
+    Ajustes Não Recorrentes: -299,0720
+    4T25: -8.106,6660
+    AV: -0,7269
+    2025 Ajustado: -26.849,7640
+    AV: -0,6937
+    Ajustes Não Recorrentes: -299,0720
+    2025: -27.148,8360
+    AV: -0,7015
+    1T26 Ajustado: -6.372,7700
+    AV: -0,6923
+    Ajustes Não Recorrentes: (vazio)
+    1T26: -6.372,7700
+    AV: -0,6923
+    2T26 Ajustado: -6.180,0800
+    AV: -0,6945
+    Ajustes Não Recorrentes: 0,0000
+    2T26: -6.180,0800
+    AV: -0,6945
+    1S26 Ajustado: -12.552,8500
+    AV: -0,6934
+    Ajustes Não Recorrentes: 0,0000
+    1S26: -12.552,8500
+    AV: -0,6934
+
+----------------------------------------------------------------------------------------------------
+Indicador: Lucro Bruto
+----------------------------------------------------------------------------------------------------
+    1T19 Ajustado: 1.211,4190
+    AV: 0,2798
+    Ajustes Não Recorrentes: 0,0000
+    1T19: 1.211,4190
+    AV: 0,2798
+    2T19 Ajustado: 1.264,2340
+    AV: 0,2935
+    Ajustes Não Recorrentes: -172,0000
+    2T19: 1.092,2340
+    AV: 0,2535
+    3T19 Ajustado: 1.488,9190
+    AV: 0,3061
+    Ajustes Não Recorrentes: -64,0000
+    3T19: 1.424,9190
+    AV: 0,2929
+    4T19 Ajustado: 1.825,3890
+    AV: 0,2859
+    Ajustes Não Recorrentes: 0,0000
+    4T19: 1.825,3890
+    AV: 0,2859
+    2019 Ajustado: 5.789,9610
+    AV: 0,2912
+    Ajustes Não Recorrentes: -236,0000
+    2019: 5.553,9610
+    AV: 0,2793
+    1T20 Ajustado: 1.420,4730
+    AV: 0,2714
+    Ajustes Não Recorrentes: 0,0000
+    1T20: 1.420,4730
+    AV: 0,2714
+    2T20 Ajustado: 1.435,2030
+    AV: 0,2577
+    Ajustes Não Recorrentes: 0,0000
+    2T20: 1.435,2030
+    AV: 0,2577
+    3T20 Ajustado: 2.178,7340
+    AV: 0,2622
+    Ajustes Não Recorrentes: 0,0000
+    3T20: 2.178,7340
+    AV: 0,2622
+    4T20 Ajustado: 2.485,5510
+    AV: 0,2469
+    Ajustes Não Recorrentes: 0,0000
+    4T20: 2.485,5510
+    AV: 0,2469
+    2020 Ajustado: 7.519,9610
+    AV: 0,2577
+    Ajustes Não Recorrentes: 0,0000
+    2020: 7.519,9610
+    AV: 0,2577
+    1T21 Ajustado: 2.070,1020
+    AV: 0,2508
+    Ajustes Não Recorrentes: 0,0000
+    1T21: 2.070,1020
+    AV: 0,2508
+    2T21 Ajustado: 2.308,2690
+    AV: 0,2561
+    Ajustes Não Recorrentes: 0,0000
+    2T21: 2.308,2690
+    AV: 0,2561
+    3T21 Ajustado: 2.129,1820
+    AV: 0,2472
+    Ajustes Não Recorrentes: -395,0490
+    3T21: 1.734,1330
+    AV: 0,2014
+    4T21 Ajustado: 2.374,3010
+    AV: 0,2526
+    Ajustes Não Recorrentes: 0,0000
+    4T21: 2.374,3010
+    AV: 0,2526
+    2021 Ajustado: 8.881,8540
+    AV: 0,2518
+    Ajustes Não Recorrentes: -395,0490
+    2021: 8.486,8050
+    AV: 0,2406
+    1T22 Ajustado: 2.431,7500
+    AV: 0,2775
+    Ajustes Não Recorrentes: 0,0000
+    1T22: 2.431,7500
+    AV: 0,2775
+    2T22 Ajustado: 2.452,7750
+    AV: 0,2865
+    Ajustes Não Recorrentes: 0,0000
+    2T22: 2.452,7750
+    AV: 0,2865
+    3T22 Ajustado: 2.454,6740
+    AV: 0,2787
+    Ajustes Não Recorrentes: 0,0000
+    3T22: 2.454,6740
+    AV: 0,2787
+    4T22 Ajustado: 3.099,6970
+    AV: 0,2776
+    Ajustes Não Recorrentes: 0,0000
+    4T22: 3.099,6970
+    AV: 0,2776
+    2022 Ajustado: 10.438,8960
+    AV: 0,2799
+    Ajustes Não Recorrentes: 0,0000
+    2022: 10.438,8960
+    AV: 0,2799
+    1T23 Ajustado: 2.479,2930
+    AV: 0,2734
+    Ajustes Não Recorrentes: 0,0000
+    1T23: 2.479,2930
+    AV: 0,2734
+    2T23 Ajustado: 2.468,6450
+    AV: 0,2880
+    Ajustes Não Recorrentes: 0,0000
+    2T23: 2.468,6450
+    AV: 0,2880
+    3T23 Ajustado: 2.609,4110
+    AV: 0,3042
+    Ajustes Não Recorrentes: -586,2620
+    3T23: 2.023,1490
+    AV: 0,2358
+    4T23 Ajustado: 3.192,7960
+    AV: 0,3026
+    Ajustes Não Recorrentes: 0,0000
+    4T23: 3.192,7960
+    AV: 0,3026
+    2023 Ajustado: 10.750,1450
+    AV: 0,2924
+    Ajustes Não Recorrentes: -586,2620
+    2023: 10.163,8830
+    AV: 0,2764
+    1T24 Ajustado: 2.763,3960
+    AV: 0,2991
+    Ajustes Não Recorrentes: 0,0000
+    1T24: 2.763,3960
+    AV: 0,2991
+    2T24 Ajustado: 2.782,2790
+    AV: 0,3088
+    Ajustes Não Recorrentes: 0,0000
+    2T24: 2.782,2790
+    AV: 0,3088
+    3T24 Ajustado: 2.837,5530
+    AV: 0,3152
+    Ajustes Não Recorrentes: 0,0000
+    3T24: 2.837,5530
+    AV: 0,3152
+    4T24 Ajustado: 3.244,0280
+    AV: 0,3007
+    Ajustes Não Recorrentes: 0,0000
+    4T24: 3.244,0280
+    AV: 0,3007
+    2024 Ajustado: 11.627,2560
+    AV: 0,3057
+    Ajustes Não Recorrentes: 0,0000
+    2024: 11.627,2560
+    AV: 0,3057
+    1T25 Ajustado: 2.876,9880
+    AV: 0,3064
+    Ajustes Não Recorrentes: 0,0000
+    1T25: 2.876,9880
+    AV: 0,3064
+    2T25 Ajustado: 2.788,4790
+    AV: 0,3053
+    Ajustes Não Recorrentes: 0,0000
+    2T25: 2.788,4790
+    AV: 0,3053
+    3T25 Ajustado: 2.842,6650
+    AV: 0,3149
+    Ajustes Não Recorrentes: 0,0000
+    3T25: 2.842,6650
+    AV: 0,3149
+    4T25 Ajustado: 3.345,4910
+    AV: 0,3000
+    Ajustes Não Recorrentes: -299,0720
+    4T25: 3.046,4190
+    AV: 0,2731
+    2025 Ajustado: 11.853,6230
+    AV: 0,3063
+    Ajustes Não Recorrentes: -299,0720
+    2025: 11.554,5510
+    AV: 0,2985
+    1T26 Ajustado: 2.832,9610
+    AV: 0,3077
+    Ajustes Não Recorrentes: 0,0000
+    1T26: 2.832,9610
+    AV: 0,3077
+    2T26 Ajustado: 2.718,6470
+    AV: 0,3055
+    Ajustes Não Recorrentes: 0,0000
+    2T26: 2.718,6470
+    AV: 0,3055
+    1S26 Ajustado: 5.551,6080
+    AV: 0,3066
+    Ajustes Não Recorrentes: 0,0000
+    1S26: 5.551,6080
+    AV: 0,3066
+
+----------------------------------------------------------------------------------------------------
+Indicador: Despesas com Vendas
+----------------------------------------------------------------------------------------------------
+    1T19 Ajustado: -692,9770
+    AV: -0,1601
+    Ajustes Não Recorrentes: 0,0000
+    1T19: -692,9770
+    AV: -0,1601
+    2T19 Ajustado: -726,1950
+    AV: -0,1686
+    Ajustes Não Recorrentes: 0,0000
+    2T19: -726,1950
+    AV: -0,1686
+    3T19 Ajustado: -889,9530
+    AV: -0,1830
+    Ajustes Não Recorrentes: 0,0000
+    3T19: -889,9530
+    AV: -0,1830
+    4T19 Ajustado: -1.134,9880
+    AV: -0,1778
+    Ajustes Não Recorrentes: 0,0000
+    4T19: -1.134,9880
+    AV: -0,1778
+    2019 Ajustado: -3.444,1130
+    AV: -0,1732
+    Ajustes Não Recorrentes: 0,0000
+    2019: -3.444,1130
+    AV: -0,1732
+    1T20 Ajustado: -938,2630
+    AV: -0,1792
+    Ajustes Não Recorrentes: 0,0000
+    1T20: -938,2630
+    AV: -0,1792
+    2T20 Ajustado: -1.116,3430
+    AV: -0,2005
+    Ajustes Não Recorrentes: 0,0000
+    2T20: -1.116,3430
+    AV: -0,2005
+    3T20 Ajustado: -1.432,5850
+    AV: -0,1724
+    Ajustes Não Recorrentes: 0,0000
+    3T20: -1.432,5850
+    AV: -0,1724
+    4T20 Ajustado: -1.675,4270
+    AV: -0,1664
+    Ajustes Não Recorrentes: 0,0000
+    4T20: -1.675,4270
+    AV: -0,1664
+    2020 Ajustado: -5.162,6180
+    AV: -0,1769
+    Ajustes Não Recorrentes: 0,0000
+    2020: -5.162,6180
+    AV: -0,1769
+    1T21 Ajustado: -1.420,2060
+    AV: -0,1721
+    Ajustes Não Recorrentes: 0,0000
+    1T21: -1.420,2060
+    AV: -0,1721
+    2T21 Ajustado: -1.611,4160
+    AV: -0,1788
+    Ajustes Não Recorrentes: 0,0000
+    2T21: -1.611,4160
+    AV: -0,1788
+    3T21 Ajustado: -1.583,1160
+    AV: -0,1838
+    Ajustes Não Recorrentes: 0,0000
+    3T21: -1.583,1160
+    AV: -0,1838
+    4T21 Ajustado: -1.759,6910
+    AV: -0,1872
+    Ajustes Não Recorrentes: 0,0000
+    4T21: -1.759,6910
+    AV: -0,1872
+    2021 Ajustado: -6.374,4290
+    AV: -0,1807
+    Ajustes Não Recorrentes: 0,0000
+    2021: -6.374,4290
+    AV: -0,1807
+    1T22 Ajustado: -1.589,2330
+    AV: -0,1814
+    Ajustes Não Recorrentes: 0,0000
+    1T22: -1.589,2330
+    AV: -0,1814
+    2T22 Ajustado: -1.569,7400
+    AV: -0,1833
+    Ajustes Não Recorrentes: 0,0000
+    2T22: -1.569,7400
+    AV: -0,1833
+    3T22 Ajustado: -1.548,2320
+    AV: -0,1758
+    Ajustes Não Recorrentes: 0,0000
+    3T22: -1.548,2320
+    AV: -0,1758
+    4T22 Ajustado: -2.033,8610
+    AV: -0,1821
+    Ajustes Não Recorrentes: 0,0000
+    4T22: -2.033,8610
+    AV: -0,1821
+    2022 Ajustado: -6.741,0660
+    AV: -0,1807
+    Ajustes Não Recorrentes: 0,0000
+    2022: -6.741,0660
+    AV: -0,1807
+    1T23 Ajustado: -1.644,4180
+    AV: -0,1814
+    Ajustes Não Recorrentes: 0,0000
+    1T23: -1.644,4180
+    AV: -0,1814
+    2T23 Ajustado: -1.597,0420
+    AV: -0,1863
+    Ajustes Não Recorrentes: 0,0000
+    2T23: -1.597,0420
+    AV: -0,1863
+    3T23 Ajustado: -1.724,5660
+    AV: -0,2010
+    Ajustes Não Recorrentes: 0,0000
+    3T23: -1.724,5660
+    AV: -0,2010
+    4T23 Ajustado: -2.036,0400
+    AV: -0,1930
+    Ajustes Não Recorrentes: 0,0000
+    4T23: -2.036,0400
+    AV: -0,1930
+    2023 Ajustado: -7.002,0660
+    AV: -0,1904
+    Ajustes Não Recorrentes: 0,0000
+    2023: -7.002,0660
+    AV: -0,1904
+    1T24 Ajustado: -1.659,9380
+    AV: -0,1797
+    Ajustes Não Recorrentes: 0,0000
+    1T24: -1.659,9380
+    AV: -0,1797
+    2T24 Ajustado: -1.693,7350
+    AV: -0,1880
+    Ajustes Não Recorrentes: 0,0000
+    2T24: -1.693,7350
+    AV: -0,1880
+    3T24 Ajustado: -1.732,5030
+    AV: -0,1925
+    Ajustes Não Recorrentes: 0,0000
+    3T24: -1.732,5030
+    AV: -0,1925
+    4T24 Ajustado: -2.045,4080
+    AV: -0,1896
+    Ajustes Não Recorrentes: 0,0000
+    4T24: -2.045,4080
+    AV: -0,1896
+    2024 Ajustado: -7.131,5840
+    AV: -0,1875
+    Ajustes Não Recorrentes: 0,0000
+    2024: -7.131,5840
+    AV: -0,1875
+    1T25 Ajustado: -1.757,3880
+    AV: -0,1872
+    Ajustes Não Recorrentes: 0,0000
+    1T25: -1.757,3880
+    AV: -0,1872
+    2T25 Ajustado: -1.706,3950
+    AV: -0,1868
+    Ajustes Não Recorrentes: 0,0000
+    2T25: -1.706,3950
+    AV: -0,1868
+    3T25 Ajustado: -1.733,4160
+    AV: -0,1920
+    Ajustes Não Recorrentes: 0,0000
+    3T25: -1.733,4160
+    AV: -0,1920
+    4T25 Ajustado: -2.178,6720
+    AV: -0,1953
+    Ajustes Não Recorrentes: 0,0000
+    4T25: -2.178,6720
+    AV: -0,1953
+    2025 Ajustado: -7.375,8710
+    AV: -0,1906
+    Ajustes Não Recorrentes: 0,0000
+    2025: -7.375,8710
+    AV: -0,1906
+    1T26 Ajustado: -1.700,9970
+    AV: -0,1848
+    Ajustes Não Recorrentes: 0,0000
+    1T26: -1.700,9970
+    AV: -0,1848
+    2T26 Ajustado: -1.644,2050
+    AV: -0,1848
+    Ajustes Não Recorrentes: 0,0000
+    2T26: -1.644,2050
+    AV: -0,1848
+    1S26 Ajustado: -3.345,2020
+    AV: -0,1848
+    Ajustes Não Recorrentes: 0,0000
+    1S26: -3.345,2020
+    AV: -0,1848
+
+----------------------------------------------------------------------------------------------------
+Indicador: Despesas Gerais e Administrativas
+----------------------------------------------------------------------------------------------------
+    1T19 Ajustado: -136,2750
+    AV: -0,0315
+    Ajustes Não Recorrentes: 0,0000
+    1T19: -136,2750
+    AV: -0,0315
+    2T19 Ajustado: -154,8340
+    AV: -0,0359
+    Ajustes Não Recorrentes: 0,0000
+    2T19: -154,8340
+    AV: -0,0359
+    3T19 Ajustado: -207,1170
+    AV: -0,0426
+    Ajustes Não Recorrentes: 0,0000
+    3T19: -207,1170
+    AV: -0,0426
+    4T19 Ajustado: -203,3600
+    AV: -0,0318
+    Ajustes Não Recorrentes: 0,0000
+    4T19: -203,3600
+    AV: -0,0318
+    2019 Ajustado: -701,5860
+    AV: -0,0353
+    Ajustes Não Recorrentes: 0,0000
+    2019: -701,5860
+    AV: -0,0353
+    1T20 Ajustado: -194,6250
+    AV: -0,0372
+    Ajustes Não Recorrentes: 0,0000
+    1T20: -194,6250
+    AV: -0,0372
+    2T20 Ajustado: -181,9960
+    AV: -0,0327
+    Ajustes Não Recorrentes: 0,0000
+    2T20: -181,9960
+    AV: -0,0327
+    3T20 Ajustado: -240,6900
+    AV: -0,0290
+    Ajustes Não Recorrentes: 0,0000
+    3T20: -240,6900
+    AV: -0,0290
+    4T20 Ajustado: -289,4880
+    AV: -0,0288
+    Ajustes Não Recorrentes: 0,0000
+    4T20: -289,4880
+    AV: -0,0288
+    2020 Ajustado: -906,7990
+    AV: -0,0311
+    Ajustes Não Recorrentes: 0,0000
+    2020: -906,7990
+    AV: -0,0311
+    1T21 Ajustado: -225,5560
+    AV: -0,0273
+    Ajustes Não Recorrentes: 0,0000
+    1T21: -225,5560
+    AV: -0,0273
+    2T21 Ajustado: -255,6420
+    AV: -0,0284
+    Ajustes Não Recorrentes: 0,0000
+    2T21: -255,6420
+    AV: -0,0284
+    3T21 Ajustado: -222,1690
+    AV: -0,0258
+    Ajustes Não Recorrentes: 0,0000
+    3T21: -222,1690
+    AV: -0,0258
+    4T21 Ajustado: -328,2870
+    AV: -0,0349
+    Ajustes Não Recorrentes: 0,0000
+    4T21: -328,2870
+    AV: -0,0349
+    2021 Ajustado: -1.031,6540
+    AV: -0,0292
+    Ajustes Não Recorrentes: 0,0000
+    2021: -1.031,6540
+    AV: -0,0292
+    1T22 Ajustado: -352,3870
+    AV: -0,0402
+    Ajustes Não Recorrentes: 0,0000
+    1T22: -352,3870
+    AV: -0,0402
+    2T22 Ajustado: -337,6870
+    AV: -0,0394
+    Ajustes Não Recorrentes: 0,0000
+    2T22: -337,6870
+    AV: -0,0394
+    3T22 Ajustado: -334,3420
+    AV: -0,0380
+    Ajustes Não Recorrentes: 0,0000
+    3T22: -334,3420
+    AV: -0,0380
+    4T22 Ajustado: -345,8040
+    AV: -0,0310
+    Ajustes Não Recorrentes: 0,0000
+    4T22: -345,8040
+    AV: -0,0310
+    2022 Ajustado: -1.370,2200
+    AV: -0,0367
+    Ajustes Não Recorrentes: 0,0000
+    2022: -1.370,2200
+    AV: -0,0367
+    1T23 Ajustado: -308,4170
+    AV: -0,0340
+    Ajustes Não Recorrentes: 0,0000
+    1T23: -308,4170
+    AV: -0,0340
+    2T23 Ajustado: -325,7980
+    AV: -0,0380
+    Ajustes Não Recorrentes: 0,0000
+    2T23: -325,7980
+    AV: -0,0380
+    3T23 Ajustado: -358,8930
+    AV: -0,0418
+    Ajustes Não Recorrentes: 0,0000
+    3T23: -358,8930
+    AV: -0,0418
+    4T23 Ajustado: -342,0960
+    AV: -0,0324
+    Ajustes Não Recorrentes: 0,0000
+    4T23: -342,0960
+    AV: -0,0324
+    2023 Ajustado: -1.335,2040
+    AV: -0,0363
+    Ajustes Não Recorrentes: 0,0000
+    2023: -1.335,2040
+    AV: -0,0363
+    1T24 Ajustado: -339,6180
+    AV: -0,0368
+    Ajustes Não Recorrentes: 0,0000
+    1T24: -339,6180
+    AV: -0,0368
+    2T24 Ajustado: -339,9210
+    AV: -0,0377
+    Ajustes Não Recorrentes: 0,0000
+    2T24: -339,9210
+    AV: -0,0377
+    3T24 Ajustado: -342,1480
+    AV: -0,0380
+    Ajustes Não Recorrentes: 0,0000
+    3T24: -342,1480
+    AV: -0,0380
+    4T24 Ajustado: -352,0280
+    AV: -0,0326
+    Ajustes Não Recorrentes: 0,0000
+    4T24: -352,0280
+    AV: -0,0326
+    2024 Ajustado: -1.373,7150
+    AV: -0,0361
+    Ajustes Não Recorrentes: 0,0000
+    2024: -1.373,7150
+    AV: -0,0361
+    1T25 Ajustado: -338,2200
+    AV: -0,0360
+    Ajustes Não Recorrentes: 0,0000
+    1T25: -338,2200
+    AV: -0,0360
+    2T25 Ajustado: -338,3030
+    AV: -0,0370
+    Ajustes Não Recorrentes: 0,0000
+    2T25: -338,3030
+    AV: -0,0370
+    3T25 Ajustado: -355,6500
+    AV: -0,0394
+    Ajustes Não Recorrentes: 0,0000
+    3T25: -355,6500
+    AV: -0,0394
+    4T25 Ajustado: -360,0960
+    AV: -0,0323
+    Ajustes Não Recorrentes: 0,0000
+    4T25: -360,0960
+    AV: -0,0323
+    2025 Ajustado: -1.392,2690
+    AV: -0,0360
+    Ajustes Não Recorrentes: 0,0000
+    2025: -1.392,2690
+    AV: -0,0360
+    1T26 Ajustado: -338,5950
+    AV: -0,0368
+    Ajustes Não Recorrentes: 0,0000
+    1T26: -338,5950
+    AV: -0,0368
+    2T26 Ajustado: -339,0410
+    AV: -0,0381
+    Ajustes Não Recorrentes: 0,0000
+    2T26: -339,0410
+    AV: -0,0381
+    1S26 Ajustado: -677,6360
+    AV: -0,0374
+    Ajustes Não Recorrentes: 0,0000
+    1S26: -677,6360
+    AV: -0,0374
+
+----------------------------------------------------------------------------------------------------
+Indicador: Perda em Liquidação Duvidosa
+----------------------------------------------------------------------------------------------------
+    1T19 Ajustado: -12,4220
+    AV: -0,0029
+    Ajustes Não Recorrentes: 0,0000
+    1T19: -12,4220
+    AV: -0,0029
+    2T19 Ajustado: -13,1780
+    AV: -0,0031
+    Ajustes Não Recorrentes: 0,0000
+    2T19: -13,1780
+    AV: -0,0031
+    3T19 Ajustado: -20,2360
+    AV: -0,0042
+    Ajustes Não Recorrentes: 0,0000
+    3T19: -20,2360
+    AV: -0,0042
+    4T19 Ajustado: -30,1570
+    AV: -0,0047
+    Ajustes Não Recorrentes: 0,0000
+    4T19: -30,1570
+    AV: -0,0047
+    2019 Ajustado: -75,9930
+    AV: -0,0038
+    Ajustes Não Recorrentes: 0,0000
+    2019: -75,9930
+    AV: -0,0038
+    1T20 Ajustado: -30,0080
+    AV: -0,0057
+    Ajustes Não Recorrentes: 0,0000
+    1T20: -30,0080
+    AV: -0,0057
+    2T20 Ajustado: -29,0680
+    AV: -0,0052
+    Ajustes Não Recorrentes: 0,0000
+    2T20: -29,0680
+    AV: -0,0052
+    3T20 Ajustado: -25,3810
+    AV: -0,0031
+    Ajustes Não Recorrentes: 0,0000
+    3T20: -25,3810
+    AV: -0,0031
+    4T20 Ajustado: -33,6620
+    AV: -0,0033
+    Ajustes Não Recorrentes: 0,0000
+    4T20: -33,6620
+    AV: -0,0033
+    2020 Ajustado: -118,1190
+    AV: -0,0040
+    Ajustes Não Recorrentes: 0,0000
+    2020: -118,1190
+    AV: -0,0040
+    1T21 Ajustado: -33,8070
+    AV: -0,0041
+    Ajustes Não Recorrentes: 0,0000
+    1T21: -33,8070
+    AV: -0,0041
+    2T21 Ajustado: -32,7820
+    AV: -0,0036
+    Ajustes Não Recorrentes: 0,0000
+    2T21: -32,7820
+    AV: -0,0036
+    3T21 Ajustado: -31,7200
+    AV: -0,0037
+    Ajustes Não Recorrentes: 0,0000
+    3T21: -31,7200
+    AV: -0,0037
+    4T21 Ajustado: -55,9350
+    AV: -0,0060
+    Ajustes Não Recorrentes: 0,0000
+    4T21: -55,9350
+    AV: -0,0060
+    2021 Ajustado: -154,2440
+    AV: -0,0044
+    Ajustes Não Recorrentes: 0,0000
+    2021: -154,2440
+    AV: -0,0044
+    1T22 Ajustado: -61,1390
+    AV: -0,0070
+    Ajustes Não Recorrentes: 0,0000
+    1T22: -61,1390
+    AV: -0,0070
+    2T22 Ajustado: -59,0130
+    AV: -0,0069
+    Ajustes Não Recorrentes: 0,0000
+    2T22: -59,0130
+    AV: -0,0069
+    3T22 Ajustado: -58,7720
+    AV: -0,0067
+    Ajustes Não Recorrentes: 0,0000
+    3T22: -58,7720
+    AV: -0,0067
+    4T22 Ajustado: -60,7340
+    AV: -0,0054
+    Ajustes Não Recorrentes: 0,0000
+    4T22: -60,7340
+    AV: -0,0054
+    2022 Ajustado: -239,6580
+    AV: -0,0064
+    Ajustes Não Recorrentes: 0,0000
+    2022: -239,6580
+    AV: -0,0064
+    1T23 Ajustado: -98,9610
+    AV: -0,0109
+    Ajustes Não Recorrentes: 0,0000
+    1T23: -98,9610
+    AV: -0,0109
+    2T23 Ajustado: -105,0660
+    AV: -0,0123
+    Ajustes Não Recorrentes: 0,0000
+    2T23: -105,0660
+    AV: -0,0123
+    3T23 Ajustado: -77,4690
+    AV: -0,0090
+    Ajustes Não Recorrentes: 0,0000
+    3T23: -77,4690
+    AV: -0,0090
+    4T23 Ajustado: -104,6610
+    AV: -0,0099
+    Ajustes Não Recorrentes: 0,0000
+    4T23: -104,6610
+    AV: -0,0099
+    2023 Ajustado: -386,1570
+    AV: -0,0105
+    Ajustes Não Recorrentes: 0,0000
+    2023: -386,1570
+    AV: -0,0105
+    1T24 Ajustado: -119,1840
+    AV: -0,0129
+    Ajustes Não Recorrentes: 0,0000
+    1T24: -119,1840
+    AV: -0,0129
+    2T24 Ajustado: -109,9650
+    AV: -0,0122
+    Ajustes Não Recorrentes: 0,0000
+    2T24: -109,9650
+    AV: -0,0122
+    3T24 Ajustado: -114,7550
+    AV: -0,0127
+    Ajustes Não Recorrentes: 0,0000
+    3T24: -114,7550
+    AV: -0,0127
+    4T24 Ajustado: -108,8000
+    AV: -0,0101
+    Ajustes Não Recorrentes: 0,0000
+    4T24: -108,8000
+    AV: -0,0101
+    2024 Ajustado: -452,7040
+    AV: -0,0119
+    Ajustes Não Recorrentes: 0,0000
+    2024: -452,7040
+    AV: -0,0119
+    1T25 Ajustado: -101,1340
+    AV: -0,0108
+    Ajustes Não Recorrentes: 0,0000
+    1T25: -101,1340
+    AV: -0,0108
+    2T25 Ajustado: -104,3940
+    AV: -0,0114
+    Ajustes Não Recorrentes: -26,5000
+    2T25: -130,8940
+    AV: -0,0143
+    3T25 Ajustado: -112,6180
+    AV: -0,0125
+    Ajustes Não Recorrentes: 0,0000
+    3T25: -112,6180
+    AV: -0,0125
+    4T25 Ajustado: -111,1730
+    AV: -0,0100
+    Ajustes Não Recorrentes: 0,0000
+    4T25: -111,1730
+    AV: -0,0100
+    2025 Ajustado: -429,3190
+    AV: -0,0111
+    Ajustes Não Recorrentes: -26,5000
+    2025: -455,8190
+    AV: -0,0118
+    1T26 Ajustado: -149,1580
+    AV: -0,0162
+    Ajustes Não Recorrentes: 0,0000
+    1T26: -149,1580
+    AV: -0,0162
+    2T26 Ajustado: -130,2140
+    AV: -0,0146
+    Ajustes Não Recorrentes: 0,0000
+    2T26: -130,2140
+    AV: -0,0146
+    1S26 Ajustado: -279,3720
+    AV: -0,0154
+    Ajustes Não Recorrentes: 0,0000
+    1S26: -279,3720
+    AV: -0,0154
+
+----------------------------------------------------------------------------------------------------
+Indicador: Outras Receitas Operacionais, Líquidas
+----------------------------------------------------------------------------------------------------
+    1T19 Ajustado: 15,7100
+    AV: 0,0036
+    Ajustes Não Recorrentes: 9,8270
+    1T19: 25,5370
+    AV: 0,0059
+    2T19 Ajustado: 12,9797
+    AV: 0,0030
+    Ajustes Não Recorrentes: 171,4163
+    2T19: 184,3960
+    AV: 0,0428
+    3T19 Ajustado: 15,2933
+    AV: 0,0031
+    Ajustes Não Recorrentes: 167,6767
+    3T19: 182,9700
+    AV: 0,0376
+    4T19 Ajustado: 20,8600
+    AV: 0,0033
+    Ajustes Não Recorrentes: 2,8990
+    4T19: 23,7590
+    AV: 0,0037
+    2019 Ajustado: 64,8430
+    AV: 0,0033
+    Ajustes Não Recorrentes: 351,8190
+    2019: 416,6620
+    AV: 0,0210
+    1T20 Ajustado: 13,8300
+    AV: 0,0026
+    Ajustes Não Recorrentes: 58,7690
+    1T20: 72,5990
+    AV: 0,0139
+    2T20 Ajustado: 11,9750
+    AV: 0,0022
+    Ajustes Não Recorrentes: -3,4800
+    2T20: 8,4950
+    AV: 0,0015
+    3T20 Ajustado: 15,2020
+    AV: 0,0018
+    Ajustes Não Recorrentes: -15,1110
+    3T20: 0,0910
+    AV: 0,0000
+    4T20 Ajustado: 12,6810
+    AV: 0,0013
+    Ajustes Não Recorrentes: -19,1210
+    4T20: -6,4400
+    AV: -0,0006
+    2020 Ajustado: 53,6880
+    AV: 0,0018
+    Ajustes Não Recorrentes: 21,0570
+    2020: 74,7450
+    AV: 0,0026
+    1T21 Ajustado: 13,6630
+    AV: 0,0017
+    Ajustes Não Recorrentes: 268,4350
+    1T21: 282,0980
+    AV: 0,0342
+    2T21 Ajustado: 16,2240
+    AV: 0,0018
+    Ajustes Não Recorrentes: 9,6860
+    2T21: 25,9100
+    AV: 0,0029
+    3T21 Ajustado: 12,6850
+    AV: 0,0015
+    Ajustes Não Recorrentes: 178,7650
+    3T21: 191,4500
+    AV: 0,0222
+    4T21 Ajustado: 13,6890
+    AV: 0,0015
+    Ajustes Não Recorrentes: -251,3880
+    4T21: -237,6990
+    AV: -0,0253
+    2021 Ajustado: 56,2610
+    AV: 0,0016
+    Ajustes Não Recorrentes: 205,4980
+    2021: 261,7590
+    AV: 0,0074
+    1T22 Ajustado: 13,1650
+    AV: 0,0015
+    Ajustes Não Recorrentes: -94,6960
+    1T22: -81,5310
+    AV: -0,0093
+    2T22 Ajustado: 13,3190
+    AV: 0,0016
+    Ajustes Não Recorrentes: -34,6340
+    2T22: -21,3150
+    AV: -0,0025
+    3T22 Ajustado: 24,5980
+    AV: 0,0028
+    Ajustes Não Recorrentes: -31,4680
+    3T22: -6,8700
+    AV: -0,0008
+    4T22 Ajustado: 24,1800
+    AV: 0,0022
+    Ajustes Não Recorrentes: -31,3980
+    4T22: -7,2180
+    AV: -0,0006
+    2022 Ajustado: 75,2620
+    AV: 0,0020
+    Ajustes Não Recorrentes: -192,1960
+    2022: -116,9340
+    AV: -0,0031
+    1T23 Ajustado: 32,6510
+    AV: 0,0036
+    Ajustes Não Recorrentes: -123,9030
+    1T23: -91,2520
+    AV: -0,0101
+    2T23 Ajustado: 20,8480
+    AV: 0,0024
+    Ajustes Não Recorrentes: -155,9150
+    2T23: -135,0670
+    AV: -0,0158
+    3T23 Ajustado: 33,4550
+    AV: 0,0039
+    Ajustes Não Recorrentes: -187,2810
+    3T23: -153,8260
+    AV: -0,0179
+    4T23 Ajustado: 37,1490
+    AV: 0,0035
+    Ajustes Não Recorrentes: -207,9080
+    4T23: -170,7590
+    AV: -0,0162
+    2023 Ajustado: 124,1030
+    AV: 0,0034
+    Ajustes Não Recorrentes: -675,0070
+    2023: -550,9040
+    AV: -0,0150
+    1T24 Ajustado: 36,2050
+    AV: 0,0039
+    Ajustes Não Recorrentes: -2,9110
+    1T24: 33,2940
+    AV: 0,0036
+    2T24 Ajustado: 36,3820
+    AV: 0,0040
+    Ajustes Não Recorrentes: -55,6820
+    2T24: -19,3000
+    AV: -0,0021
+    3T24 Ajustado: 36,2160
+    AV: 0,0040
+    Ajustes Não Recorrentes: -4,1050
+    3T24: 32,1110
+    AV: 0,0036
+    4T24 Ajustado: 35,7020
+    AV: 0,0033
+    Ajustes Não Recorrentes: -3,7960
+    4T24: 31,9060
+    AV: 0,0030
+    2024 Ajustado: 144,5050
+    AV: 0,0038
+    Ajustes Não Recorrentes: -66,4940
+    2024: 78,0110
+    AV: 0,0021
+    1T25 Ajustado: 36,2620
+    AV: 0,0039
+    Ajustes Não Recorrentes: 2,4030
+    1T25: 38,6650
+    AV: 0,0041
+    2T25 Ajustado: 36,2030
+    AV: 0,0040
+    Ajustes Não Recorrentes: -13,0840
+    2T25: 23,1190
+    AV: 0,0025
+    3T25 Ajustado: 36,2190
+    AV: 0,0040
+    Ajustes Não Recorrentes: 96,0060
+    3T25: 132,2250
+    AV: 0,0146
+    4T25 Ajustado: 36,1940
+    AV: 0,0032
+    Ajustes Não Recorrentes: 515,4070
+    4T25: 551,6010
+    AV: 0,0495
+    2025 Ajustado: 144,8780
+    AV: 0,0037
+    Ajustes Não Recorrentes: 600,7320
+    2025: 745,6100
+    AV: 0,0193
+    1T26 Ajustado: 35,6230
+    AV: 0,0039
+    Ajustes Não Recorrentes: -32,2310
+    1T26: 3,3920
+    AV: 0,0004
+    2T26 Ajustado: 35,6870
+    AV: 0,0040
+    Ajustes Não Recorrentes: -33,4720
+    2T26: 2,2150
+    AV: 0,0002
+    1S26 Ajustado: 71,3100
+    AV: 0,0039
+    Ajustes Não Recorrentes: -65,7030
+    1S26: 5,6070
+    AV: 0,0003
+
+----------------------------------------------------------------------------------------------------
+Indicador: Equivalência Patrimonial
+----------------------------------------------------------------------------------------------------
+    1T19 Ajustado: 0,0900
+    AV: 0,0000
+    Ajustes Não Recorrentes: 0,0000
+    1T19: 0,0900
+    AV: 0,0000
+    2T19 Ajustado: -2,5000
+    AV: -0,0006
+    Ajustes Não Recorrentes: 0,0000
+    2T19: -2,5000
+    AV: -0,0006
+    3T19 Ajustado: 10,6080
+    AV: 0,0022
+    Ajustes Não Recorrentes: 0,0000
+    3T19: 10,6080
+    AV: 0,0022
+    4T19 Ajustado: 18,4090
+    AV: 0,0029
+    Ajustes Não Recorrentes: 0,0000
+    4T19: 18,4090
+    AV: 0,0029
+    2019 Ajustado: 26,6070
+    AV: 0,0013
+    Ajustes Não Recorrentes: 0,0000
+    2019: 26,6070
+    AV: 0,0013
+    1T20 Ajustado: 2,4450
+    AV: 0,0005
+    Ajustes Não Recorrentes: 0,0000
+    1T20: 2,4450
+    AV: 0,0005
+    2T20 Ajustado: 27,4530
+    AV: 0,0049
+    Ajustes Não Recorrentes: 0,0000
+    2T20: 27,4530
+    AV: 0,0049
+    3T20 Ajustado: 65,9000
+    AV: 0,0079
+    Ajustes Não Recorrentes: 0,0000
+    3T20: 65,9000
+    AV: 0,0079
+    4T20 Ajustado: 24,1310
+    AV: 0,0024
+    Ajustes Não Recorrentes: 0,0000
+    4T20: 24,1310
+    AV: 0,0024
+    2020 Ajustado: 119,9290
+    AV: 0,0041
+    Ajustes Não Recorrentes: 0,0000
+    2020: 119,9290
+    AV: 0,0041
+    1T21 Ajustado: 22,9580
+    AV: 0,0028
+    Ajustes Não Recorrentes: 0,0000
+    1T21: 22,9580
+    AV: 0,0028
+    2T21 Ajustado: 30,7720
+    AV: 0,0034
+    Ajustes Não Recorrentes: 0,0000
+    2T21: 30,7720
+    AV: 0,0034
+    3T21 Ajustado: 46,1760
+    AV: 0,0054
+    Ajustes Não Recorrentes: 0,0000
+    3T21: 46,1760
+    AV: 0,0054
+    4T21 Ajustado: -0,5780
+    AV: -0,0001
+    Ajustes Não Recorrentes: 0,0000
+    4T21: -0,5780
+    AV: -0,0001
+    2021 Ajustado: 99,3280
+    AV: 0,0028
+    Ajustes Não Recorrentes: 0,0000
+    2021: 99,3280
+    AV: 0,0028
+    1T22 Ajustado: -7,9530
+    AV: -0,0009
+    Ajustes Não Recorrentes: 0,0000
+    1T22: -7,9530
+    AV: -0,0009
+    2T22 Ajustado: -7,5880
+    AV: -0,0009
+    Ajustes Não Recorrentes: 0,0000
+    2T22: -7,5880
+    AV: -0,0009
+    3T22 Ajustado: -10,4030
+    AV: -0,0012
+    Ajustes Não Recorrentes: 0,0000
+    3T22: -10,4030
+    AV: -0,0012
+    4T22 Ajustado: -9,7940
+    AV: -0,0009
+    Ajustes Não Recorrentes: 0,0000
+    4T22: -9,7940
+    AV: -0,0009
+    2022 Ajustado: -35,7380
+    AV: -0,0010
+    Ajustes Não Recorrentes: 0,0000
+    2022: -35,7380
+    AV: -0,0010
+    1T23 Ajustado: -12,1170
+    AV: -0,0013
+    Ajustes Não Recorrentes: 0,0000
+    1T23: -12,1170
+    AV: -0,0013
+    2T23 Ajustado: -21,7940
+    AV: -0,0025
+    Ajustes Não Recorrentes: 0,0000
+    2T23: -21,7940
+    AV: -0,0025
+    3T23 Ajustado: 5,5580
+    AV: 0,0006
+    Ajustes Não Recorrentes: 0,0000
+    3T23: 5,5580
+    AV: 0,0006
+    4T23 Ajustado: 9,3430
+    AV: 0,0009
+    Ajustes Não Recorrentes: 0,0000
+    4T23: 9,3430
+    AV: 0,0009
+    2023 Ajustado: -19,0100
+    AV: -0,0005
+    Ajustes Não Recorrentes: 0,0000
+    2023: -19,0100
+    AV: -0,0005
+    1T24 Ajustado: 6,9080
+    AV: 0,0007
+    Ajustes Não Recorrentes: 0,0000
+    1T24: 6,9080
+    AV: 0,0007
+    2T24 Ajustado: 35,6270
+    AV: 0,0040
+    Ajustes Não Recorrentes: 0,0000
+    2T24: 35,6270
+    AV: 0,0040
+    3T24 Ajustado: 33,2490
+    AV: 0,0037
+    Ajustes Não Recorrentes: 0,0000
+    3T24: 33,2490
+    AV: 0,0037
+    4T24 Ajustado: 72,6720
+    AV: 0,0067
+    Ajustes Não Recorrentes: 0,0000
+    4T24: 72,6720
+    AV: 0,0067
+    2024 Ajustado: 148,4560
+    AV: 0,0039
+    Ajustes Não Recorrentes: 0,0000
+    2024: 148,4560
+    AV: 0,0039
+    1T25 Ajustado: 42,2500
+    AV: 0,0045
+    Ajustes Não Recorrentes: 0,0000
+    1T25: 42,2500
+    AV: 0,0045
+    2T25 Ajustado: 51,0870
+    AV: 0,0056
+    Ajustes Não Recorrentes: 0,0000
+    2T25: 51,0870
+    AV: 0,0056
+    3T25 Ajustado: 34,2410
+    AV: 0,0038
+    Ajustes Não Recorrentes: 0,0000
+    3T25: 34,2410
+    AV: 0,0038
+    4T25 Ajustado: 135,5440
+    AV: 0,0122
+    Ajustes Não Recorrentes: -135,8540
+    4T25: -0,3100
+    AV: -0,0000
+    2025 Ajustado: 263,1220
+    AV: 0,0068
+    Ajustes Não Recorrentes: -135,8540
+    2025: 127,2680
+    AV: 0,0033
+    1T26 Ajustado: 37,7790
+    AV: 0,0041
+    Ajustes Não Recorrentes: (vazio)
+    1T26: 37,7790
+    AV: 0,0041
+    2T26 Ajustado: 67,8840
+    AV: 0,0076
+    Ajustes Não Recorrentes: 0,0000
+    2T26: 67,8840
+    AV: 0,0076
+    1S26 Ajustado: 105,6630
+    AV: 0,0058
+    Ajustes Não Recorrentes: 0,0000
+    1S26: 105,6630
+    AV: 0,0058
+
+----------------------------------------------------------------------------------------------------
+Indicador: Total de Despesas Operacionais
+----------------------------------------------------------------------------------------------------
+    1T19 Ajustado: -825,8740
+    AV: -0,1908
+    Ajustes Não Recorrentes: 9,8270
+    1T19: -816,0470
+    AV: -0,1885
+    2T19 Ajustado: -883,7273
+    AV: -0,2051
+    Ajustes Não Recorrentes: 171,4163
+    2T19: -712,3110
+    AV: -0,1653
+    3T19 Ajustado: -1.091,4047
+    AV: -0,2244
+    Ajustes Não Recorrentes: 167,6767
+    3T19: -923,7280
+    AV: -0,1899
+    4T19 Ajustado: -1.329,2360
+    AV: -0,2082
+    Ajustes Não Recorrentes: 2,8990
+    4T19: -1.326,3370
+    AV: -0,2077
+    2019 Ajustado: -4.130,2420
+    AV: -0,2077
+    Ajustes Não Recorrentes: 351,8190
+    2019: -3.778,4230
+    AV: -0,1900
+    1T20 Ajustado: -1.146,6210
+    AV: -0,2190
+    Ajustes Não Recorrentes: 58,7690
+    1T20: -1.087,8520
+    AV: -0,2078
+    2T20 Ajustado: -1.287,9790
+    AV: -0,2313
+    Ajustes Não Recorrentes: -3,4800
+    2T20: -1.291,4590
+    AV: -0,2319
+    3T20 Ajustado: -1.617,5540
+    AV: -0,1947
+    Ajustes Não Recorrentes: -15,1110
+    3T20: -1.632,6650
+    AV: -0,1965
+    4T20 Ajustado: -1.961,7650
+    AV: -0,1949
+    Ajustes Não Recorrentes: -19,1210
+    4T20: -1.980,8860
+    AV: -0,1968
+    2020 Ajustado: -6.013,9190
+    AV: -0,2061
+    Ajustes Não Recorrentes: 21,0570
+    2020: -5.992,8620
+    AV: -0,2054
+    1T21 Ajustado: -1.642,9480
+    AV: -0,1991
+    Ajustes Não Recorrentes: 268,4350
+    1T21: -1.374,5130
+    AV: -0,1666
+    2T21 Ajustado: -1.852,8440
+    AV: -0,2056
+    Ajustes Não Recorrentes: 9,6860
+    2T21: -1.843,1580
+    AV: -0,2045
+    3T21 Ajustado: -1.778,1440
+    AV: -0,2065
+    Ajustes Não Recorrentes: 178,7650
+    3T21: -1.599,3790
+    AV: -0,1857
+    4T21 Ajustado: -2.130,8020
+    AV: -0,2267
+    Ajustes Não Recorrentes: -251,3880
+    4T21: -2.382,1900
+    AV: -0,2534
+    2021 Ajustado: -7.404,7380
+    AV: -0,2099
+    Ajustes Não Recorrentes: 205,4980
+    2021: -7.199,2400
+    AV: -0,2041
+    1T22 Ajustado: -1.997,5470
+    AV: -0,2280
+    Ajustes Não Recorrentes: -94,6960
+    1T22: -2.092,2430
+    AV: -0,2388
+    2T22 Ajustado: -1.960,7090
+    AV: -0,2290
+    Ajustes Não Recorrentes: -34,6340
+    2T22: -1.995,3430
+    AV: -0,2330
+    3T22 Ajustado: -1.927,1510
+    AV: -0,2188
+    Ajustes Não Recorrentes: -31,4680
+    3T22: -1.958,6190
+    AV: -0,2224
+    4T22 Ajustado: -2.426,0130
+    AV: -0,2172
+    Ajustes Não Recorrentes: -31,3980
+    4T22: -2.457,4110
+    AV: -0,2201
+    2022 Ajustado: -8.311,4200
+    AV: -0,2228
+    Ajustes Não Recorrentes: -192,1960
+    2022: -8.503,6160
+    AV: -0,2280
+    1T23 Ajustado: -2.031,2620
+    AV: -0,2240
+    Ajustes Não Recorrentes: -123,9030
+    1T23: -2.155,1650
+    AV: -0,2377
+    2T23 Ajustado: -2.028,8520
+    AV: -0,2367
+    Ajustes Não Recorrentes: -155,9150
+    2T23: -2.184,7670
+    AV: -0,2549
+    3T23 Ajustado: -2.121,9150
+    AV: -0,2473
+    Ajustes Não Recorrentes: -187,2810
+    3T23: -2.309,1960
+    AV: -0,2692
+    4T23 Ajustado: -2.436,3050
+    AV: -0,2309
+    Ajustes Não Recorrentes: -207,9080
+    4T23: -2.644,2130
+    AV: -0,2506
+    2023 Ajustado: -8.618,3340
+    AV: -0,2344
+    Ajustes Não Recorrentes: -675,0070
+    2023: -9.293,3410
+    AV: -0,2528
+    1T24 Ajustado: -2.075,6270
+    AV: -0,2247
+    Ajustes Não Recorrentes: -2,9110
+    1T24: -2.078,5380
+    AV: -0,2250
+    2T24 Ajustado: -2.071,6120
+    AV: -0,2299
+    Ajustes Não Recorrentes: -55,6820
+    2T24: -2.127,2940
+    AV: -0,2361
+    3T24 Ajustado: -2.119,9410
+    AV: -0,2355
+    Ajustes Não Recorrentes: -4,1050
+    3T24: -2.124,0460
+    AV: -0,2360
+    4T24 Ajustado: -2.397,8620
+    AV: -0,2223
+    Ajustes Não Recorrentes: -3,7960
+    4T24: -2.401,6580
+    AV: -0,2226
+    2024 Ajustado: -8.665,0420
+    AV: -0,2278
+    Ajustes Não Recorrentes: -66,4940
+    2024: -8.731,5360
+    AV: -0,2295
+    1T25 Ajustado: -2.118,2300
+    AV: -0,2256
+    Ajustes Não Recorrentes: 2,4030
+    1T25: -2.115,8270
+    AV: -0,2254
+    2T25 Ajustado: -2.061,8020
+    AV: -0,2257
+    Ajustes Não Recorrentes: -39,5840
+    2T25: -2.101,3860
+    AV: -0,2300
+    3T25 Ajustado: -2.131,2240
+    AV: -0,2361
+    Ajustes Não Recorrentes: 96,0060
+    3T25: -2.035,2180
+    AV: -0,2255
+    4T25 Ajustado: -2.478,2030
+    AV: -0,2222
+    Ajustes Não Recorrentes: 379,5530
+    4T25: -2.098,6500
+    AV: -0,1882
+    2025 Ajustado: -8.789,4590
+    AV: -0,2271
+    Ajustes Não Recorrentes: 438,3780
+    2025: -8.351,0810
+    AV: -0,2158
+    1T26 Ajustado: -2.115,3480
+    AV: -0,2298
+    Ajustes Não Recorrentes: -32,2310
+    1T26: -2.147,5790
+    AV: -0,2333
+    2T26 Ajustado: -2.009,8890
+    AV: -0,2259
+    Ajustes Não Recorrentes: -33,4720
+    2T26: -2.043,3610
+    AV: -0,2296
+    1S26 Ajustado: -4.125,2370
+    AV: -0,2279
+    Ajustes Não Recorrentes: -65,7030
+    1S26: -4.190,9400
+    AV: -0,2315
+
+----------------------------------------------------------------------------------------------------
+Indicador: EBITDA
+----------------------------------------------------------------------------------------------------
+    1T19 Ajustado: 385,5450
+    AV: 0,0891
+    Ajustes Não Recorrentes: 9,8270
+    1T19: 395,3720
+    AV: 0,0913
+    2T19 Ajustado: 380,5067
+    AV: 0,0883
+    Ajustes Não Recorrentes: -0,5837
+    2T19: 379,9230
+    AV: 0,0882
+    3T19 Ajustado: 397,5143
+    AV: 0,0817
+    Ajustes Não Recorrentes: 103,6767
+    3T19: 501,1910
+    AV: 0,1030
+    4T19 Ajustado: 496,1530
+    AV: 0,0777
+    Ajustes Não Recorrentes: 2,8990
+    4T19: 499,0520
+    AV: 0,0782
+    2019 Ajustado: 1.659,7190
+    AV: 0,0835
+    Ajustes Não Recorrentes: 115,8190
+    2019: 1.775,5380
+    AV: 0,0893
+    1T20 Ajustado: 273,8520
+    AV: 0,0523
+    Ajustes Não Recorrentes: 58,7690
+    1T20: 332,6210
+    AV: 0,0635
+    2T20 Ajustado: 147,2240
+    AV: 0,0264
+    Ajustes Não Recorrentes: -3,4800
+    2T20: 143,7440
+    AV: 0,0258
+    3T20 Ajustado: 561,1800
+    AV: 0,0675
+    Ajustes Não Recorrentes: -15,1110
+    3T20: 546,0690
+    AV: 0,0657
+    4T20 Ajustado: 523,7860
+    AV: 0,0520
+    Ajustes Não Recorrentes: -19,1210
+    4T20: 504,6650
+    AV: 0,0501
+    2020 Ajustado: 1.506,0420
+    AV: 0,0516
+    Ajustes Não Recorrentes: 21,0570
+    2020: 1.527,0990
+    AV: 0,0523
+    1T21 Ajustado: 427,1540
+    AV: 0,0518
+    Ajustes Não Recorrentes: 268,4350
+    1T21: 695,5890
+    AV: 0,0843
+    2T21 Ajustado: 455,4250
+    AV: 0,0505
+    Ajustes Não Recorrentes: 9,6860
+    2T21: 465,1110
+    AV: 0,0516
+    3T21 Ajustado: 351,0380
+    AV: 0,0408
+    Ajustes Não Recorrentes: -216,2840
+    3T21: 134,7540
+    AV: 0,0156
+    4T21 Ajustado: 243,4990
+    AV: 0,0259
+    Ajustes Não Recorrentes: -251,3880
+    4T21: -7,8890
+    AV: -0,0008
+    2021 Ajustado: 1.477,1160
+    AV: 0,0419
+    Ajustes Não Recorrentes: -189,5510
+    2021: 1.287,5650
+    AV: 0,0365
+    1T22 Ajustado: 434,2030
+    AV: 0,0496
+    Ajustes Não Recorrentes: -94,6960
+    1T22: 339,5070
+    AV: 0,0387
+    2T22 Ajustado: 492,0660
+    AV: 0,0575
+    Ajustes Não Recorrentes: -34,6340
+    2T22: 457,4320
+    AV: 0,0534
+    3T22 Ajustado: 527,5230
+    AV: 0,0599
+    Ajustes Não Recorrentes: -31,4680
+    3T22: 496,0550
+    AV: 0,0563
+    4T22 Ajustado: 673,6840
+    AV: 0,0603
+    Ajustes Não Recorrentes: -31,3980
+    4T22: 642,2860
+    AV: 0,0575
+    2022 Ajustado: 2.127,4760
+    AV: 0,0570
+    Ajustes Não Recorrentes: -192,1960
+    2022: 1.935,2800
+    AV: 0,0519
+    1T23 Ajustado: 448,0310
+    AV: 0,0494
+    Ajustes Não Recorrentes: -123,9030
+    1T23: 324,1280
+    AV: 0,0357
+    2T23 Ajustado: 439,7930
+    AV: 0,0513
+    Ajustes Não Recorrentes: -155,9150
+    2T23: 283,8780
+    AV: 0,0331
+    3T23 Ajustado: 487,4960
+    AV: 0,0568
+    Ajustes Não Recorrentes: -773,5430
+    3T23: -286,0470
+    AV: -0,0333
+    4T23 Ajustado: 756,4910
+    AV: 0,0717
+    Ajustes Não Recorrentes: -207,9080
+    4T23: 548,5830
+    AV: 0,0520
+    2023 Ajustado: 2.131,8110
+    AV: 0,0580
+    Ajustes Não Recorrentes: -1.261,2690
+    2023: 870,5420
+    AV: 0,0237
+    1T24 Ajustado: 687,7690
+    AV: 0,0744
+    Ajustes Não Recorrentes: -2,9110
+    1T24: 684,8580
+    AV: 0,0741
+    2T24 Ajustado: 710,6670
+    AV: 0,0789
+    Ajustes Não Recorrentes: -55,6820
+    2T24: 654,9850
+    AV: 0,0727
+    3T24 Ajustado: 717,6120
+    AV: 0,0797
+    Ajustes Não Recorrentes: -4,1050
+    3T24: 713,5070
+    AV: 0,0793
+    4T24 Ajustado: 846,1660
+    AV: 0,0784
+    Ajustes Não Recorrentes: -3,7960
+    4T24: 842,3700
+    AV: 0,0781
+    2024 Ajustado: 2.962,2140
+    AV: 0,0779
+    Ajustes Não Recorrentes: -66,4940
+    2024: 2.895,7200
+    AV: 0,0761
+    1T25 Ajustado: 758,7580
+    AV: 0,0808
+    Ajustes Não Recorrentes: 2,4030
+    1T25: 761,1610
+    AV: 0,0811
+    2T25 Ajustado: 726,6770
+    AV: 0,0796
+    Ajustes Não Recorrentes: -39,5840
+    2T25: 687,0930
+    AV: 0,0752
+    3T25 Ajustado: 711,4410
+    AV: 0,0788
+    Ajustes Não Recorrentes: 96,0060
+    3T25: 807,4470
+    AV: 0,0895
+    4T25 Ajustado: 867,2880
+    AV: 0,0778
+    Ajustes Não Recorrentes: 80,4810
+    4T25: 947,7690
+    AV: 0,0850
+    2025 Ajustado: 3.064,1640
+    AV: 0,0792
+    Ajustes Não Recorrentes: 139,3060
+    2025: 3.203,4700
+    AV: 0,0828
+    1T26 Ajustado: 717,6130
+    AV: 0,0780
+    Ajustes Não Recorrentes: -32,2310
+    1T26: 685,3820
+    AV: 0,0745
+    2T26 Ajustado: 708,7580
+    AV: 0,0796
+    Ajustes Não Recorrentes: -33,4720
+    2T26: 675,2860
+    AV: 0,0759
+    1S26 Ajustado: 1.426,3710
+    AV: 0,0788
+    Ajustes Não Recorrentes: -65,7030
+    1S26: 1.360,6680
+    AV: 0,0752
+
+----------------------------------------------------------------------------------------------------
+Indicador: Depreciação e Amortização
+----------------------------------------------------------------------------------------------------
+    1T19 Ajustado: -103,9390
+    AV: -0,0240
+    Ajustes Não Recorrentes: 0,0000
+    1T19: -103,9390
+    AV: -0,0240
+    2T19 Ajustado: -96,8430
+    AV: -0,0225
+    Ajustes Não Recorrentes: 0,0000
+    2T19: -96,8430
+    AV: -0,0225
+    3T19 Ajustado: -163,9050
+    AV: -0,0337
+    Ajustes Não Recorrentes: 0,0000
+    3T19: -163,9050
+    AV: -0,0337
+    4T19 Ajustado: -122,2880
+    AV: -0,0192
+    Ajustes Não Recorrentes: 0,0000
+    4T19: -122,2880
+    AV: -0,0192
+    2019 Ajustado: -486,9750
+    AV: -0,0245
+    Ajustes Não Recorrentes: 0,0000
+    2019: -486,9750
+    AV: -0,0245
+    1T20 Ajustado: -174,8410
+    AV: -0,0334
+    Ajustes Não Recorrentes: 0,0000
+    1T20: -174,8410
+    AV: -0,0334
+    2T20 Ajustado: -172,2550
+    AV: -0,0309
+    Ajustes Não Recorrentes: 0,0000
+    2T20: -172,2550
+    AV: -0,0309
+    3T20 Ajustado: -169,1900
+    AV: -0,0204
+    Ajustes Não Recorrentes: 0,0000
+    3T20: -169,1900
+    AV: -0,0204
+    4T20 Ajustado: -186,2370
+    AV: -0,0185
+    Ajustes Não Recorrentes: 0,0000
+    4T20: -186,2370
+    AV: -0,0185
+    2020 Ajustado: -702,5230
+    AV: -0,0241
+    Ajustes Não Recorrentes: 0,0000
+    2020: -702,5230
+    AV: -0,0241
+    1T21 Ajustado: -178,3260
+    AV: -0,0216
+    Ajustes Não Recorrentes: 0,0000
+    1T21: -178,3260
+    AV: -0,0216
+    2T21 Ajustado: -204,7020
+    AV: -0,0227
+    Ajustes Não Recorrentes: 0,0000
+    2T21: -204,7020
+    AV: -0,0227
+    3T21 Ajustado: -207,8010
+    AV: -0,0241
+    Ajustes Não Recorrentes: 0,0000
+    3T21: -207,8010
+    AV: -0,0241
+    4T21 Ajustado: -226,1350
+    AV: -0,0241
+    Ajustes Não Recorrentes: 0,0000
+    4T21: -226,1350
+    AV: -0,0241
+    2021 Ajustado: -816,9640
+    AV: -0,0232
+    Ajustes Não Recorrentes: 0,0000
+    2021: -816,9640
+    AV: -0,0232
+    1T22 Ajustado: -265,0590
+    AV: -0,0303
+    Ajustes Não Recorrentes: 0,0000
+    1T22: -265,0590
+    AV: -0,0303
+    2T22 Ajustado: -270,7860
+    AV: -0,0316
+    Ajustes Não Recorrentes: 0,0000
+    2T22: -270,7860
+    AV: -0,0316
+    3T22 Ajustado: -273,3140
+    AV: -0,0310
+    Ajustes Não Recorrentes: 0,0000
+    3T22: -273,3140
+    AV: -0,0310
+    4T22 Ajustado: -354,4650
+    AV: -0,0317
+    Ajustes Não Recorrentes: 0,0000
+    4T22: -354,4650
+    AV: -0,0317
+    2022 Ajustado: -1.163,6240
+    AV: -0,0312
+    Ajustes Não Recorrentes: 0,0000
+    2022: -1.163,6240
+    AV: -0,0312
+    1T23 Ajustado: -307,8000
+    AV: -0,0339
+    Ajustes Não Recorrentes: 0,0000
+    1T23: -307,8000
+    AV: -0,0339
+    2T23 Ajustado: -319,8010
+    AV: -0,0373
+    Ajustes Não Recorrentes: 0,0000
+    2T23: -319,8010
+    AV: -0,0373
+    3T23 Ajustado: -309,6740
+    AV: -0,0361
+    Ajustes Não Recorrentes: 0,0000
+    3T23: -309,6740
+    AV: -0,0361
+    4T23 Ajustado: -305,4150
+    AV: -0,0289
+    Ajustes Não Recorrentes: 0,0000
+    4T23: -305,4150
+    AV: -0,0289
+    2023 Ajustado: -1.242,6900
+    AV: -0,0338
+    Ajustes Não Recorrentes: 0,0000
+    2023: -1.242,6900
+    AV: -0,0338
+    1T24 Ajustado: -322,6730
+    AV: -0,0349
+    Ajustes Não Recorrentes: 0,0000
+    1T24: -322,6730
+    AV: -0,0349
+    2T24 Ajustado: -323,2700
+    AV: -0,0359
+    Ajustes Não Recorrentes: 0,0000
+    2T24: -323,2700
+    AV: -0,0359
+    3T24 Ajustado: -319,5090
+    AV: -0,0355
+    Ajustes Não Recorrentes: -40,2290
+    3T24: -359,7380
+    AV: -0,0400
+    4T24 Ajustado: -327,6070
+    AV: -0,0304
+    Ajustes Não Recorrentes: 0,0000
+    4T24: -327,6070
+    AV: -0,0304
+    2024 Ajustado: -1.293,0590
+    AV: -0,0340
+    Ajustes Não Recorrentes: -40,2290
+    2024: -1.333,2880
+    AV: -0,0351
+    1T25 Ajustado: -323,1120
+    AV: -0,0344
+    Ajustes Não Recorrentes: 0,0000
+    1T25: -323,1120
+    AV: -0,0344
+    2T25 Ajustado: -318,2610
+    AV: -0,0348
+    Ajustes Não Recorrentes: 0,0000
+    2T25: -318,2610
+    AV: -0,0348
+    3T25 Ajustado: -320,2090
+    AV: -0,0355
+    Ajustes Não Recorrentes: 0,0000
+    3T25: -320,2090
+    AV: -0,0355
+    4T25 Ajustado: -323,2050
+    AV: -0,0290
+    Ajustes Não Recorrentes: 0,0000
+    4T25: -323,2050
+    AV: -0,0290
+    2025 Ajustado: -1.284,7870
+    AV: -0,0332
+    Ajustes Não Recorrentes: 0,0000
+    2025: -1.284,7870
+    AV: -0,0332
+    1T26 Ajustado: -332,4460
+    AV: -0,0361
+    Ajustes Não Recorrentes: 0,0000
+    1T26: -332,4460
+    AV: -0,0361
+    2T26 Ajustado: -331,7020
+    AV: -0,0373
+    Ajustes Não Recorrentes: 0,0000
+    2T26: -331,7020
+    AV: -0,0373
+    1S26 Ajustado: -664,1480
+    AV: -0,0367
+    Ajustes Não Recorrentes: 0,0000
+    1S26: -664,1480
+    AV: -0,0367
+
+----------------------------------------------------------------------------------------------------
+Indicador: EBIT
+----------------------------------------------------------------------------------------------------
+    1T19 Ajustado: 281,6060
+    AV: 0,0651
+    Ajustes Não Recorrentes: 9,8270
+    1T19: 291,4330
+    AV: 0,0673
+    2T19 Ajustado: 283,6637
+    AV: 0,0658
+    Ajustes Não Recorrentes: -0,5837
+    2T19: 283,0800
+    AV: 0,0657
+    3T19 Ajustado: 233,6093
+    AV: 0,0480
+    Ajustes Não Recorrentes: 103,6767
+    3T19: 337,2860
+    AV: 0,0693
+    4T19 Ajustado: 373,8650
+    AV: 0,0586
+    Ajustes Não Recorrentes: 2,8990
+    4T19: 376,7640
+    AV: 0,0590
+    2019 Ajustado: 1.172,7440
+    AV: 0,0590
+    Ajustes Não Recorrentes: 115,8190
+    2019: 1.288,5630
+    AV: 0,0648
+    1T20 Ajustado: 99,0110
+    AV: 0,0189
+    Ajustes Não Recorrentes: 58,7690
+    1T20: 157,7800
+    AV: 0,0301
+    2T20 Ajustado: -25,0310
+    AV: -0,0045
+    Ajustes Não Recorrentes: -3,4800
+    2T20: -28,5110
+    AV: -0,0051
+    3T20 Ajustado: 391,9900
+    AV: 0,0472
+    Ajustes Não Recorrentes: -15,1110
+    3T20: 376,8790
+    AV: 0,0454
+    4T20 Ajustado: 337,5490
+    AV: 0,0335
+    Ajustes Não Recorrentes: -19,1210
+    4T20: 318,4280
+    AV: 0,0316
+    2020 Ajustado: 803,5190
+    AV: 0,0275
+    Ajustes Não Recorrentes: 21,0570
+    2020: 824,5760
+    AV: 0,0283
+    1T21 Ajustado: 248,8280
+    AV: 0,0302
+    Ajustes Não Recorrentes: 268,4350
+    1T21: 517,2630
+    AV: 0,0627
+    2T21 Ajustado: 250,7230
+    AV: 0,0278
+    Ajustes Não Recorrentes: 9,6860
+    2T21: 260,4090
+    AV: 0,0289
+    3T21 Ajustado: 143,2370
+    AV: 0,0166
+    Ajustes Não Recorrentes: -216,2840
+    3T21: -73,0470
+    AV: -0,0085
+    4T21 Ajustado: 17,3640
+    AV: 0,0018
+    Ajustes Não Recorrentes: -251,3880
+    4T21: -234,0240
+    AV: -0,0249
+    2021 Ajustado: 660,1520
+    AV: 0,0187
+    Ajustes Não Recorrentes: -189,5510
+    2021: 470,6010
+    AV: 0,0133
+    1T22 Ajustado: 169,1440
+    AV: 0,0193
+    Ajustes Não Recorrentes: -94,6960
+    1T22: 74,4480
+    AV: 0,0085
+    2T22 Ajustado: 221,2800
+    AV: 0,0258
+    Ajustes Não Recorrentes: -34,6340
+    2T22: 186,6460
+    AV: 0,0218
+    3T22 Ajustado: 254,2090
+    AV: 0,0289
+    Ajustes Não Recorrentes: -31,4680
+    3T22: 222,7410
+    AV: 0,0253
+    4T22 Ajustado: 319,2190
+    AV: 0,0286
+    Ajustes Não Recorrentes: -31,3980
+    4T22: 287,8210
+    AV: 0,0258
+    2022 Ajustado: 963,8520
+    AV: 0,0258
+    Ajustes Não Recorrentes: -192,1960
+    2022: 771,6560
+    AV: 0,0207
+    1T23 Ajustado: 140,2310
+    AV: 0,0155
+    Ajustes Não Recorrentes: -123,9030
+    1T23: 16,3280
+    AV: 0,0018
+    2T23 Ajustado: 119,9920
+    AV: 0,0140
+    Ajustes Não Recorrentes: -155,9150
+    2T23: -35,9230
+    AV: -0,0042
+    3T23 Ajustado: 177,8220
+    AV: 0,0207
+    Ajustes Não Recorrentes: -773,5430
+    3T23: -595,7210
+    AV: -0,0694
+    4T23 Ajustado: 451,0760
+    AV: 0,0428
+    Ajustes Não Recorrentes: -207,9080
+    4T23: 243,1680
+    AV: 0,0230
+    2023 Ajustado: 889,1210
+    AV: 0,0242
+    Ajustes Não Recorrentes: -1.261,2690
+    2023: -372,1480
+    AV: -0,0101
+    1T24 Ajustado: 365,0960
+    AV: 0,0395
+    Ajustes Não Recorrentes: -2,9110
+    1T24: 362,1850
+    AV: 0,0392
+    2T24 Ajustado: 387,3970
+    AV: 0,0430
+    Ajustes Não Recorrentes: -55,6820
+    2T24: 331,7150
+    AV: 0,0368
+    3T24 Ajustado: 398,1030
+    AV: 0,0442
+    Ajustes Não Recorrentes: -44,3340
+    3T24: 353,7690
+    AV: 0,0393
+    4T24 Ajustado: 518,5590
+    AV: 0,0481
+    Ajustes Não Recorrentes: -3,7960
+    4T24: 514,7630
+    AV: 0,0477
+    2024 Ajustado: 1.669,1550
+    AV: 0,0439
+    Ajustes Não Recorrentes: -106,7230
+    2024: 1.562,4320
+    AV: 0,0411
+    1T25 Ajustado: 435,6460
+    AV: 0,0464
+    Ajustes Não Recorrentes: 2,4030
+    1T25: 438,0490
+    AV: 0,0467
+    2T25 Ajustado: 408,4160
+    AV: 0,0447
+    Ajustes Não Recorrentes: -39,5840
+    2T25: 368,8320
+    AV: 0,0404
+    3T25 Ajustado: 391,2320
+    AV: 0,0433
+    Ajustes Não Recorrentes: 96,0060
+    3T25: 487,2380
+    AV: 0,0540
+    4T25 Ajustado: 544,0830
+    AV: 0,0488
+    Ajustes Não Recorrentes: 80,4810
+    4T25: 624,5640
+    AV: 0,0560
+    2025 Ajustado: 1.779,3770
+    AV: 0,0460
+    Ajustes Não Recorrentes: 139,3060
+    2025: 1.918,6830
+    AV: 0,0496
+    1T26 Ajustado: 385,1670
+    AV: 0,0418
+    Ajustes Não Recorrentes: -32,2310
+    1T26: 352,9360
+    AV: 0,0383
+    2T26 Ajustado: 377,0560
+    AV: 0,0424
+    Ajustes Não Recorrentes: -33,4720
+    2T26: 343,5840
+    AV: 0,0386
+    1S26 Ajustado: 762,2230
+    AV: 0,0421
+    Ajustes Não Recorrentes: -65,7030
+    1S26: 696,5200
+    AV: 0,0385
+
+----------------------------------------------------------------------------------------------------
+Indicador: Resultado Financeiro
+----------------------------------------------------------------------------------------------------
+    1T19 Ajustado: -98,9340
+    AV: -0,0229
+    Ajustes Não Recorrentes: 0,0000
+    1T19: -98,9340
+    AV: -0,0229
+    2T19 Ajustado: -144,9400
+    AV: -0,0336
+    Ajustes Não Recorrentes: 400,9300
+    2T19: 255,9900
+    AV: 0,0594
+    3T19 Ajustado: -99,2444
+    AV: -0,0204
+    Ajustes Não Recorrentes: 59,7554
+    3T19: -39,4890
+    AV: -0,0081
+    4T19 Ajustado: -187,9800
+    AV: -0,0294
+    Ajustes Não Recorrentes: 0,0000
+    4T19: -187,9800
+    AV: -0,0294
+    2019 Ajustado: -531,0984
+    AV: -0,0267
+    Ajustes Não Recorrentes: 460,6854
+    2019: -70,4130
+    AV: -0,0035
+    1T20 Ajustado: -94,4110
+    AV: -0,0180
+    Ajustes Não Recorrentes: 0,0000
+    1T20: -94,4110
+    AV: -0,0180
+    2T20 Ajustado: -94,5570
+    AV: -0,0170
+    Ajustes Não Recorrentes: 0,0000
+    2T20: -94,5570
+    AV: -0,0170
+    3T20 Ajustado: -102,7020
+    AV: -0,0124
+    Ajustes Não Recorrentes: 0,0000
+    3T20: -102,7020
+    AV: -0,0124
+    4T20 Ajustado: -118,8250
+    AV: -0,0118
+    Ajustes Não Recorrentes: 0,0000
+    4T20: -118,8250
+    AV: -0,0118
+    2020 Ajustado: -410,4950
+    AV: -0,0141
+    Ajustes Não Recorrentes: 0,0000
+    2020: -410,4950
+    AV: -0,0141
+    1T21 Ajustado: -170,3280
+    AV: -0,0206
+    Ajustes Não Recorrentes: 0,0000
+    1T21: -170,3280
+    AV: -0,0206
+    2T21 Ajustado: -229,6760
+    AV: -0,0255
+    Ajustes Não Recorrentes: 0,0000
+    2T21: -229,6760
+    AV: -0,0255
+    3T21 Ajustado: -175,7330
+    AV: -0,0204
+    Ajustes Não Recorrentes: 134,7540
+    3T21: -40,9790
+    AV: -0,0048
+    4T21 Ajustado: -304,6870
+    AV: -0,0324
+    Ajustes Não Recorrentes: 56,6590
+    4T21: -248,0280
+    AV: -0,0264
+    2021 Ajustado: -880,4240
+    AV: -0,0250
+    Ajustes Não Recorrentes: 191,4130
+    2021: -689,0110
+    AV: -0,0195
+    1T22 Ajustado: -422,1100
+    AV: -0,0482
+    Ajustes Não Recorrentes: 0,0000
+    1T22: -422,1100
+    AV: -0,0482
+    2T22 Ajustado: -493,8380
+    AV: -0,0577
+    Ajustes Não Recorrentes: 0,0000
+    2T22: -493,8380
+    AV: -0,0577
+    3T22 Ajustado: -556,2850
+    AV: -0,0632
+    Ajustes Não Recorrentes: 0,0000
+    3T22: -556,2850
+    AV: -0,0632
+    4T22 Ajustado: -568,8000
+    AV: -0,0509
+    Ajustes Não Recorrentes: 0,0000
+    4T22: -568,8000
+    AV: -0,0509
+    2022 Ajustado: -2.041,0330
+    AV: -0,0547
+    Ajustes Não Recorrentes: 0,0000
+    2022: -2.041,0330
+    AV: -0,0547
+    1T23 Ajustado: -632,3590
+    AV: -0,0697
+    Ajustes Não Recorrentes: 0,0000
+    1T23: -632,3590
+    AV: -0,0697
+    2T23 Ajustado: -532,0960
+    AV: -0,0621
+    Ajustes Não Recorrentes: 0,0000
+    2T23: -532,0960
+    AV: -0,0621
+    3T23 Ajustado: -456,1680
+    AV: -0,0532
+    Ajustes Não Recorrentes: 155,5640
+    3T23: -300,6040
+    AV: -0,0350
+    4T23 Ajustado: -437,6600
+    AV: -0,0415
+    Ajustes Não Recorrentes: 210,5000
+    4T23: -227,1600
+    AV: -0,0215
+    2023 Ajustado: -2.058,2830
+    AV: -0,0560
+    Ajustes Não Recorrentes: 366,0640
+    2023: -1.692,2190
+    AV: -0,0460
+    1T24 Ajustado: -383,4250
+    AV: -0,0415
+    Ajustes Não Recorrentes: 0,0000
+    1T24: -383,4250
+    AV: -0,0415
+    2T24 Ajustado: -401,0790
+    AV: -0,0445
+    Ajustes Não Recorrentes: 0,0000
+    2T24: -401,0790
+    AV: -0,0445
+    3T24 Ajustado: -360,0530
+    AV: -0,0400
+    Ajustes Não Recorrentes: 59,5000
+    3T24: -300,5530
+    AV: -0,0334
+    4T24 Ajustado: -389,9910
+    AV: -0,0362
+    Ajustes Não Recorrentes: 0,0000
+    4T24: -389,9910
+    AV: -0,0362
+    2024 Ajustado: -1.534,5480
+    AV: -0,0403
+    Ajustes Não Recorrentes: 59,5000
+    2024: -1.475,0480
+    AV: -0,0388
+    1T25 Ajustado: -488,0690
+    AV: -0,0520
+    Ajustes Não Recorrentes: 0,0000
+    1T25: -488,0690
+    AV: -0,0520
+    2T25 Ajustado: -495,5650
+    AV: -0,0543
+    Ajustes Não Recorrentes: 0,0000
+    2T25: -495,5650
+    AV: -0,0543
+    3T25 Ajustado: -488,0750
+    AV: -0,0541
+    Ajustes Não Recorrentes: 0,0000
+    3T25: -488,0750
+    AV: -0,0541
+    4T25 Ajustado: -572,4700
+    AV: -0,0513
+    Ajustes Não Recorrentes: 0,0000
+    4T25: -572,4700
+    AV: -0,0513
+    2025 Ajustado: -2.044,1790
+    AV: -0,0528
+    Ajustes Não Recorrentes: 0,0000
+    2025: -2.044,1790
+    AV: -0,0528
+    1T26 Ajustado: -568,7050
+    AV: -0,0618
+    Ajustes Não Recorrentes: 0,0000
+    1T26: -568,7050
+    AV: -0,0618
+    2T26 Ajustado: -572,2950
+    AV: -0,0643
+    Ajustes Não Recorrentes: 0,0000
+    2T26: -572,2950
+    AV: -0,0643
+    1S26 Ajustado: -1.141,0000
+    AV: -0,0630
+    Ajustes Não Recorrentes: 0,0000
+    1S26: -1.141,0000
+    AV: -0,0630
+
+----------------------------------------------------------------------------------------------------
+Indicador: Lucro Operacional
+----------------------------------------------------------------------------------------------------
+    1T19 Ajustado: 182,6720
+    AV: 0,0422
+    Ajustes Não Recorrentes: 9,8270
+    1T19: 192,4990
+    AV: 0,0445
+    2T19 Ajustado: 138,7237
+    AV: 0,0322
+    Ajustes Não Recorrentes: 400,3463
+    2T19: 539,0700
+    AV: 0,1251
+    3T19 Ajustado: 134,3649
+    AV: 0,0276
+    Ajustes Não Recorrentes: 163,4321
+    3T19: 297,7970
+    AV: 0,0612
+    4T19 Ajustado: 185,8850
+    AV: 0,0291
+    Ajustes Não Recorrentes: 2,8990
+    4T19: 188,7840
+    AV: 0,0296
+    2019 Ajustado: 641,6456
+    AV: 0,0323
+    Ajustes Não Recorrentes: 576,5044
+    2019: 1.218,1500
+    AV: 0,0613
+    1T20 Ajustado: 4,6000
+    AV: 0,0009
+    Ajustes Não Recorrentes: 58,7690
+    1T20: 63,3690
+    AV: 0,0121
+    2T20 Ajustado: -119,5880
+    AV: -0,0215
+    Ajustes Não Recorrentes: -3,4800
+    2T20: -123,0680
+    AV: -0,0221
+    3T20 Ajustado: 289,2880
+    AV: 0,0348
+    Ajustes Não Recorrentes: -15,1110
+    3T20: 274,1770
+    AV: 0,0330
+    4T20 Ajustado: 218,7240
+    AV: 0,0217
+    Ajustes Não Recorrentes: -19,1210
+    4T20: 199,6030
+    AV: 0,0198
+    2020 Ajustado: 393,0240
+    AV: 0,0135
+    Ajustes Não Recorrentes: 21,0570
+    2020: 414,0810
+    AV: 0,0142
+    1T21 Ajustado: 78,5000
+    AV: 0,0095
+    Ajustes Não Recorrentes: 268,4350
+    1T21: 346,9350
+    AV: 0,0420
+    2T21 Ajustado: 21,0470
+    AV: 0,0023
+    Ajustes Não Recorrentes: 9,6860
+    2T21: 30,7330
+    AV: 0,0034
+    3T21 Ajustado: -32,4960
+    AV: -0,0038
+    Ajustes Não Recorrentes: -81,5300
+    3T21: -114,0260
+    AV: -0,0132
+    4T21 Ajustado: -287,3230
+    AV: -0,0306
+    Ajustes Não Recorrentes: -194,7290
+    4T21: -482,0520
+    AV: -0,0513
+    2021 Ajustado: -220,2720
+    AV: -0,0062
+    Ajustes Não Recorrentes: 1,8620
+    2021: -218,4100
+    AV: -0,0062
+    1T22 Ajustado: -252,9660
+    AV: -0,0289
+    Ajustes Não Recorrentes: -94,6960
+    1T22: -347,6620
+    AV: -0,0397
+    2T22 Ajustado: -272,5580
+    AV: -0,0318
+    Ajustes Não Recorrentes: -34,6340
+    2T22: -307,1920
+    AV: -0,0359
+    3T22 Ajustado: -302,0760
+    AV: -0,0343
+    Ajustes Não Recorrentes: -31,4680
+    3T22: -333,5440
+    AV: -0,0379
+    4T22 Ajustado: -249,5810
+    AV: -0,0223
+    Ajustes Não Recorrentes: -31,3980
+    4T22: -280,9790
+    AV: -0,0252
+    2022 Ajustado: -1.077,1810
+    AV: -0,0289
+    Ajustes Não Recorrentes: -192,1960
+    2022: -1.269,3770
+    AV: -0,0340
+    1T23 Ajustado: -492,1280
+    AV: -0,0543
+    Ajustes Não Recorrentes: -123,9030
+    1T23: -616,0310
+    AV: -0,0679
+    2T23 Ajustado: -412,1040
+    AV: -0,0481
+    Ajustes Não Recorrentes: -155,9150
+    2T23: -568,0190
+    AV: -0,0663
+    3T23 Ajustado: -278,3460
+    AV: -0,0324
+    Ajustes Não Recorrentes: -617,9790
+    3T23: -896,3250
+    AV: -0,1045
+    4T23 Ajustado: 13,4160
+    AV: 0,0013
+    Ajustes Não Recorrentes: 2,5920
+    4T23: 16,0080
+    AV: 0,0015
+    2023 Ajustado: -1.169,1620
+    AV: -0,0318
+    Ajustes Não Recorrentes: -895,2050
+    2023: -2.064,3670
+    AV: -0,0561
+    1T24 Ajustado: -18,3290
+    AV: -0,0020
+    Ajustes Não Recorrentes: -2,9110
+    1T24: -21,2400
+    AV: -0,0023
+    2T24 Ajustado: -13,6820
+    AV: -0,0015
+    Ajustes Não Recorrentes: -55,6820
+    2T24: -69,3640
+    AV: -0,0077
+    3T24 Ajustado: 38,0500
+    AV: 0,0042
+    Ajustes Não Recorrentes: 15,1660
+    3T24: 53,2160
+    AV: 0,0059
+    4T24 Ajustado: 128,5680
+    AV: 0,0119
+    Ajustes Não Recorrentes: -3,7960
+    4T24: 124,7720
+    AV: 0,0116
+    2024 Ajustado: 134,6070
+    AV: 0,0035
+    Ajustes Não Recorrentes: -47,2230
+    2024: 87,3840
+    AV: 0,0023
+    1T25 Ajustado: -52,4230
+    AV: -0,0056
+    Ajustes Não Recorrentes: 2,4030
+    1T25: -50,0200
+    AV: -0,0053
+    2T25 Ajustado: -87,1490
+    AV: -0,0095
+    Ajustes Não Recorrentes: -39,5840
+    2T25: -126,7330
+    AV: -0,0139
+    3T25 Ajustado: -96,8430
+    AV: -0,0107
+    Ajustes Não Recorrentes: 96,0060
+    3T25: -0,8370
+    AV: -0,0001
+    4T25 Ajustado: -28,3870
+    AV: -0,0025
+    Ajustes Não Recorrentes: 80,4810
+    4T25: 52,0940
+    AV: 0,0047
+    2025 Ajustado: -264,8020
+    AV: -0,0068
+    Ajustes Não Recorrentes: 139,3060
+    2025: -125,4960
+    AV: -0,0032
+    1T26 Ajustado: -183,5380
+    AV: -0,0199
+    Ajustes Não Recorrentes: -32,2310
+    1T26: -215,7690
+    AV: -0,0234
+    2T26 Ajustado: -195,2390
+    AV: -0,0219
+    Ajustes Não Recorrentes: -33,4720
+    2T26: -228,7110
+    AV: -0,0257
+    1S26 Ajustado: -378,7770
+    AV: -0,0209
+    Ajustes Não Recorrentes: -65,7030
+    1S26: -444,4800
+    AV: -0,0246
+
+----------------------------------------------------------------------------------------------------
+Indicador: IR / CS
+----------------------------------------------------------------------------------------------------
+    1T19 Ajustado: -57,0538
+    AV: -0,0132
+    Ajustes Não Recorrentes: -3,3412
+    1T19: -60,3950
+    AV: -0,0140
+    2T19 Ajustado: -53,5528
+    AV: -0,0124
+    Ajustes Não Recorrentes: -98,8932
+    2T19: -152,4460
+    AV: -0,0354
+    3T19 Ajustado: -7,0654
+    AV: -0,0015
+    Ajustes Não Recorrentes: -55,6206
+    3T19: -62,6860
+    AV: -0,0129
+    4T19 Ajustado: -19,8000
+    AV: -0,0031
+    Ajustes Não Recorrentes: -0,9860
+    4T19: -20,7860
+    AV: -0,0033
+    2019 Ajustado: -137,4720
+    AV: -0,0069
+    Ajustes Não Recorrentes: -158,8410
+    2019: -296,3130
+    AV: -0,0149
+    1T20 Ajustado: -12,5850
+    AV: -0,0024
+    Ajustes Não Recorrentes: -19,9810
+    1T20: -32,5660
+    AV: -0,0062
+    2T20 Ajustado: 57,3480
+    AV: 0,0103
+    Ajustes Não Recorrentes: 1,1830
+    2T20: 58,5310
+    AV: 0,0105
+    3T20 Ajustado: -73,3580
+    AV: -0,0088
+    Ajustes Não Recorrentes: 5,1380
+    3T20: -68,2200
+    AV: -0,0082
+    4T20 Ajustado: 13,3820
+    AV: 0,0013
+    Ajustes Não Recorrentes: 6,5010
+    4T20: 19,8830
+    AV: 0,0020
+    2020 Ajustado: -15,2130
+    AV: -0,0005
+    Ajustes Não Recorrentes: -7,1590
+    2020: -22,3720
+    AV: -0,0008
+    1T21 Ajustado: 2,9730
+    AV: 0,0004
+    Ajustes Não Recorrentes: -91,2680
+    1T21: -88,2950
+    AV: -0,0107
+    2T21 Ajustado: 68,0970
+    AV: 0,0076
+    Ajustes Não Recorrentes: -3,2930
+    2T21: 64,8040
+    AV: 0,0072
+    3T21 Ajustado: 55,0610
+    AV: 0,0064
+    Ajustes Não Recorrentes: 202,4810
+    3T21: 257,5420
+    AV: 0,0299
+    4T21 Ajustado: 208,3650
+    AV: 0,0222
+    Ajustes Não Recorrentes: 366,6540
+    4T21: 575,0190
+    AV: 0,0612
+    2021 Ajustado: 334,4960
+    AV: 0,0095
+    Ajustes Não Recorrentes: 474,5740
+    2021: 809,0700
+    AV: 0,0229
+    1T22 Ajustado: 154,1660
+    AV: 0,0176
+    Ajustes Não Recorrentes: 32,1970
+    1T22: 186,3630
+    AV: 0,0213
+    2T22 Ajustado: 160,4120
+    AV: 0,0187
+    Ajustes Não Recorrentes: 11,7760
+    2T22: 172,1880
+    AV: 0,0201
+    3T22 Ajustado: 156,0850
+    AV: 0,0177
+    Ajustes Não Recorrentes: 10,6990
+    3T22: 166,7840
+    AV: 0,0189
+    4T22 Ajustado: 234,4130
+    AV: 0,0210
+    Ajustes Não Recorrentes: 10,6750
+    4T22: 245,0880
+    AV: 0,0219
+    2022 Ajustado: 705,0760
+    AV: 0,0189
+    Ajustes Não Recorrentes: 65,3470
+    2022: 770,4230
+    AV: 0,0207
+    1T23 Ajustado: 182,6830
+    AV: 0,0201
+    Ajustes Não Recorrentes: 42,1270
+    1T23: 224,8100
+    AV: 0,0248
+    2T23 Ajustado: 213,2620
+    AV: 0,0249
+    Ajustes Não Recorrentes: 53,0110
+    2T23: 266,2730
+    AV: 0,0311
+    3T23 Ajustado: 134,9840
+    AV: 0,0157
+    Ajustes Não Recorrentes: 263,0090
+    3T23: 397,9930
+    AV: 0,0464
+    4T23 Ajustado: 88,1310
+    AV: 0,0084
+    Ajustes Não Recorrentes: 108,0560
+    4T23: 196,1870
+    AV: 0,0186
+    2023 Ajustado: 619,0600
+    AV: 0,0168
+    Ajustes Não Recorrentes: 466,2030
+    2023: 1.085,2630
+    AV: 0,0295
+    1T24 Ajustado: 48,1750
+    AV: 0,0052
+    Ajustes Não Recorrentes: 0,9900
+    1T24: 49,1650
+    AV: 0,0053
+    2T24 Ajustado: 51,1070
+    AV: 0,0057
+    Ajustes Não Recorrentes: 41,8650
+    2T24: 92,9720
+    AV: 0,0103
+    3T24 Ajustado: 32,1030
+    AV: 0,0036
+    Ajustes Não Recorrentes: 17,0440
+    3T24: 49,1470
+    AV: 0,0055
+    4T24 Ajustado: 10,6650
+    AV: 0,0010
+    Ajustes Não Recorrentes: 159,3840
+    4T24: 170,0490
+    AV: 0,0158
+    2024 Ajustado: 142,0500
+    AV: 0,0037
+    Ajustes Não Recorrentes: 219,2830
+    2024: 361,3330
+    AV: 0,0095
+    1T25 Ajustado: 63,6050
+    AV: 0,0068
+    Ajustes Não Recorrentes: -0,8170
+    1T25: 62,7880
+    AV: 0,0067
+    2T25 Ajustado: 88,9180
+    AV: 0,0097
+    Ajustes Não Recorrentes: 13,4590
+    2T25: 102,3770
+    AV: 0,0112
+    3T25 Ajustado: 118,0640
+    AV: 0,0131
+    Ajustes Não Recorrentes: -32,6420
+    3T25: 85,4220
+    AV: 0,0095
+    4T25 Ajustado: 153,0660
+    AV: 0,0137
+    Ajustes Não Recorrentes: -73,5540
+    4T25: 79,5120
+    AV: 0,0071
+    2025 Ajustado: 423,6530
+    AV: 0,0109
+    Ajustes Não Recorrentes: -93,5540
+    2025: 330,0990
+    AV: 0,0085
+    1T26 Ajustado: 149,5900
+    AV: 0,0162
+    Ajustes Não Recorrentes: 10,9590
+    1T26: 160,5490
+    AV: 0,0174
+    2T26 Ajustado: 144,8690
+    AV: 0,0163
+    Ajustes Não Recorrentes: 11,3800
+    2T26: 156,2490
+    AV: 0,0176
+    1S26 Ajustado: 294,4590
+    AV: 0,0163
+    Ajustes Não Recorrentes: 22,3390
+    1S26: 316,7980
+    AV: 0,0175
+
+----------------------------------------------------------------------------------------------------
+Indicador: Lucro Líquido
+----------------------------------------------------------------------------------------------------
+    1T19 Ajustado: 125,6182
+    AV: 0,0290
+    Ajustes Não Recorrentes: 6,4858
+    1T19: 132,1040
+    AV: 0,0305
+    2T19 Ajustado: 85,1709
+    AV: 0,0198
+    Ajustes Não Recorrentes: 301,4531
+    2T19: 386,6240
+    AV: 0,0897
+    3T19 Ajustado: 127,2995
+    AV: 0,0262
+    Ajustes Não Recorrentes: 107,8115
+    3T19: 235,1110
+    AV: 0,0483
+    4T19 Ajustado: 166,0850
+    AV: 0,0260
+    Ajustes Não Recorrentes: 1,9130
+    4T19: 167,9980
+    AV: 0,0263
+    2019 Ajustado: 504,1736
+    AV: 0,0254
+    Ajustes Não Recorrentes: 417,6634
+    2019: 921,8370
+    AV: 0,0464
+    1T20 Ajustado: -7,9850
+    AV: -0,0015
+    Ajustes Não Recorrentes: 38,7880
+    1T20: 30,8030
+    AV: 0,0059
+    2T20 Ajustado: -62,2400
+    AV: -0,0112
+    Ajustes Não Recorrentes: -2,2970
+    2T20: -64,5370
+    AV: -0,0116
+    3T20 Ajustado: 215,9300
+    AV: 0,0260
+    Ajustes Não Recorrentes: -9,9730
+    3T20: 205,9570
+    AV: 0,0248
+    4T20 Ajustado: 232,1060
+    AV: 0,0231
+    Ajustes Não Recorrentes: -12,6200
+    4T20: 219,4860
+    AV: 0,0218
+    2020 Ajustado: 377,8110
+    AV: 0,0129
+    Ajustes Não Recorrentes: 13,8980
+    2020: 391,7090
+    AV: 0,0134
+    1T21 Ajustado: 81,4730
+    AV: 0,0099
+    Ajustes Não Recorrentes: 177,1670
+    1T21: 258,6400
+    AV: 0,0313
+    2T21 Ajustado: 89,1440
+    AV: 0,0099
+    Ajustes Não Recorrentes: 6,3930
+    2T21: 95,5370
+    AV: 0,0106
+    3T21 Ajustado: 22,5650
+    AV: 0,0026
+    Ajustes Não Recorrentes: 120,9510
+    3T21: 143,5160
+    AV: 0,0167
+    4T21 Ajustado: -78,9580
+    AV: -0,0084
+    Ajustes Não Recorrentes: 171,9250
+    4T21: 92,9670
+    AV: 0,0099
+    2021 Ajustado: 114,2240
+    AV: 0,0032
+    Ajustes Não Recorrentes: 476,4360
+    2021: 590,6600
+    AV: 0,0167
+    1T22 Ajustado: -98,8000
+    AV: -0,0113
+    Ajustes Não Recorrentes: -62,4990
+    1T22: -161,2990
+    AV: -0,0184
+    2T22 Ajustado: -112,1460
+    AV: -0,0131
+    Ajustes Não Recorrentes: -22,8580
+    2T22: -135,0040
+    AV: -0,0158
+    3T22 Ajustado: -145,9910
+    AV: -0,0166
+    Ajustes Não Recorrentes: -20,7690
+    3T22: -166,7600
+    AV: -0,0189
+    4T22 Ajustado: -15,1680
+    AV: -0,0014
+    Ajustes Não Recorrentes: -20,7230
+    4T22: -35,8910
+    AV: -0,0032
+    2022 Ajustado: -372,1050
+    AV: -0,0100
+    Ajustes Não Recorrentes: -126,8490
+    2022: -498,9540
+    AV: -0,0134
+    1T23 Ajustado: -309,4450
+    AV: -0,0341
+    Ajustes Não Recorrentes: -81,7760
+    1T23: -391,2210
+    AV: -0,0431
+    2T23 Ajustado: -198,8420
+    AV: -0,0232
+    Ajustes Não Recorrentes: -102,9040
+    2T23: -301,7460
+    AV: -0,0352
+    3T23 Ajustado: -143,3620
+    AV: -0,0167
+    Ajustes Não Recorrentes: -354,9700
+    3T23: -498,3320
+    AV: -0,0581
+    4T23 Ajustado: 101,5470
+    AV: 0,0096
+    Ajustes Não Recorrentes: 110,6480
+    4T23: 212,1950
+    AV: 0,0201
+    2023 Ajustado: -550,1020
+    AV: -0,0150
+    Ajustes Não Recorrentes: -429,0020
+    2023: -979,1040
+    AV: -0,0266
+    1T24 Ajustado: 29,8460
+    AV: 0,0032
+    Ajustes Não Recorrentes: -1,9210
+    1T24: 27,9250
+    AV: 0,0030
+    2T24 Ajustado: 37,4250
+    AV: 0,0042
+    Ajustes Não Recorrentes: -13,8170
+    2T24: 23,6080
+    AV: 0,0026
+    3T24 Ajustado: 70,1530
+    AV: 0,0078
+    Ajustes Não Recorrentes: 32,2100
+    3T24: 102,3630
+    AV: 0,0114
+    4T24 Ajustado: 139,2330
+    AV: 0,0129
+    Ajustes Não Recorrentes: 155,5880
+    4T24: 294,8210
+    AV: 0,0273
+    2024 Ajustado: 276,6570
+    AV: 0,0073
+    Ajustes Não Recorrentes: 172,0600
+    2024: 448,7170
+    AV: 0,0118
+    1T25 Ajustado: 11,1820
+    AV: 0,0012
+    Ajustes Não Recorrentes: 1,5860
+    1T25: 12,7680
+    AV: 0,0014
+    2T25 Ajustado: 1,7690
+    AV: 0,0002
+    Ajustes Não Recorrentes: -26,1250
+    2T25: -24,3560
+    AV: -0,0027
+    3T25 Ajustado: 21,2210
+    AV: 0,0024
+    Ajustes Não Recorrentes: 63,3640
+    3T25: 84,5850
+    AV: 0,0094
+    4T25 Ajustado: 124,6790
+    AV: 0,0112
+    Ajustes Não Recorrentes: 6,9270
+    4T25: 131,6060
+    AV: 0,0118
+    2025 Ajustado: 158,8510
+    AV: 0,0041
+    Ajustes Não Recorrentes: 45,7520
+    2025: 204,6030
+    AV: 0,0053
+    1T26 Ajustado: -33,9480
+    AV: -0,0037
+    Ajustes Não Recorrentes: -21,2720
+    1T26: -55,2200
+    AV: -0,0060
+    2T26 Ajustado: -50,3700
+    AV: -0,0057
+    Ajustes Não Recorrentes: -22,0920
+    2T26: -72,4620
+    AV: -0,0081
+    1S26 Ajustado: -84,3180
+    AV: -0,0047
+    Ajustes Não Recorrentes: -43,3640
+    1S26: -127,6820
+    AV: -0,0071
+
