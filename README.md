@@ -23,7 +23,12 @@
     * Colunas com título de data parcial complementada com 01/
     * Conteúdos que são percentuais na planilha original são importados como fração (valor / 100)
 
-
+### Próximo Passos
+* Decidir biblioteca a ser utilizada para os gráficos
+* Decidir melhores informações a serem exibidas
+* Verificar a possibilidade de cruzamento de dados entre os dados disponíveis
+* Verificar a possibilidade de o próprio usuário escolher as informações a serem exibidas
+* Verificar a possibilidade de implementar uma análise preditiva ao projeto
 
 
 
