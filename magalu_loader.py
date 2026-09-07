@@ -40,12 +40,15 @@ Casos especiais tratados:
 """
 
 import re
+import os
 from datetime import datetime
 from collections import Counter
 
 import numpy as np
 import pandas as pd
 import openpyxl
+
+PASTA_DADOS_PADRAO = "BD"
 
 PADRAO_TRIMESTRE = re.compile(r'^\s*\dT\d{2}\s*$')
 
@@ -71,9 +74,15 @@ def _formatar_periodo(valor):
 class MagaluDataLoader:
     """Carrega todas as guias da planilha de resultados do Magazine Luiza."""
 
-    def __init__(self, caminho_arquivo, carregar_ao_iniciar=True):
-        self.caminho_arquivo = ".\\BD\\" + caminho_arquivo
-        self.wb = openpyxl.load_workbook(caminho_arquivo, data_only=True)
+    def __init__(self, caminho_arquivo, carregar_ao_iniciar=True, pasta_dados=PASTA_DADOS_PADRAO):
+        # Permite passar só o nome do arquivo (ele é procurado dentro da pasta
+        # "BD") ou já um caminho pronto/absoluto (nesse caso é usado como está).
+        if os.path.isabs(caminho_arquivo) or os.path.dirname(caminho_arquivo):
+            self.caminho_arquivo = caminho_arquivo
+        else:
+            self.caminho_arquivo = os.path.join(pasta_dados, caminho_arquivo)
+
+        self.wb = openpyxl.load_workbook(self.caminho_arquivo, data_only=True)
 
         self.dados = {}      # nome_guia -> DataFrame (índice=indicador, colunas=período)
         self.colunas = {}    # nome_guia -> lista de períodos/cabeçalho
