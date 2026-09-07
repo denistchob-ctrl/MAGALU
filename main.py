@@ -33,25 +33,14 @@ cotacao.df                                  # DataFrame diário completo (índic
 cotacao.get_serie("Fechamento")             # Series só com o fechamento
 cotacao.get_serie("Volume_Financeiro")      # Series só com o volume financeiro negociado
 
-print("Cotação -> shape:", cotacao.df.shape)
-print(cotacao.df.tail(3))
-print()
-
 # ----------------------------------------------------------------------
 # 3) Google Trends (Google_Trends_-_MAGAZINE_LUIZA_e_MAGALU_-_*.csv)
 # ----------------------------------------------------------------------
 trends = GoogleTrendsLoader()
-trends.serie_temporal                          # todos os anos disponíveis, já consolidados (Ano, Time, Quantidade)
-trends.por_regiao                              # todas as regiões/anos disponíveis, já consolidados (Ano, Region, Quantidade)
-trends.get_serie_temporal()                    # Series indexada por data, com o total consolidado
-trends.get_por_regiao()                # Series indexada por região, só do ano de 2019
-
-print("Google Trends (série temporal) -> shape:", trends.serie_temporal.shape)
-print(trends.get_serie_temporal().tail(3))
-print()
-print("Google Trends (por região) -> shape:", trends.por_regiao.shape)
-print(trends.get_por_regiao().head(30))
-print()
+trends.serie_temporal                          # série mensal desde 2004 (Ano, Time, Quantidade)
+trends.por_regiao                              # interesse agregado por região (Region, Quantidade)
+trends.get_serie_temporal()                    # Series indexada por data, com o total mensal
+trends.get_por_regiao()                        # Series indexada por região, com o total agregado
 
 # ----------------------------------------------------------------------
 # 4) Reclame Aqui (RA-<empresa>-<categoria>.csv)
@@ -66,13 +55,3 @@ ra.problemas("fisica")                # DataFrame: problema x quantidade de recl
 ra.produtos("fisica")                 # DataFrame: produto/serviço x quantidade de reclamações
 ra.desempenho("fisica")               # DataFrame: métricas anuais de reputação/atendimento
 ra.get("luizacred", "desempenho")     # forma equivalente e genérica de acessar qualquer empresa/categoria
-
-print("Reclame Aqui - empresas encontradas:", ra.listar_empresas())
-for empresa in ra.listar_empresas():
-    print(f"  {empresa}: {ra.listar_categorias(empresa)}")
-print()
-print("Reclame Aqui - categorias (fisica):")
-print(ra.categorias("fisica").head(3))
-print()
-print("Reclame Aqui - desempenho (luizacred):")
-print(ra.desempenho("luizacred"))

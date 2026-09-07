@@ -24,10 +24,10 @@ Uso básico:
     cotacao.get_serie("Fechamento")              # pandas Series só com o fechamento
 
     trends = GoogleTrendsLoader()
-    trends.serie_temporal                        # todas as semanas/anos, já consolidado (Ano, Time, Quantidade)
-    trends.por_regiao                            # todas as regiões/anos, já consolidado (Ano, Region, Quantidade)
-    trends.get_serie_temporal()                  # Series (índice = data) com o total consolidado
-    trends.get_por_regiao(ano=2019)              # Series (índice = região) do total consolidado em 2019
+    trends.serie_temporal                        # série mensal desde 2004 (Ano, Time, Quantidade)
+    trends.por_regiao                            # interesse agregado por região (Region, Quantidade)
+    trends.get_serie_temporal()                  # Series (índice = data) com o total mensal
+    trends.get_por_regiao()                      # Series (índice = região) com o total agregado
 
     ra = ReclameAquiLoader()
     ra.listar_empresas()                          # ['consorcio', 'fisica', 'luizacred', 'online']
@@ -52,18 +52,18 @@ Arquivos esperados na pasta "BD":
     Aba "Historical", exportação típica do Investing.com, com colunas em
     formato brasileiro (texto com vírgula decimal, ponto de milhar, "%").
 
-- Google Trends - MAGAZINE LUIZA e MAGALU - <ANO>.csv
-    Série temporal semanal de interesse de busca daquele ano (colunas:
-    Time, Magazine Luiza, MAGALU).
+- Google Trends - Desde <ANO>.csv
+    Série temporal mensal de interesse de busca desde o início do período
+    coberto (colunas: Time, Magazine Luiza).
 
-- Google Trends - MAGAZINE LUIZA e MAGALU - <ANO> por região.csv
-    Interesse de busca por região/estado, referente àquele ano (colunas:
-    Region, Magazine Luiza, MAGALU).
+- Google Trends - Desde <ANO> por região.csv
+    Interesse de busca por região/estado, agregado no período coberto pelo
+    arquivo — não é quebrado por ano (colunas: Region, Magazine Luiza).
 
-    O carregador varre a pasta "BD" procurando TODOS os arquivos que batem
-    com esse padrão de nome (tolerando espaço/underscore) — assim, quando
-    novos anos forem adicionados com o mesmo padrão, já entram na carga
-    automaticamente, sem precisar mexer neste código.
+    O carregador varre a pasta "BD" procurando arquivos que batem com esse
+    padrão de nome (tolerando espaço/underscore) — assim, se o export for
+    refeito no futuro com outro ano no nome (ex.: "Desde 2005"), já entra na
+    carga automaticamente, sem precisar mexer neste código.
 
 - RA-<empresa>-<categoria>.csv
     Exportações do Reclame Aqui, uma por empresa/categoria, ex.:
@@ -255,46 +255,39 @@ class CotacaoAcaoLoader:
 # ----------------------------------------------------------------------
 class GoogleTrendsLoader:
     """
-    Carrega TODOS os arquivos de Google Trends encontrados na pasta de dados,
-    tanto a série temporal semanal quanto o detalhamento por região,
-    concatenando os anos disponíveis.
+    Carrega os arquivos de Google Trends da marca: uma série temporal mensal
+    (desde 2004) e um detalhamento por região (agregado no período todo).
 
-    A busca é por padrão de nome de arquivo (tolerando espaço/underscore) e
-    não por uma lista fixa de anos — novos anos adicionados à pasta "BD" com
-    o mesmo padrão de nome já entram automaticamente na próxima carga, sem
-    alterar este código.
-
-    Consolidação dos termos pesquisados:
-    --------------------------------------
-    A pesquisa no Google Trends foi feita com 2 palavras-chave ("Magazine
-    Luiza" e "MAGALU"), então o arquivo original traz uma coluna de
-    interesse de busca para CADA termo. Como o objetivo aqui é medir o
-    interesse total pela marca (e não comparar um termo com o outro), as
-    colunas de termo são somadas em uma única coluna consolidada,
-    'Quantidade'. Isso é feito de forma genérica (soma todas as colunas que
-    não sejam 'Time'/'Region'/'Ano'), então funciona também se um arquivo
-    futuro trouxer um número diferente de termos pesquisados.
+    Cada arquivo tem hoje só 2 colunas (a chave — 'Time' ou 'Region' — e o
+    interesse de busca do termo pesquisado). A busca dos arquivos é por
+    padrão de nome (tolerando espaço/underscore/acento), então se o export
+    for refeito no futuro com um nome parecido (ex.: "Desde 2005" em vez de
+    "Desde 2004"), ou vier a trazer mais de um termo pesquisado na mesma
+    planilha, o carregador continua funcionando sem alteração de código —
+    veja _consolidar_termos().
 
     Tradução das regiões:
     ------------------------
-    O Google Trends exporta o nome das regiões em inglês (ex.: "State of
-    São Paulo", "Federal District"). O detalhamento por região já sai
-    traduzido para o nome usual em português (ex.: "São Paulo", "Distrito
-    Federal") na coluna 'Region'. Caso apareça uma região não mapeada em
-    MAPA_REGIOES_PT (ex.: um nome de estado grafado diferente), o nome
-    original em inglês é mantido, para não perder informação.
+    Versões antigas desse export vinham com a região em inglês (ex.: "State
+    of São Paulo", "Federal District"); a versão atual já vem em português
+    (ex.: "São Paulo"). MAPA_REGIOES_PT trata os dois casos: se o nome já
+    estiver em português, é mantido como está; se vier no formato antigo em
+    inglês, é traduzido. Um nome no padrão "State of ..."/"Federal District"
+    que não esteja no mapa gera um aviso (provável estado novo/grafia nova),
+    mas não interrompe a carga.
 
     Resultado:
         self.serie_temporal -> DataFrame com colunas ['Ano', 'Time',
-            'Quantidade'], uma linha por semana/ano, ordenado por data.
-        self.por_regiao -> DataFrame com colunas ['Ano', 'Region',
-            'Quantidade'], uma linha por região/ano, já com o nome da
-            região traduzido para português.
+            'Quantidade'], uma linha por mês, ordenado por data. 'Ano' é
+            derivado da própria data, só por conveniência para filtros.
+        self.por_regiao -> DataFrame com colunas ['Region', 'Quantidade'],
+            uma linha por região (índice de interesse agregado do período
+            coberto pelo arquivo — não é quebrado por ano).
     """
 
-    # Nomes de região como exportados pelo Google Trends (em inglês) -> nome
-    # usual em português. Adicione aqui se aparecer alguma variação de nome
-    # não coberta (ex.: outro país/região fora do padrão "State of <Estado>").
+    # Nomes de região como o Google Trends já chegou a exportar em inglês ->
+    # nome usual em português. Mantido por compatibilidade com exports
+    # antigos; a versão atual do arquivo já vem em português.
     MAPA_REGIOES_PT = {
         'Federal District': 'Distrito Federal',
         'State of Acre': 'Acre',
@@ -326,7 +319,7 @@ class GoogleTrendsLoader:
     }
 
     def __init__(self, pasta_dados=PASTA_DADOS_PADRAO,
-                 prefixo="Google Trends - Desde 2004"):
+                 prefixo="Google Trends - Desde"):
         self.pasta_dados = pasta_dados
         self.prefixo = prefixo
         self.serie_temporal = pd.DataFrame()
@@ -337,29 +330,27 @@ class GoogleTrendsLoader:
         return _listar_arquivos_por_prefixo(self.pasta_dados, self.prefixo, extensao=".csv")
 
     @staticmethod
-    def _extrair_ano(nome_arquivo):
-        m = re.search(r'(\d{4})', nome_arquivo)
-        return int(m.group(1)) if m else None
-
-    @staticmethod
     def _eh_arquivo_regional(nome_arquivo):
         nome_normalizado = _normalizar_nome_arquivo(nome_arquivo)
         return 'regi' in nome_normalizado  # cobre "por regiao" / "por região"
 
     def _traduzir_regiao(self, nome_regiao):
-        """Traduz o nome da região para português; mantém o original (com aviso
-        único por nome não mapeado) se não houver tradução cadastrada."""
+        """Traduz o nome da região se ele vier no formato antigo em inglês
+        ('State of ...'/'Federal District'); nomes já em português (formato
+        atual do export) são mantidos como estão, sem aviso."""
         if nome_regiao in self.MAPA_REGIOES_PT:
             return self.MAPA_REGIOES_PT[nome_regiao]
-        #print(f"[GoogleTrendsLoader] Aviso: região '{nome_regiao}' sem tradução "
-        #      f"cadastrada em MAPA_REGIOES_PT — mantendo o nome original.")
+        if nome_regiao.startswith('State of ') or nome_regiao == 'Federal District':
+            print(f"[GoogleTrendsLoader] Aviso: região '{nome_regiao}' sem tradução "
+                  f"cadastrada em MAPA_REGIOES_PT — mantendo o nome original.")
         return nome_regiao
 
     @staticmethod
     def _consolidar_termos(df, coluna_chave):
         """Soma todas as colunas de termo pesquisado (todas, exceto a coluna
-        chave — 'Time' ou 'Region') em uma única coluna 'Quantidade'."""
-        colunas_termos = [c for c in df.columns if c not in (coluna_chave, 'Ano')]
+        chave — 'Time' ou 'Region') em uma única coluna 'Quantidade'. Com um
+        só termo pesquisado (formato atual), a 'soma' é apenas aquele valor."""
+        colunas_termos = [c for c in df.columns if c != coluna_chave]
         df = df.copy()
         df['Quantidade'] = df[colunas_termos].sum(axis=1)
         return df[[coluna_chave, 'Quantidade']]
@@ -380,34 +371,35 @@ class GoogleTrendsLoader:
                 temporais.append(self._consolidar_termos(df, 'Time'))
 
         if temporais:
-            self.serie_temporal = (
+            serie = (
                 pd.concat(temporais, ignore_index=True)
+                .drop_duplicates(subset='Time', keep='last')
                 .sort_values('Time')
                 .reset_index(drop=True)
             )
+            serie.insert(0, 'Ano', serie['Time'].dt.year)
+            self.serie_temporal = serie
         if regionais:
             self.por_regiao = (
                 pd.concat(regionais, ignore_index=True)
-                .sort_values(['Region'])
+                .groupby('Region', as_index=False)['Quantidade'].sum()
+                .sort_values('Region')
                 .reset_index(drop=True)
             )
 
     def get_serie_temporal(self):
         """Devolve uma pandas Series (índice = data) com o interesse de busca
-        total (soma de todos os termos pesquisados) por semana."""
+        mensal (soma de todos os termos pesquisados, hoje só um: 'Magazine Luiza')."""
         if self.serie_temporal.empty:
             raise ValueError("Nenhum arquivo de série temporal do Google Trends foi encontrado.")
         return self.serie_temporal.set_index('Time')['Quantidade']
 
-    def get_por_regiao(self, ano=None):
-        """Devolve o interesse de busca total (soma de todos os termos) por região.
-        Se 'ano' for informado, devolve uma Series indexada por região só daquele ano;
-        caso contrário, devolve o DataFrame completo (['Region', 'Quantidade'])."""
+    def get_por_regiao(self):
+        """Devolve uma pandas Series (índice = região) com o interesse de busca
+        agregado por região (o arquivo de origem não é quebrado por ano)."""
         if self.por_regiao.empty:
             raise ValueError("Nenhum arquivo de Google Trends por região foi encontrado.")
-        if ano is None:
-            return self.por_regiao
-        return self.set_index('Region')['Quantidade']
+        return self.por_regiao.set_index('Region')['Quantidade']
 
 
 # ----------------------------------------------------------------------
@@ -556,7 +548,7 @@ if __name__ == "__main__":
     print(trends.get_serie_temporal().tail(3))
     print()
     print("Google Trends (por região) -> shape:", trends.por_regiao.shape)
-    print(trends.get_por_regiao().head(30))
+    print(trends.get_por_regiao().head(5))
     print()
 
     ra = ReclameAquiLoader()
