@@ -68,6 +68,7 @@ Limitações importantes (leia antes de usar em produção):
    fonte via CSV (GoogleTrendsLoader).
 """
 
+import os
 import time
 
 import pandas as pd
@@ -81,6 +82,13 @@ except ImportError as _erro_importacao:
     _ERRO_IMPORTACAO_PYTRENDS = _erro_importacao
 else:
     _ERRO_IMPORTACAO_PYTRENDS = None
+
+
+# Mesma pasta de dados usada pelos outros carregadores do projeto
+# (magalu_loader.MagaluDataLoader, magalu_fontes_externas.*Loader). É também
+# onde os arquivos de backup da última leitura válida do Google Trends
+# (ultimaLeituraGA.csv / ultimaLeituraGAporRegiao.csv) são lidos/gravados.
+PASTA_DADOS_PADRAO = "BD"
 
 
 # Mesmo mapa de tradução usado em magalu_fontes_externas.GoogleTrendsLoader,
@@ -137,11 +145,33 @@ class GoogleTrendsPyTrendsLoader:
             automática em caso de falha temporária (ex.: erro 403/429).
         proxies: lista de proxies no formato aceito pelo pytrends, repassada
             direto para TrendReq (útil se o IP de execução for bloqueado).
+        pasta_backup / nome_backup_temporal / nome_backup_regional: onde a
+            última leitura bem-sucedida é salva (veja "Rotina de segurança"
+            abaixo).
+
+    Rotina de segurança (backup da última leitura válida):
+    -----------------------------------------------------------
+    Toda vez que a consulta ao vivo funciona, o resultado é salvo em disco:
+        <pasta_backup>/ultimaLeituraGA.csv            (série temporal)
+        <pasta_backup>/ultimaLeituraGAporRegiao.csv    (por região)
+
+    Se a consulta ao vivo falhar (esgotar as `tentativas` configuradas —
+    padrão 3), em vez de lançar uma exceção e interromper o programa, o
+    carregador tenta ler esses dois arquivos de backup e usa a última
+    leitura válida conhecida. Depois de instanciado, `self.usando_backup`
+    informa se os dados vieram de uma consulta ao vivo (False) ou do backup
+    (True) — útil para logar/alertar que a informação pode estar
+    desatualizada. Se nem a consulta ao vivo nem o backup estiverem
+    disponíveis, uma exceção é lançada normalmente (não há dado nenhum
+    para trabalhar).
     """
 
-    def __init__(self, termos=("Magazine Luiza"), geo="BR", timeframe="all",
+    def __init__(self, termos=("Magazine Luiza",), geo="BR", timeframe="all",
                  idioma="pt-BR", fuso_horario=180, tentativas=3,
-                 espera_entre_tentativas=10, proxies=None):
+                 espera_entre_tentativas=10, proxies=None,
+                 pasta_backup=PASTA_DADOS_PADRAO,
+                 nome_backup_temporal="ultimaLeituraGA.csv",
+                 nome_backup_regional="ultimaLeituraGAporRegiao.csv"):
         if TrendReq is None:
             raise ImportError(
                 "A biblioteca 'pytrends' não está instalada. Instale com:\n"
@@ -153,6 +183,10 @@ class GoogleTrendsPyTrendsLoader:
         self.timeframe = timeframe
         self.tentativas = tentativas
         self.espera_entre_tentativas = espera_entre_tentativas
+        self.pasta_backup = pasta_backup
+        self.nome_backup_temporal = nome_backup_temporal
+        self.nome_backup_regional = nome_backup_regional
+        self.usando_backup = False
 
         self._pytrends = TrendReq(hl=idioma, tz=fuso_horario, proxies=proxies or "")
 
@@ -193,17 +227,83 @@ class GoogleTrendsPyTrendsLoader:
         return nome_regiao
 
     # ------------------------------------------------------------------
+    # Backup da última leitura válida
+    # ------------------------------------------------------------------
+    def _caminho_backup_temporal(self):
+        return os.path.join(self.pasta_backup, self.nome_backup_temporal)
+
+    def _caminho_backup_regional(self):
+        return os.path.join(self.pasta_backup, self.nome_backup_regional)
+
+    def _salvar_backup(self):
+        """Grava a leitura ao vivo (bem-sucedida) em disco, para servir de
+        última leitura válida caso uma consulta futura falhe."""
+        try:
+            os.makedirs(self.pasta_backup, exist_ok=True)
+            self.serie_temporal.to_csv(self._caminho_backup_temporal(), index=False, encoding='utf-8')
+            self.por_regiao.to_csv(self._caminho_backup_regional(), index=False, encoding='utf-8')
+            print(f"[GoogleTrendsPyTrendsLoader] Backup da leitura salvo em "
+                  f"'{self._caminho_backup_temporal()}' e '{self._caminho_backup_regional()}'.")
+        except OSError as erro:
+            # Falhar ao salvar o backup não deve derrubar uma leitura ao vivo
+            # que já funcionou — só avisa.
+            print(f"[GoogleTrendsPyTrendsLoader] Aviso: não foi possível salvar o "
+                  f"backup da leitura ({erro}).")
+
+    def _carregar_backup(self):
+        """Lê a última leitura válida salva em disco (usada quando a consulta
+        ao vivo falha após esgotar as tentativas)."""
+        caminho_temporal = self._caminho_backup_temporal()
+        caminho_regional = self._caminho_backup_regional()
+
+        if os.path.exists(caminho_temporal):
+            df = pd.read_csv(caminho_temporal, encoding='utf-8')
+            df['Data'] = pd.to_datetime(df['Data'])
+            self.serie_temporal = df.sort_values('Data').reset_index(drop=True)
+            print(f"[GoogleTrendsPyTrendsLoader] Série temporal recuperada do backup: "
+                  f"'{caminho_temporal}'.")
+        else:
+            print(f"[GoogleTrendsPyTrendsLoader] Aviso: nenhum backup encontrado em "
+                  f"'{caminho_temporal}'.")
+
+        if os.path.exists(caminho_regional):
+            self.por_regiao = pd.read_csv(caminho_regional, encoding='utf-8')
+            print(f"[GoogleTrendsPyTrendsLoader] Interesse por região recuperado do backup: "
+                  f"'{caminho_regional}'.")
+        else:
+            print(f"[GoogleTrendsPyTrendsLoader] Aviso: nenhum backup encontrado em "
+                  f"'{caminho_regional}'.")
+
+        if self.serie_temporal.empty and self.por_regiao.empty:
+            raise RuntimeError(
+                "A consulta ao vivo ao Google Trends falhou e nenhum arquivo de backup "
+                f"foi encontrado ('{caminho_temporal}' / '{caminho_regional}'). "
+                "Não há nenhum dado disponível para carregar."
+            )
+
+    # ------------------------------------------------------------------
     # Carregamento
     # ------------------------------------------------------------------
     def _carregar(self):
-        self._com_novas_tentativas(
-            "build_payload",
-            self._pytrends.build_payload,
-            kw_list=self.termos, timeframe=self.timeframe, geo=self.geo,
-        )
+        try:
+            self._com_novas_tentativas(
+                "build_payload",
+                self._pytrends.build_payload,
+                kw_list=self.termos, timeframe=self.timeframe, geo=self.geo,
+            )
+            self._carregar_serie_temporal()
+            self._carregar_por_regiao()
+        except RuntimeError as erro:
+            print(f"[GoogleTrendsPyTrendsLoader] Consulta ao vivo indisponível após "
+                  f"{self.tentativas} tentativa(s): {erro}")
+            print("[GoogleTrendsPyTrendsLoader] Carregando a última leitura válida "
+                  "salva em backup...")
+            self.usando_backup = True
+            self._carregar_backup()
+            return
 
-        self._carregar_serie_temporal()
-        self._carregar_por_regiao()
+        self.usando_backup = False
+        self._salvar_backup()
 
     def _carregar_serie_temporal(self):
         df = self._com_novas_tentativas(
@@ -264,6 +364,8 @@ class GoogleTrendsPyTrendsLoader:
 if __name__ == "__main__":
     try:
         trends = GoogleTrendsPyTrendsLoader()
+        print()
+        print("Usando dados de backup?" , trends.usando_backup)
         print("Série temporal -> shape:", trends.serie_temporal.shape)
         print(trends.get_serie_temporal().tail(5))
         print()

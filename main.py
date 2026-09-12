@@ -40,16 +40,29 @@ if modo_debug:
     cotacao.get_serie("Volume_Financeiro")      # Series só com o volume financeiro negociado
 
 # ----------------------------------------------------------------------
-# 3) Google Trends (Google_Trends_-_MAGAZINE_LUIZA_e_MAGALU_-_*.csv)
+# 3) Google Trends (ao vivo via pytrends, com backup automático em
+#    BD/ultimaLeituraGA.csv e BD/ultimaLeituraGAporRegiao.csv)
 # ----------------------------------------------------------------------
 # Personalizando termos, período e geografia:
 print("Carregando dados do Google Trends...")
-trends = GoogleTrendsPyTrendsLoader(
-    termos=["Magazine Luiza"],
-    geo="BR",
-    timeframe="all",     # 'all' = todo o histórico disponível (desde 2004)
-)
-if modo_debug:
+trends = None
+try:
+    trends = GoogleTrendsPyTrendsLoader(
+        termos=["Magazine Luiza"],
+        geo="BR",
+        timeframe="all",     # 'all' = todo o histórico disponível (desde 2004)
+    )
+    if trends.usando_backup:
+        print("⚠ Google Trends indisponível agora — usando a última leitura salva em backup "
+              "(pode estar desatualizada).")
+except RuntimeError as erro:
+    # Consulta ao vivo falhou E não havia backup salvo ainda (ex.: primeira
+    # execução neste ambiente). O restante do pipeline (planilha, cotação,
+    # Reclame Aqui) não depende do Trends, então seguimos em frente sem ele
+    # em vez de derrubar o script inteiro.
+    print(f"⚠ Não foi possível obter dados do Google Trends (nem ao vivo, nem backup): {erro}")
+
+if modo_debug and trends is not None:
     trends.serie_temporal        # DataFrame ['Ano', 'Data', 'Quantidade']
     trends.por_regiao            # DataFrame ['Região', 'Quantidade']
     trends.get_serie_temporal()  # Series indexada por data
