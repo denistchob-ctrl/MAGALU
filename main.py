@@ -7,7 +7,7 @@ from magalu_fontes_externas import (
     ReclameAquiLoader,
 )
 
-modo_debug = False
+modo_debug = True
 
 # ----------------------------------------------------------------------
 # 1) Planilha de resultados trimestrais (RESULTADO_2T26_POR.xlsx)
@@ -48,7 +48,9 @@ if modo_debug:
     trends.serie_temporal                          # série mensal desde 2004 (Ano, Time, Quantidade)
     trends.por_regiao                              # interesse agregado por região (Region, Quantidade)
     trends.get_serie_temporal()                    # Series indexada por data, com o total mensal
-    trends.get_por_regiao()                        # Series indexada por região, com o total agregado
+    gtregiao = trends.get_por_regiao()                        # Series indexada por região, com o total agregado
+    print("Top 10 regiões com mais interesse:")
+    print(gtregiao.sort_values(ascending=False).head(10))   # top 10 regiões com mais interesse
 
 # ----------------------------------------------------------------------
 # 4) Reclame Aqui (RA-<empresa>-<categoria>.csv)
@@ -58,10 +60,14 @@ if modo_debug:
 print("Carregando dados do Reclame Aqui...")
 ra = ReclameAquiLoader()
 if modo_debug:
-    ra.listar_empresas()                  # ex.: ['consorcio', 'fisica', 'luizacred', 'online']
+    empresas = ra.listar_empresas()                  # ex.: ['consorcio', 'fisica', 'luizacred', 'online']
+    print("Empresas com dados no Reclame Aqui:")
+    print(empresas)
     ra.listar_categorias("online")        # ex.: ['categorias', 'desempenho', 'problemas', 'produtos']
     ra.categorias("fisica")               # DataFrame: categoria x quantidade de reclamações
     ra.problemas("fisica")                # DataFrame: problema x quantidade de reclamações
     ra.produtos("fisica")                 # DataFrame: produto/serviço x quantidade de reclamações
     ra.desempenho("fisica")               # DataFrame: métricas anuais de reputação/atendimento
-    ra.get("luizacred", "desempenho")     # forma equivalente e genérica de acessar qualquer empresa/categoria
+    desempenho = ra.get("luizacred", "desempenho")     # forma equivalente e genérica de acessar qualquer empresa/categoria
+    print("Desempenho da Luizacred:")
+    print(desempenho)
