@@ -3,9 +3,9 @@ from magalu_limpeza import limpar_loader
 from magalu_export_txt import exportar_guias_para_txt, exportar_tudo_em_um_arquivo
 from magalu_fontes_externas import (
     CotacaoAcaoLoader,
-    GoogleTrendsLoader,
     ReclameAquiLoader,
 )
+from magalu_google_trends_live import GoogleTrendsPyTrendsLoader
 
 modo_debug = True
 
@@ -42,12 +42,17 @@ if modo_debug:
 # ----------------------------------------------------------------------
 # 3) Google Trends (Google_Trends_-_MAGAZINE_LUIZA_e_MAGALU_-_*.csv)
 # ----------------------------------------------------------------------
+# Personalizando termos, período e geografia:
 print("Carregando dados do Google Trends...")
-trends = GoogleTrendsLoader()
+trends = GoogleTrendsPyTrendsLoader(
+    termos=["Magazine Luiza", "MAGALU"],
+    geo="BR",
+    timeframe="all",     # 'all' = todo o histórico disponível (desde 2004)
+)
 if modo_debug:
-    trends.serie_temporal                          # série mensal desde 2004 (Ano, Time, Quantidade)
-    trends.por_regiao                              # interesse agregado por região (Region, Quantidade)
-    trends.get_serie_temporal()                    # Series indexada por data, com o total mensal
+    trends.serie_temporal        # DataFrame ['Ano', 'Time', 'Quantidade']
+    trends.por_regiao            # DataFrame ['Region', 'Quantidade']
+    trends.get_serie_temporal()  # Series indexada por data
     gtregiao = trends.get_por_regiao()                        # Series indexada por região, com o total agregado
     print("Top 10 regiões com mais interesse:")
     print(gtregiao.sort_values(ascending=False).head(10))   # top 10 regiões com mais interesse

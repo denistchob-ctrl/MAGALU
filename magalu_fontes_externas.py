@@ -3,8 +3,7 @@ magalu_fontes_externas.py
 ===========================
 Carregadores para as fontes de dados COMPLEMENTARES à planilha de resultados
 (RESULTADO_2T26_POR.xlsx), usadas para enriquecer a análise de evolução do
-Magazine Luiza: cotação da ação, interesse de busca (Google Trends) e
-reputação/reclamações (Reclame Aqui).
+Magazine Luiza: cotação da ação e reputação/reclamações (Reclame Aqui).
 
 Todos os arquivos são procurados, por padrão, dentro da pasta "BD" (mesma
 pasta usada pelo MagaluDataLoader) — basta soltar novos arquivos lá que os
@@ -15,19 +14,12 @@ Uso básico:
 -----------
     from magalu_fontes_externas import (
         CotacaoAcaoLoader,
-        GoogleTrendsLoader,
         ReclameAquiLoader,
     )
 
     cotacao = CotacaoAcaoLoader()
     cotacao.df                                  # DataFrame diário completo (índice = Data)
     cotacao.get_serie("Fechamento")              # pandas Series só com o fechamento
-
-    trends = GoogleTrendsLoader()
-    trends.serie_temporal                        # série mensal desde 2004 (Ano, Time, Quantidade)
-    trends.por_regiao                            # interesse agregado por região (Region, Quantidade)
-    trends.get_serie_temporal()                  # Series (índice = data) com o total mensal
-    trends.get_por_regiao()                      # Series (índice = região) com o total agregado
 
     ra = ReclameAquiLoader()
     ra.listar_empresas()                          # ['consorcio', 'fisica', 'luizacred', 'online']
@@ -40,7 +32,7 @@ Localização flexível de arquivo (espaço x underscore):
 --------------------------------------------------------
 Os nomes "auto-explicativos" desses arquivos às vezes têm espaço e às vezes
 underscore no lugar do espaço (isso já aconteceu na prática: o histórico de
-cotações e os arquivos do Google Trends vieram, num momento, com espaço, e
+cotações veio, num momento, com espaço, e
 o código esperava underscore — e vice-versa). Por isso a localização de
 arquivo aqui é tolerante a essa diferença (e também a maiúscula/minúscula e
 a acentos): "Histórico_de_Cotações_...xlsx" e "Histórico de Cotações...xlsx"
@@ -51,19 +43,6 @@ Arquivos esperados na pasta "BD":
 - Histórico de Cotações <...>.xlsx (ou com underscore no lugar do espaço)
     Aba "Historical", exportação típica do Investing.com, com colunas em
     formato brasileiro (texto com vírgula decimal, ponto de milhar, "%").
-
-- Google Trends - Desde <ANO>.csv
-    Série temporal mensal de interesse de busca desde o início do período
-    coberto (colunas: Time, Magazine Luiza).
-
-- Google Trends - Desde <ANO> por região.csv
-    Interesse de busca por região/estado, agregado no período coberto pelo
-    arquivo — não é quebrado por ano (colunas: Region, Magazine Luiza).
-
-    O carregador varre a pasta "BD" procurando arquivos que batem com esse
-    padrão de nome (tolerando espaço/underscore) — assim, se o export for
-    refeito no futuro com outro ano no nome (ex.: "Desde 2005"), já entra na
-    carga automaticamente, sem precisar mexer neste código.
 
 - RA-<empresa>-<categoria>.csv
     Exportações do Reclame Aqui, uma por empresa/categoria, ex.:
@@ -251,158 +230,6 @@ class CotacaoAcaoLoader:
 
 
 # ----------------------------------------------------------------------
-# 2) Google Trends
-# ----------------------------------------------------------------------
-class GoogleTrendsLoader:
-    """
-    Carrega os arquivos de Google Trends da marca: uma série temporal mensal
-    (desde 2004) e um detalhamento por região (agregado no período todo).
-
-    Cada arquivo tem hoje só 2 colunas (a chave — 'Time' ou 'Region' — e o
-    interesse de busca do termo pesquisado). A busca dos arquivos é por
-    padrão de nome (tolerando espaço/underscore/acento), então se o export
-    for refeito no futuro com um nome parecido (ex.: "Desde 2005" em vez de
-    "Desde 2004"), ou vier a trazer mais de um termo pesquisado na mesma
-    planilha, o carregador continua funcionando sem alteração de código —
-    veja _consolidar_termos().
-
-    Tradução das regiões:
-    ------------------------
-    Versões antigas desse export vinham com a região em inglês (ex.: "State
-    of São Paulo", "Federal District"); a versão atual já vem em português
-    (ex.: "São Paulo"). MAPA_REGIOES_PT trata os dois casos: se o nome já
-    estiver em português, é mantido como está; se vier no formato antigo em
-    inglês, é traduzido. Um nome no padrão "State of ..."/"Federal District"
-    que não esteja no mapa gera um aviso (provável estado novo/grafia nova),
-    mas não interrompe a carga.
-
-    Resultado:
-        self.serie_temporal -> DataFrame com colunas ['Ano', 'Time',
-            'Quantidade'], uma linha por mês, ordenado por data. 'Ano' é
-            derivado da própria data, só por conveniência para filtros.
-        self.por_regiao -> DataFrame com colunas ['Region', 'Quantidade'],
-            uma linha por região (índice de interesse agregado do período
-            coberto pelo arquivo — não é quebrado por ano).
-    """
-
-    # Nomes de região como o Google Trends já chegou a exportar em inglês ->
-    # nome usual em português. Mantido por compatibilidade com exports
-    # antigos; a versão atual do arquivo já vem em português.
-    MAPA_REGIOES_PT = {
-        'Federal District': 'Distrito Federal',
-        'State of Acre': 'Acre',
-        'State of Alagoas': 'Alagoas',
-        'State of Amapá': 'Amapá',
-        'State of Amazonas': 'Amazonas',
-        'State of Bahia': 'Bahia',
-        'State of Ceará': 'Ceará',
-        'State of Espírito Santo': 'Espírito Santo',
-        'State of Goiás': 'Goiás',
-        'State of Maranhão': 'Maranhão',
-        'State of Mato Grosso': 'Mato Grosso',
-        'State of Mato Grosso do Sul': 'Mato Grosso do Sul',
-        'State of Minas Gerais': 'Minas Gerais',
-        'State of Paraná': 'Paraná',
-        'State of Paraíba': 'Paraíba',
-        'State of Pará': 'Pará',
-        'State of Pernambuco': 'Pernambuco',
-        'State of Piauí': 'Piauí',
-        'State of Rio Grande do Norte': 'Rio Grande do Norte',
-        'State of Rio Grande do Sul': 'Rio Grande do Sul',
-        'State of Rio de Janeiro': 'Rio de Janeiro',
-        'State of Rondônia': 'Rondônia',
-        'State of Roraima': 'Roraima',
-        'State of Santa Catarina': 'Santa Catarina',
-        'State of Sergipe': 'Sergipe',
-        'State of São Paulo': 'São Paulo',
-        'State of Tocantins': 'Tocantins',
-    }
-
-    def __init__(self, pasta_dados=PASTA_DADOS_PADRAO,
-                 prefixo="Google Trends - Desde"):
-        self.pasta_dados = pasta_dados
-        self.prefixo = prefixo
-        self.serie_temporal = pd.DataFrame()
-        self.por_regiao = pd.DataFrame()
-        self._carregar()
-
-    def _listar_arquivos(self):
-        return _listar_arquivos_por_prefixo(self.pasta_dados, self.prefixo, extensao=".csv")
-
-    @staticmethod
-    def _eh_arquivo_regional(nome_arquivo):
-        nome_normalizado = _normalizar_nome_arquivo(nome_arquivo)
-        return 'regi' in nome_normalizado  # cobre "por regiao" / "por região"
-
-    def _traduzir_regiao(self, nome_regiao):
-        """Traduz o nome da região se ele vier no formato antigo em inglês
-        ('State of ...'/'Federal District'); nomes já em português (formato
-        atual do export) são mantidos como estão, sem aviso."""
-        if nome_regiao in self.MAPA_REGIOES_PT:
-            return self.MAPA_REGIOES_PT[nome_regiao]
-        if nome_regiao.startswith('State of ') or nome_regiao == 'Federal District':
-            print(f"[GoogleTrendsLoader] Aviso: região '{nome_regiao}' sem tradução "
-                  f"cadastrada em MAPA_REGIOES_PT — mantendo o nome original.")
-        return nome_regiao
-
-    @staticmethod
-    def _consolidar_termos(df, coluna_chave):
-        """Soma todas as colunas de termo pesquisado (todas, exceto a coluna
-        chave — 'Time' ou 'Region') em uma única coluna 'Quantidade'. Com um
-        só termo pesquisado (formato atual), a 'soma' é apenas aquele valor."""
-        colunas_termos = [c for c in df.columns if c != coluna_chave]
-        df = df.copy()
-        df['Quantidade'] = df[colunas_termos].sum(axis=1)
-        return df[[coluna_chave, 'Quantidade']]
-
-    def _carregar(self):
-        temporais, regionais = [], []
-
-        for caminho in self._listar_arquivos():
-            nome_arquivo = os.path.basename(caminho)
-            df = pd.read_csv(caminho, encoding='utf-8')
-
-            if self._eh_arquivo_regional(nome_arquivo):
-                df = self._consolidar_termos(df, 'Region')
-                df['Region'] = df['Region'].apply(self._traduzir_regiao)
-                regionais.append(df)
-            else:
-                df['Time'] = pd.to_datetime(df['Time'])
-                temporais.append(self._consolidar_termos(df, 'Time'))
-
-        if temporais:
-            serie = (
-                pd.concat(temporais, ignore_index=True)
-                .drop_duplicates(subset='Time', keep='last')
-                .sort_values('Time')
-                .reset_index(drop=True)
-            )
-            serie.insert(0, 'Ano', serie['Time'].dt.year)
-            self.serie_temporal = serie
-        if regionais:
-            self.por_regiao = (
-                pd.concat(regionais, ignore_index=True)
-                .groupby('Region', as_index=False)['Quantidade'].sum()
-                .sort_values('Region')
-                .reset_index(drop=True)
-            )
-
-    def get_serie_temporal(self):
-        """Devolve uma pandas Series (índice = data) com o interesse de busca
-        mensal (soma de todos os termos pesquisados, hoje só um: 'Magazine Luiza')."""
-        if self.serie_temporal.empty:
-            raise ValueError("Nenhum arquivo de série temporal do Google Trends foi encontrado.")
-        return self.serie_temporal.set_index('Time')['Quantidade']
-
-    def get_por_regiao(self):
-        """Devolve uma pandas Series (índice = região) com o interesse de busca
-        agregado por região (o arquivo de origem não é quebrado por ano)."""
-        if self.por_regiao.empty:
-            raise ValueError("Nenhum arquivo de Google Trends por região foi encontrado.")
-        return self.por_regiao.set_index('Region')['Quantidade']
-
-
-# ----------------------------------------------------------------------
 # 3) Reclame Aqui
 # ----------------------------------------------------------------------
 class ReclameAquiLoader:
@@ -541,14 +368,6 @@ if __name__ == "__main__":
     cotacao = CotacaoAcaoLoader()
     print("Cotação -> shape:", cotacao.df.shape)
     print(cotacao.df.tail(3))
-    print()
-
-    trends = GoogleTrendsLoader()
-    print("Google Trends (série temporal) -> shape:", trends.serie_temporal.shape)
-    print(trends.get_serie_temporal().tail(3))
-    print()
-    print("Google Trends (por região) -> shape:", trends.por_regiao.shape)
-    print(trends.get_por_regiao().head(5))
     print()
 
     ra = ReclameAquiLoader()
