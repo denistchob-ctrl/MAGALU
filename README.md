@@ -12,8 +12,10 @@
     * Dados segmentados pelas 4 empresas (física, online, LuizaCred e Consórcio)
     * e também por Desempenho, Problemas, Categorias e Produtos ou Serviços
 * Leitura dos dados dos Valores das Ações do MAGALU
-* Leitura dos dados do Google Trends com números das pesquisas no google para o termo MAGALU e Magazine Luiza
-* Dados segmentados por data e por região do Brasil
+* Leitura dos dados do Google Trends com números das pesquisas no google para o termo Magazine Luiza
+    * Os dados são lidos via API direto do Google Trends. Em caso positivo de leitura, um backup é gerado.
+    * Caso tente conectar via API e de erro por 3 vezes, o backup é utilizado.
+    * Dados segmentados por data e por região do Brasil
     * Foi realizada a tradução dos nomes dos estados que o Google Trends exportou quando fez a segmentação por região
 * Limpeza dos Dados
     * Valores nulos substituidos por zero
