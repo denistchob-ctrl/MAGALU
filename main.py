@@ -45,13 +45,13 @@ if modo_debug:
 # Personalizando termos, período e geografia:
 print("Carregando dados do Google Trends...")
 trends = GoogleTrendsPyTrendsLoader(
-    termos=["Magazine Luiza", "MAGALU"],
+    termos=["Magazine Luiza"],
     geo="BR",
     timeframe="all",     # 'all' = todo o histórico disponível (desde 2004)
 )
 if modo_debug:
-    trends.serie_temporal        # DataFrame ['Ano', 'Time', 'Quantidade']
-    trends.por_regiao            # DataFrame ['Region', 'Quantidade']
+    trends.serie_temporal        # DataFrame ['Ano', 'Data', 'Quantidade']
+    trends.por_regiao            # DataFrame ['Região', 'Quantidade']
     trends.get_serie_temporal()  # Series indexada por data
     gtregiao = trends.get_por_regiao()                        # Series indexada por região, com o total agregado
     print("Top 10 regiões com mais interesse:")

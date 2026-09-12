@@ -87,6 +87,7 @@ else:
 # para o caso (pouco provável, mas possível dependendo do parâmetro 'idioma')
 # de a API devolver o nome da região em inglês.
 MAPA_REGIOES_PT = {
+    'Region': 'Região',
     'Federal District': 'Distrito Federal',
     'State of Acre': 'Acre',
     'State of Alagoas': 'Alagoas',
@@ -138,7 +139,7 @@ class GoogleTrendsPyTrendsLoader:
             direto para TrendReq (útil se o IP de execução for bloqueado).
     """
 
-    def __init__(self, termos=("Magazine Luiza", "MAGALU"), geo="BR", timeframe="all",
+    def __init__(self, termos=("Magazine Luiza"), geo="BR", timeframe="all",
                  idioma="pt-BR", fuso_horario=180, tentativas=3,
                  espera_entre_tentativas=10, proxies=None):
         if TrendReq is None:
@@ -212,14 +213,14 @@ class GoogleTrendsPyTrendsLoader:
             return
 
         df = df.drop(columns=['isPartial'], errors='ignore')
-        df = df.reset_index().rename(columns={'date': 'Time'})
+        df = df.reset_index().rename(columns={'date': 'Data'})
 
         colunas_termos = [c for c in self.termos if c in df.columns]
         df['Quantidade'] = df[colunas_termos].sum(axis=1)
-        df = df[['Time', 'Quantidade']]
-        df.insert(0, 'Ano', df['Time'].dt.year)
+        df = df[['Data', 'Quantidade']]
+        df.insert(0, 'Ano', df['Data'].dt.year)
 
-        self.serie_temporal = df.sort_values('Time').reset_index(drop=True)
+        self.serie_temporal = df.sort_values('Data').reset_index(drop=True)
 
     def _carregar_por_regiao(self):
         df = self._com_novas_tentativas(
@@ -230,14 +231,14 @@ class GoogleTrendsPyTrendsLoader:
             return
 
         df = df.reset_index()
-        df = df.rename(columns={df.columns[0]: 'Region'})
+        df = df.rename(columns={df.columns[0]: 'Região'})  # a primeira coluna é o nome da região, mas o pytrends não garante o nome exato
 
         colunas_termos = [c for c in self.termos if c in df.columns]
         df['Quantidade'] = df[colunas_termos].sum(axis=1)
-        df = df[['Region', 'Quantidade']]
-        df['Region'] = df['Region'].apply(self._traduzir_regiao)
+        df = df[['Região', 'Quantidade']]
+        df['Região'] = df['Região'].apply(self._traduzir_regiao)
 
-        self.por_regiao = df.sort_values('Region').reset_index(drop=True)
+        self.por_regiao = df.sort_values('Região').reset_index(drop=True)
 
     # ------------------------------------------------------------------
     # Consulta (mesma interface de GoogleTrendsLoader)
@@ -247,14 +248,14 @@ class GoogleTrendsPyTrendsLoader:
         total (soma de todos os termos pesquisados)."""
         if self.serie_temporal.empty:
             raise ValueError("Nenhum dado de série temporal retornado pelo Google Trends.")
-        return self.serie_temporal.set_index('Time')['Quantidade']
+        return self.serie_temporal.set_index('Data')['Quantidade']
 
     def get_por_regiao(self):
         """Devolve uma pandas Series (índice = região) com o interesse de busca
         total agregado no período consultado."""
         if self.por_regiao.empty:
             raise ValueError("Nenhum dado de interesse por região retornado pelo Google Trends.")
-        return self.por_regiao.set_index('Region')['Quantidade']
+        return self.por_regiao.set_index('Região')['Quantidade']
 
 
 # ----------------------------------------------------------------------
