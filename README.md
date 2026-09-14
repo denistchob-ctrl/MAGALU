@@ -1,6 +1,8 @@
 # MAGALU
 ## PI MAGALU Dashboard
 
+Rotina rodando em: https://pi3-magalu.streamlit.app/
+
 ## Dados obtidos de:
 * Site MAGALU Institucional
 * Reclame Aqui
