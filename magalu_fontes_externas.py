@@ -205,7 +205,7 @@ class CotacaoAcaoLoader:
         'QUANT': 'Quantidade',
     }
 
-    def __init__(self, nome_arquivo="Histórico de Cotações 01-01-2018 a 25-09-2026.xlsx",
+    def __init__(self, nome_arquivo="Cotacoes.xlsx",
                  pasta_dados=PASTA_DADOS_PADRAO, aba="Historical"):
         self.pasta_dados = pasta_dados
         self.caminho = _encontrar_arquivo(pasta_dados, nome_arquivo)
