@@ -168,7 +168,7 @@ class GoogleTrendsPyTrendsLoader:
 
     def __init__(self, termos=("Magazine Luiza",), geo="BR", timeframe="all",
                  idioma="pt-BR", fuso_horario=180, tentativas=3,
-                 espera_entre_tentativas=10, proxies=None,
+                 espera_entre_tentativas=30, proxies=None,
                  pasta_backup=PASTA_DADOS_PADRAO,
                  nome_backup_temporal="ultimaLeituraGA.csv",
                  nome_backup_regional="ultimaLeituraGAporRegiao.csv"):

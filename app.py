@@ -1,68 +1,65 @@
 """
 app.py
 ========
-Ponto de entrada do app Streamlit. Monta o menu lateral (Início, Carga e
-Higienização dos Dados, Dashboard) e, quando o Dashboard está selecionado,
-os filtros de Ano e Fonte de informação. Delega a apresentação de cada
-página para as classes em paginas.py, e o acesso a dados para
-repositorio_dados.py — este arquivo só cuida de configuração e roteamento.
-
-Para rodar localmente:
-    streamlit run app.py
-
-Para publicar no Streamlit Community Cloud:
-    1. Suba este repositório (com a pasta BD/ incluída) no GitHub.
-    2. Em share.streamlit.io, aponte para este arquivo (app.py).
-    3. requirements.txt já lista as dependências necessárias.
+Ponto de entrada do app Streamlit. Menu lateral com as páginas do dashboard
+executivo (Abertura + 5 atos) e um seletor de período em cada página.
 """
 
 import streamlit as st
 
 from repositorio_dados import obter_repositorio
-from paginas import PaginaInicio, PaginaCargaHigienizacao, PaginaDashboard, FONTES
+from paginas_executivas import (
+    PaginaAbertura,
+    PaginaAto1,
+    PaginaAto2,
+    PaginaAto3,
+    PaginaAto4,
+    PaginaAto5,
+)
 
 st.set_page_config(
-    page_title="Evolução do Magazine Luiza",
+    page_title="Magazine Luiza — Dashboard Executivo",
     page_icon="📊",
     layout="wide",
 )
 
-MENU_INICIO = "Início"
-MENU_CARGA = "Carga e Higienização dos Dados"
-MENU_DASHBOARD = "Dashboard"
+MENU_ABERTURA = "🏠 Abertura"
+MENU_ATO1 = "1️⃣ Onde estamos"
+MENU_ATO2 = "2️⃣ Como o cliente nos vê"
+MENU_ATO3 = "3️⃣ Onde a marca é forte/fraca"
+MENU_ATO4 = "4️⃣ O que estamos fazendo"
+MENU_ATO5 = "5️⃣ O que fazer"
 
 PAGINAS = {
-    MENU_INICIO: PaginaInicio(),
-    MENU_CARGA: PaginaCargaHigienizacao(),
-    MENU_DASHBOARD: PaginaDashboard(),
+    MENU_ABERTURA: PaginaAbertura(),
+    MENU_ATO1: PaginaAto1(),
+    MENU_ATO2: PaginaAto2(),
+    MENU_ATO3: PaginaAto3(),
+    MENU_ATO4: PaginaAto4(),
+    MENU_ATO5: PaginaAto5(),
 }
 
 
 def main():
     repositorio = obter_repositorio()
 
-    st.sidebar.title("Menu")
+    st.sidebar.title("📊 Dashboard Executivo")
+    st.sidebar.caption("Magazine Luiza — análise 2021–2026")
+    st.sidebar.markdown("---")
+
     pagina_escolhida = st.sidebar.radio(
-        "Navegação", [MENU_INICIO, MENU_CARGA, MENU_DASHBOARD], label_visibility="collapsed"
+        "Navegação",
+        list(PAGINAS.keys()),
+        label_visibility="collapsed",
     )
 
-    ano = None
-    fonte = None
-    if pagina_escolhida == MENU_DASHBOARD:
-        st.sidebar.markdown("---")
-        st.sidebar.subheader("Filtros do dashboard")
-        ano = st.sidebar.selectbox("Filtro de ano", repositorio.anos_disponiveis(), index=len(repositorio.anos_disponiveis()) - 1)
-        fonte = st.sidebar.radio("Fonte de informações", FONTES)
-
+    # Aviso de fontes com problema
     if repositorio.erros:
         st.sidebar.markdown("---")
-        st.sidebar.caption(f"⚠ {len(repositorio.erros)} fonte(s) com problema de carga")
+        st.sidebar.caption(f"⚠ {len(repositorio.erros)} fonte(s) com problema")
 
-    pagina = PAGINAS[pagina_escolhida]
-    if pagina_escolhida == MENU_DASHBOARD:
-        pagina.render(repositorio, ano, fonte)
-    else:
-        pagina.render(repositorio)
+    # Render
+    PAGINAS[pagina_escolhida].render(repositorio)
 
 
 if __name__ == "__main__":

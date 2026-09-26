@@ -205,7 +205,7 @@ class CotacaoAcaoLoader:
         'QUANT': 'Quantidade',
     }
 
-    def __init__(self, nome_arquivo="Histórico de Cotações 01-01-2018 a 31-07-2026.xlsx",
+    def __init__(self, nome_arquivo="Histórico de Cotações 01-01-2018 a 25-09-2026.xlsx",
                  pasta_dados=PASTA_DADOS_PADRAO, aba="Historical"):
         self.pasta_dados = pasta_dados
         self.caminho = _encontrar_arquivo(pasta_dados, nome_arquivo)
@@ -252,6 +252,17 @@ class CotacaoAcaoLoader:
 # ----------------------------------------------------------------------
 class GoogleTrendsLoader:
     """
+    [LEGADO] Carregador de Google Trends a partir de CSVs exportados
+    manualmente. NÃO é mais usado pelo pipeline principal do projeto:
+    a série mensal agora vem do GoogleTrendsPyTrendsLoader (live, em
+    magalu_google_trends_live.py) e a região vem do consolidado anual
+    (GoogleTrendsPorRegiaoAnual, em magalu_google_trends_anual.py).
+
+    Mantido apenas como alternativa de leitura offline, caso a API do
+    Google Trends fique indisponível e não haja backup.
+
+    (restante do docstring original permanece)
+
     Carrega os arquivos de Google Trends da marca: uma série temporal mensal
     (desde 2004) e um detalhamento por região (agregado no período todo).
 

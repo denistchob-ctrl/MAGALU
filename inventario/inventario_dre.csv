@@ -1,0 +1,398 @@
+﻿guia;indicador;Trimestral (2018 A 2026);Semestral (2025 E 2026);"Anual
+(2018 A 2025)"
+1. Indicadores;Área de Vendas - Final do Período (M²);X;X;X
+1. Indicadores;Crescimento nas Vendas E-commerce (1P);X;X;X
+1. Indicadores;Crescimento nas Vendas E-commerce Total;X;X;X
+1. Indicadores;Crescimento nas Vendas Marketplace (3P);X;X;X
+1. Indicadores;Crescimento nas Vendas Mesmas Lojas Físicas;X;X;X
+1. Indicadores;Crescimento nas Vendas Totais Lojas Físicas;X;X;X
+1. Indicadores;EBITDA;X;X;X
+1. Indicadores;EBITDA Ajustado;X;X;X
+1. Indicadores;Lucro Bruto;X;X;X
+1. Indicadores;Lucro Líquido;X;X;X
+1. Indicadores;Lucro Líquido Ajustado;X;X;X
+1. Indicadores;Margem Bruta;X;X;X
+1. Indicadores;Margem EBITDA;X;X;X
+1. Indicadores;Margem EBITDA Ajustado;X;X;X
+1. Indicadores;Margem Líquida;X;X;X
+1. Indicadores;Margem Líquida Ajustada;X;X;X
+1. Indicadores;Participação E-commerce Total nas Vendas Totais;X;X;X
+1. Indicadores;Quantidade de Lojas - Final do Período;X;X;X
+1. Indicadores;Receita Bruta Total;X;X;X
+1. Indicadores;Receita Líquida Total;X;X;X
+1. Indicadores;Vendas Totais (incluindo marketplace);X;X;X
+10.Investimentos;Logística;X;X;X
+10.Investimentos;Lojas Físicas;X;X;X
+10.Investimentos;Outros;X;X;X
+10.Investimentos;Tecnologia;X;X;X
+10.Investimentos;Total;X;X;X
+11. Receita e Lojas por Canal;¹ Outras receitas estão compostas pelo Fundo Exclusivo | Lojas convencionais;X;X;X
+11. Receita e Lojas por Canal;¹ Outras receitas estão compostas pelo Fundo Exclusivo | Lojas virtuais;X;X;X
+11. Receita e Lojas por Canal;Área total de vendas (m²):;X;X;X
+11. Receita e Lojas por Canal;E-commerce;X;X;X
+11. Receita e Lojas por Canal;Lojas convencionais;X;X;X
+11. Receita e Lojas por Canal;Lojas virtuais;X;X;X
+11. Receita e Lojas por Canal;NÚMERO DE LOJAS POR CANAL;X;X;X
+11. Receita e Lojas por Canal;Outras Receitas ¹;X;X;X
+11. Receita e Lojas por Canal;Quiosques;X;X;X
+11. Receita e Lojas por Canal;Subtotal - Lojas Físicas;X;X;X
+11. Receita e Lojas por Canal;Subtotal: Lojas Físicas + E-commerce;X;X;X
+11. Receita e Lojas por Canal;Total;X;X;X
+11. Receita e Lojas por Canal;Total - Varejo;X;X;X
+12. Vendas e Lojas por Canal;¹ Outras receitas estão compostas pelo Fundo Exclusivo | Lojas convencionais;X;X;X
+12. Vendas e Lojas por Canal;¹ Outras receitas estão compostas pelo Fundo Exclusivo | Lojas virtuais;X;X;X
+12. Vendas e Lojas por Canal;Área total de vendas (m²):;X;X;X
+12. Vendas e Lojas por Canal;E-commerce Tradicional (1P);X;X;X
+12. Vendas e Lojas por Canal;Lojas convencionais;X;X;X
+12. Vendas e Lojas por Canal;Lojas virtuais;X;X;X
+12. Vendas e Lojas por Canal;Marketplace (3P);X;X;X
+12. Vendas e Lojas por Canal;Marketplace (3P);X;X;X
+12. Vendas e Lojas por Canal;NÚMERO DE LOJAS POR CANAL;X;X;X
+12. Vendas e Lojas por Canal;Outras receitas¹;X;X;X
+12. Vendas e Lojas por Canal;Quiosques;X;X;X
+12. Vendas e Lojas por Canal;Receita Bruta - Varejo;X;X;X
+12. Vendas e Lojas por Canal;Subtotal - E-commerce Total;X;X;X
+12. Vendas e Lojas por Canal;Subtotal - Lojas Físicas;X;X;X
+12. Vendas e Lojas por Canal;Total;X;X;X
+12. Vendas e Lojas por Canal;Vendas Totais;X;X;X
+13. Luizacred - DRE;Base Total de Cartões (mil);X;X;X
+13. Luizacred - DRE;Cartão;X;X;X
+13. Luizacred - DRE;Carteira Cartão;X;X;X
+13. Luizacred - DRE;Carteira CDC;X;X;X
+13. Luizacred - DRE;Carteira de Crédito;X;X;X
+13. Luizacred - DRE;Carteira Empréstimo Pessoal;X;X;X
+13. Luizacred - DRE;CDC;X;X;X
+13. Luizacred - DRE;Depreciação e Amortização;X;X;X
+13. Luizacred - DRE;Despesas da Intermediação Financeira;X;X;X
+13. Luizacred - DRE;Despesas de Pessoal;X;X;X
+13. Luizacred - DRE;Despesas Tributárias;X;X;X
+13. Luizacred - DRE;DRE (em R$ milhões);X;X;X
+13. Luizacred - DRE;EP;X;X;X
+13. Luizacred - DRE;Faturamento Cartão Fora do Magalu;X;X;X
+13. Luizacred - DRE;Faturamento Cartão no Magalu;X;X;X
+13. Luizacred - DRE;Faturamento CDC;X;X;X
+13. Luizacred - DRE;Faturamento Empréstimo Pessoal;X;X;X
+13. Luizacred - DRE;Faturamento Total Luizacred;X;X;X
+13. Luizacred - DRE;Imposto de Renda e Contribuição Social;X;X;X
+13. Luizacred - DRE;Lucro Líquido;X;X;X
+13. Luizacred - DRE;Operações de Captação no Mercado;X;X;X
+13. Luizacred - DRE;Outras Despesas Administrativas;X;X;X
+13. Luizacred - DRE;Outras Receitas (Despesas) Operacionais;X;X;X
+13. Luizacred - DRE;Outras Receitas (Despesas) Operacionais;X;X;X
+13. Luizacred - DRE;Provisão para Créditos de Liquidação Duvidosa;X;X;X
+13. Luizacred - DRE;Receitas da Intermediação Financeira;X;X;X
+13. Luizacred - DRE;Receitas de Prestação de Serviços;X;X;X
+13. Luizacred - DRE;Resultado Antes da Tributação sobre o Lucro;X;X;X
+13. Luizacred - DRE;Resultado Bruto da Intermediação Financeira;X;X;X
+13. Luizacred - DRE;Subtotal - Cartão Luiza;X;X;X
+3. DRE Consolidado;Custo Total;X;X;X
+3. DRE Consolidado;Depreciação e Amortização;X;X;X
+3. DRE Consolidado;Despesas com Vendas;X;X;X
+3. DRE Consolidado;Despesas Gerais e Administrativas;X;X;X
+3. DRE Consolidado;EBIT;X;X;X
+3. DRE Consolidado;EBITDA;X;X;X
+3. DRE Consolidado;EBITDA Ajustado;X;X;X
+3. DRE Consolidado;Equivalência Patrimonial;X;X;X
+3. DRE Consolidado;Impostos e Cancelamentos;X;X;X
+3. DRE Consolidado;IR / CS;X;X;X
+3. DRE Consolidado;Lucro (Prejuízo) Operacional;X;X;X
+3. DRE Consolidado;Lucro Bruto;X;X;X
+3. DRE Consolidado;Lucro Líquido;X;X;X
+3. DRE Consolidado;Lucro Líquido Ajustado;X;X;X
+3. DRE Consolidado;Margem Bruta;X;X;X
+3. DRE Consolidado;Margem EBITDA;X;X;X
+3. DRE Consolidado;Margem Líquida;X;X;X
+3. DRE Consolidado;Outras Receitas Operacionais, Líquidas;X;X;X
+3. DRE Consolidado;Perda em Liquidação Duvidosa;X;X;X
+3. DRE Consolidado;Receita Bruta;X;X;X
+3. DRE Consolidado;Receita Líquida;X;X;X
+3. DRE Consolidado;Reconciliação do EBITDA pelas despesas não recorrentes | EBITDA;X;X;X
+3. DRE Consolidado;Reconciliação do EBITDA pelas despesas não recorrentes | Lucro Líquido;X;X;X
+3. DRE Consolidado;Reconciliação do EBITDA pelas despesas não recorrentes | Resultado Não Recorrente;X;X;X
+3. DRE Consolidado;Reconciliação do EBITDA pelas despesas não recorrentes | Resultado Não Recorrente;X;X;X
+3. DRE Consolidado;Resultado Financeiro;X;X;X
+3. DRE Consolidado;Total de Despesas Operacionais;X;X;X
+7. Fluxo de Caixa Gerencial;Ações em Tesouraria;X;X;X
+7. Fluxo de Caixa Gerencial;Apropriação da Receita Diferida;X;X;X
+7. Fluxo de Caixa Gerencial;Aquisição de Imobilizado e Intangível;X;X;X
+7. Fluxo de Caixa Gerencial;Aumento de Capital em Controlada;X;X;X
+7. Fluxo de Caixa Gerencial;Aumento de Capital Privado;X;X;X
+7. Fluxo de Caixa Gerencial;Captação de Empréstimos e Financiamentos;X;X;X
+7. Fluxo de Caixa Gerencial;Contas a Receber;X;X;X
+7. Fluxo de Caixa Gerencial;Depósitos Judiciais;X;X;X
+7. Fluxo de Caixa Gerencial;Depreciação e Amortização;X;X;X
+7. Fluxo de Caixa Gerencial;Despesas com Plano de Opções de Ações e Outros;X;X;X
+7. Fluxo de Caixa Gerencial;Dividendos Recebidos;X;X;X
+7. Fluxo de Caixa Gerencial;Efeito de IR/CS Líquido de Pagamento;X;X;X
+7. Fluxo de Caixa Gerencial;Equivalência Patrimonial;X;X;X
+7. Fluxo de Caixa Gerencial;Estoques;X;X;X
+7. Fluxo de Caixa Gerencial;Fluxo de Caixa das Atividades de Financiamentos;X;X;X
+7. Fluxo de Caixa Gerencial;Fluxo de Caixa das Atividades de Investimentos;X;X;X
+7. Fluxo de Caixa Gerencial;Fluxo de Caixa das Atividades Operacionais;X;X;X
+7. Fluxo de Caixa Gerencial;Fornecedores (incluindo convênio);X;X;X
+7. Fluxo de Caixa Gerencial;Hedge de valor justo;X;X;X
+7. Fluxo de Caixa Gerencial;Investimento em Controlada;X;X;X
+7. Fluxo de Caixa Gerencial;Juros sobre Empréstimos Provisionados;X;X;X
+7. Fluxo de Caixa Gerencial;Lucro Líquido;X;X;X
+7. Fluxo de Caixa Gerencial;Lucro Líquido Ajustado;X;X;X
+7. Fluxo de Caixa Gerencial;Outras Contas a Pagar;X;X;X
+7. Fluxo de Caixa Gerencial;Outros Ativos;X;X;X
+7. Fluxo de Caixa Gerencial;Pagamento de Arrendamento Mercantil;X;X;X
+7. Fluxo de Caixa Gerencial;Pagamento de Dividendos;X;X;X
+7. Fluxo de Caixa Gerencial;Pagamento de Empréstimos e Financiamentos;X;X;X
+7. Fluxo de Caixa Gerencial;Pagamento de gastos com emissão de ações;X;X;X
+7. Fluxo de Caixa Gerencial;Pagamento de Juros sobre Arrendamento Mercantil;X;X;X
+7. Fluxo de Caixa Gerencial;Pagamento de Juros sobre Empréstimos e Financiamentos;X;X;X
+7. Fluxo de Caixa Gerencial;Provisão para Perdas de Estoques e Contas a Receber;X;X;X
+7. Fluxo de Caixa Gerencial;Provisão para Riscos Tributários, Cíveis e Trabalhistas;X;X;X
+7. Fluxo de Caixa Gerencial;Recursos provenientes da emissão de ações;X;X;X
+7. Fluxo de Caixa Gerencial;Resultado na Venda de Ativos;X;X;X
+7. Fluxo de Caixa Gerencial;Saldo Final de Caixa, Equivalentes e Títulos, Valores Mobiliários e Outros Ativos Financeiros;X;X;X
+7. Fluxo de Caixa Gerencial;Saldo Inicial de Caixa, Equivalentes e Títulos, Valores Mobiliários e Outros Ativos Financeiros;X;X;X
+7. Fluxo de Caixa Gerencial;Tributos a Recuperar;X;X;X
+7. Fluxo de Caixa Gerencial;Variação de Outros Ativos Financeiros (Hedge);X;X;X
+7. Fluxo de Caixa Gerencial;Variação no Caixa, Equivalentes e Títulos e Valores Mobiliários;X;X;X
+7. Fluxo de Caixa Gerencial;Variação nos Ativos Operacionais;X;X;X
+7. Fluxo de Caixa Gerencial;Variação nos Passivos Operacionais;X;X;X
+7. Fluxo de Caixa Gerencial;Venda de contrato de exclusividade e direito de exploração;X;X;X
+7. Fluxo de Caixa Gerencial;Venda de participação societária em controlada em conjunto;X;X;X
+8. Fluxo de Caixa Ajustado;- Saldo Final de Caixa;X;X;X
+8. Fluxo de Caixa Ajustado;- Saldo Final de Recebíveis;X;X;X
+8. Fluxo de Caixa Ajustado;- Saldo Final de TVM e Outros Ativos Financeiros;X;X;X
+8. Fluxo de Caixa Ajustado;Ações em Tesouraria;X;X;X
+8. Fluxo de Caixa Ajustado;Apropriação da Receita Diferida;X;X;X
+8. Fluxo de Caixa Ajustado;Aquisição de Imobilizado e Intangível;X;X;X
+8. Fluxo de Caixa Ajustado;Aumento de Capital em Controlada;X;X;X
+8. Fluxo de Caixa Ajustado;Aumento de Capital Privado;X;X;X
+8. Fluxo de Caixa Ajustado;Captação de Empréstimos e Financiamentos;X;X;X
+8. Fluxo de Caixa Ajustado;Contas a Receber Ajustado (sem Cartões de Terceiros) e Carteira de Crédito;X;X;X
+8. Fluxo de Caixa Ajustado;Depósitos Judiciais;X;X;X
+8. Fluxo de Caixa Ajustado;Depreciação e Amortização;X;X;X
+8. Fluxo de Caixa Ajustado;Despesas com Plano de Opções de Ações e Outros;X;X;X
+8. Fluxo de Caixa Ajustado;Dividendos Recebidos;X;X;X
+8. Fluxo de Caixa Ajustado;Efeito de IR/CS Líquido de Pagamento;X;X;X
+8. Fluxo de Caixa Ajustado;Equivalência Patrimonial;X;X;X
+8. Fluxo de Caixa Ajustado;Estoques;X;X;X
+8. Fluxo de Caixa Ajustado;Fluxo de Caixa das Atividades de Financiamentos;X;X;X
+8. Fluxo de Caixa Ajustado;Fluxo de Caixa das Atividades de Investimentos;X;X;X
+8. Fluxo de Caixa Ajustado;Fluxo de Caixa das Atividades Operacionais;X;X;X
+8. Fluxo de Caixa Ajustado;Fornecedores (incluindo convênio);X;X;X
+8. Fluxo de Caixa Ajustado;Hedge de valor justo;X;X;X
+8. Fluxo de Caixa Ajustado;Investimento em Controlada;X;X;X
+8. Fluxo de Caixa Ajustado;Juros sobre Empréstimos Provisionados;X;X;X
+8. Fluxo de Caixa Ajustado;Lucro Líquido;X;X;X
+8. Fluxo de Caixa Ajustado;Lucro Líquido Ajustado;X;X;X
+8. Fluxo de Caixa Ajustado;Outras Contas a Pagar;X;X;X
+8. Fluxo de Caixa Ajustado;Outros Ativos Ajustado (sem Cartão Luiza);X;X;X
+8. Fluxo de Caixa Ajustado;Pagamento de Arrendamento Mercantil;X;X;X
+8. Fluxo de Caixa Ajustado;Pagamento de Dividendos;X;X;X
+8. Fluxo de Caixa Ajustado;Pagamento de Empréstimos e Financiamentos;X;X;X
+8. Fluxo de Caixa Ajustado;Pagamento de gastos com emissão de ações;X;X;X
+8. Fluxo de Caixa Ajustado;Pagamento de Juros sobre Arrendamento Mercantil;X;X;X
+8. Fluxo de Caixa Ajustado;Pagamento de Juros sobre Empréstimos e Financiamentos;X;X;X
+8. Fluxo de Caixa Ajustado;Provisão para Perdas de Estoques e Contas a Receber;X;X;X
+8. Fluxo de Caixa Ajustado;Provisão para Riscos Tributários, Cíveis e Trabalhistas;X;X;X
+8. Fluxo de Caixa Ajustado;Recursos provenientes da emissão de ações;X;X;X
+8. Fluxo de Caixa Ajustado;Resultado na Venda de Ativos;X;X;X
+8. Fluxo de Caixa Ajustado;Saldo Final de Caixa, Equiv. e TVM, Recebíveis e Outros Ativos Financeiros;X;X;X
+8. Fluxo de Caixa Ajustado;Saldo Final de Caixa, Equiv. e TVM, Recebíveis e Outros Ativos Financeiros;X;X;X
+8. Fluxo de Caixa Ajustado;Saldo Inicial de Caixa, Equiv. e TVM, Recebíveis e Outros Ativos Financeiros;X;X;X
+8. Fluxo de Caixa Ajustado;Tributos a Recuperar;X;X;X
+8. Fluxo de Caixa Ajustado;Variação de Outros Ativos Financeiros (Hedge);X;X;X
+8. Fluxo de Caixa Ajustado;Variação no Caixa, Equivalentes e Títulos e Valores Mobiliários;X;X;X
+8. Fluxo de Caixa Ajustado;Variação nos Ativos Operacionais;X;X;X
+8. Fluxo de Caixa Ajustado;Variação nos Passivos Operacionais;X;X;X
+8. Fluxo de Caixa Ajustado;Venda de contrato de exclusividade e direito de exploração;X;X;X
+8. Fluxo de Caixa Ajustado;Venda de participação societária em controlada em conjunto;X;X;X
+9. Resultado Financeiro;Despesas Financeiras;X;X;X
+9. Resultado Financeiro;Juros Arrendamento Mercantil;X;X;X
+9. Resultado Financeiro;Juros de Antecipações de Cartão de Terceiros;X;X;X
+9. Resultado Financeiro;Juros de Antecipações de Cartão Luiza;X;X;X
+9. Resultado Financeiro;Juros de Empréstimos e Financiamentos;X;X;X
+9. Resultado Financeiro;Outras Despesas;X;X;X
+9. Resultado Financeiro;Outras Receitas Financeiras;X;X;X
+9. Resultado Financeiro;Receitas Financeiras;X;X;X
+9. Resultado Financeiro;Rendimento de Aplicações Financeiras;X;X;X
+9. Resultado Financeiro;Resultado Financeiro Líquido;X;X;X
+14. Luizacred - Carteira Atraso;000 a 014 dias;X;;
+14. Luizacred - Carteira Atraso;015 a 030 dias;X;;
+14. Luizacred - Carteira Atraso;031 a 060 dias;X;;
+14. Luizacred - Carteira Atraso;061 a 090 dias;X;;
+14. Luizacred - Carteira Atraso;091 a 120 dias;X;;
+14. Luizacred - Carteira Atraso;121 a 150 dias;X;;
+14. Luizacred - Carteira Atraso;151 a 180 dias;X;;
+14. Luizacred - Carteira Atraso;180 a 360 dias;X;;
+14. Luizacred - Carteira Atraso;Atraso de 15 a 90 Dias;X;;
+14. Luizacred - Carteira Atraso;Atraso Maior 90 Dias;X;;
+14. Luizacred - Carteira Atraso;Atraso Total;X;;
+14. Luizacred - Carteira Atraso;Carteira de Crédito (R$ milhões);X;;
+15. DRE Proforma;Custo Total;X;;
+15. DRE Proforma;Depreciação e amortização;X;;
+15. DRE Proforma;Despesas com vendas;X;;
+15. DRE Proforma;Despesas gerais e administrativas;X;;
+15. DRE Proforma;EBIT;X;;
+15. DRE Proforma;EBITDA;X;;
+15. DRE Proforma;Equivalência patrimonial;X;;
+15. DRE Proforma;Impostos e Cancelamentos;X;;
+15. DRE Proforma;IR / CS;X;;
+15. DRE Proforma;Lucro Bruto;X;;
+15. DRE Proforma;Lucro Líquido;X;;
+15. DRE Proforma;Lucro Operacional;X;;
+15. DRE Proforma;Margem Bruta;X;;
+15. DRE Proforma;Margem EBITDA;X;;
+15. DRE Proforma;Margem Líquida;X;;
+15. DRE Proforma;Outras receitas operacionais, líquidas;X;;
+15. DRE Proforma;Perda em liquidação duvidosa;X;;
+15. DRE Proforma;Receita Bruta;X;;
+15. DRE Proforma;Receita Líquida;X;;
+15. DRE Proforma;Resultado Financeiro;X;;
+15. DRE Proforma;Total de Despesas Operacionais;X;;
+4. Balanço Patrimonial;Ações em Tesouraria;X;;
+4. Balanço Patrimonial;Ajuste de Avaliação Patrimonial;X;;
+4. Balanço Patrimonial;ATIVO CIRCULANTE | Carteira de Crédito;X;;
+4. Balanço Patrimonial;ATIVO CIRCULANTE | Outros Ativos;X;;
+4. Balanço Patrimonial;ATIVO CIRCULANTE | Títulos e Valores Mobiliários;X;;
+4. Balanço Patrimonial;ATIVO CIRCULANTE | Tributos a Recuperar;X;;
+4. Balanço Patrimonial;ATIVO NÃO CIRCULANTE | Carteira de Crédito;X;;
+4. Balanço Patrimonial;ATIVO NÃO CIRCULANTE | Imposto de Renda e Contribuição Social Diferidos;X;;
+4. Balanço Patrimonial;ATIVO NÃO CIRCULANTE | Outros Ativos;X;;
+4. Balanço Patrimonial;ATIVO NÃO CIRCULANTE | Títulos e Valores Mobiliários;X;;
+4. Balanço Patrimonial;ATIVO NÃO CIRCULANTE | Tributos a Recuperar;X;;
+4. Balanço Patrimonial;Caixa e Equivalentes de Caixa;X;;
+4. Balanço Patrimonial;Capital Social;X;;
+4. Balanço Patrimonial;Contas a Receber;X;;
+4. Balanço Patrimonial;Contas a Receber - Cartão de Crédito;X;;
+4. Balanço Patrimonial;Contas a Receber - Outros;X;;
+4. Balanço Patrimonial;Depósito a Prazo;X;;
+4. Balanço Patrimonial;Depósitos a prazo;X;;
+4. Balanço Patrimonial;Depósitos Judiciais;X;;
+4. Balanço Patrimonial;Direito de uso;X;;
+4. Balanço Patrimonial;Dividendos a Pagar;X;;
+4. Balanço Patrimonial;Estoques;X;;
+4. Balanço Patrimonial;Fornecedores Convênio;X;;
+4. Balanço Patrimonial;Imobilizado;X;;
+4. Balanço Patrimonial;Imposto de Renda e Contribuição Social a Recuperar;X;;
+4. Balanço Patrimonial;Intangível;X;;
+4. Balanço Patrimonial;Investimentos em Controladas;X;;
+4. Balanço Patrimonial;Lucros (Prejuízos) Acumulados;X;;
+4. Balanço Patrimonial;Partes Relacionadas;X;;
+4. Balanço Patrimonial;Partes Relacionadas - Cartão Luiza;X;;
+4. Balanço Patrimonial;Partes Relacionadas - Outros;X;;
+4. Balanço Patrimonial;PASSIVO CIRCULANTE | Arrendamento Mercantil;X;;
+4. Balanço Patrimonial;PASSIVO CIRCULANTE | Empréstimos e Financiamentos;X;;
+4. Balanço Patrimonial;PASSIVO CIRCULANTE | Fornecedores;X;;
+4. Balanço Patrimonial;PASSIVO CIRCULANTE | Fornecedores;X;;
+4. Balanço Patrimonial;PASSIVO CIRCULANTE | Outras Contas a Pagar;X;;
+4. Balanço Patrimonial;PASSIVO CIRCULANTE | Receita Diferida;X;;
+4. Balanço Patrimonial;PASSIVO CIRCULANTE | Tributos a Recolher;X;;
+4. Balanço Patrimonial;PASSIVO E PATRIMÔNIO LÍQUIDO;X;;
+4. Balanço Patrimonial;PASSIVO NÃO CIRCULANTE | Arrendamento Mercantil;X;;
+4. Balanço Patrimonial;PASSIVO NÃO CIRCULANTE | Empréstimos e Financiamentos;X;;
+4. Balanço Patrimonial;PASSIVO NÃO CIRCULANTE | Imposto de Renda e Contribuição Social Diferidos;X;;
+4. Balanço Patrimonial;PASSIVO NÃO CIRCULANTE | Outras Contas a Pagar;X;;
+4. Balanço Patrimonial;PASSIVO NÃO CIRCULANTE | Receita Diferida;X;;
+4. Balanço Patrimonial;PASSIVO NÃO CIRCULANTE | Tributos a Recolher;X;;
+4. Balanço Patrimonial;Provisão para Riscos Tributários, Cíveis e Trabalhistas;X;;
+4. Balanço Patrimonial;Repasses e outros depósitos;X;;
+4. Balanço Patrimonial;Reserva de Capital;X;;
+4. Balanço Patrimonial;Reserva de Retenção de Lucros;X;;
+4. Balanço Patrimonial;Reserva Legal;X;;
+4. Balanço Patrimonial;Salários, Férias e Encargos Sociais;X;;
+4. Balanço Patrimonial;TOTAL DO ATIVO;X;;
+4. Balanço Patrimonial;Total do Ativo Circulante;X;;
+4. Balanço Patrimonial;Total do Ativo não Circulante;X;;
+4. Balanço Patrimonial;TOTAL DO PASSIVO;X;;
+4. Balanço Patrimonial;Total do Passivo Circulante;X;;
+4. Balanço Patrimonial;TOTAL DO PASSIVO E PATRIMÔNIO LÍQUIDO;X;;
+4. Balanço Patrimonial;Total do Passivo não Circulante;X;;
+4. Balanço Patrimonial;Total do Patrimônio Líquido;X;;
+5. Capital de Giro Ajustado;% da Receita Bruta dos Últimos 12 Meses;X;;
+5. Capital de Giro Ajustado;% da Receita Bruta dos Últimos 12 Meses;X;;
+5. Capital de Giro Ajustado;(-) Cartão de Crédito - Luizacred;X;;
+5. Capital de Giro Ajustado;(-) Cartões de Crédito - Terceiros;X;;
+5. Capital de Giro Ajustado;(-) Contas a Receber - Cartões de Crédito;X;;
+5. Capital de Giro Ajustado;(-) Fornecedores (incluindo convênio);X;;
+5. Capital de Giro Ajustado;(-) Impostos a Recolher;X;;
+5. Capital de Giro Ajustado;(-) Outras Contas a Pagar;X;;
+5. Capital de Giro Ajustado;(-) Partes Relacionadas;X;;
+5. Capital de Giro Ajustado;(-) Passivos Circulantes Operacionais;X;;
+5. Capital de Giro Ajustado;(-) Receita Diferida;X;;
+5. Capital de Giro Ajustado;(-) Repasses e Outros Depósitos;X;;
+5. Capital de Giro Ajustado;(-) Salários, Férias e Encargos Sociais;X;;
+5. Capital de Giro Ajustado;(+) Ativos Circulantes Operacionais;X;;
+5. Capital de Giro Ajustado;(+) Contas a Receber (sem Cartões de Crédito);X;;
+5. Capital de Giro Ajustado;(+) Estoques;X;;
+5. Capital de Giro Ajustado;(+) Imposto de Renda e Contribuição Social a Recuperar;X;;
+5. Capital de Giro Ajustado;(+) Outros Ativos;X;;
+5. Capital de Giro Ajustado;(+) Partes Relacionadas (sem Cartão Luiza);X;;
+5. Capital de Giro Ajustado;(+) Saldo de Recebíveis Descontados;X;;
+5. Capital de Giro Ajustado;(+) Tributos a Recuperar;X;;
+5. Capital de Giro Ajustado;(=) Capital de Giro Ajustado;X;;
+5. Capital de Giro Ajustado;(=) Capital de Giro Ampliado;X;;
+5. Capital de Giro Ajustado;Receita Bruta dos Últimos 12 Meses;X;;
+5. Capital de Giro Ajustado;Saldo de cartão;X;;
+6. Estrutura de Capital;(-) Depósito a prazo;X;;
+6. Estrutura de Capital;(-) Empréstimos e Financiamentos Circulante;X;;
+6. Estrutura de Capital;(-) Empréstimos e Financiamentos não Circulante;X;;
+6. Estrutura de Capital;(+) Caixa e Aplicações Financeiras;X;;
+6. Estrutura de Capital;(+) Caixa e Equivalentes de Caixa;X;;
+6. Estrutura de Capital;(+) Cartão de Crédito - Luizacred;X;;
+6. Estrutura de Capital;(+) Carteira de Crédito;X;;
+6. Estrutura de Capital;(+) Cartões de Crédito - Terceiros;X;;
+6. Estrutura de Capital;(+) Contas a Receber - Cartões de Crédito;X;;
+6. Estrutura de Capital;(+) Títulos e Valores Mobiliários Circulante;X;;
+6. Estrutura de Capital;(+) Títulos e Valores Mobiliários não Circulante;X;;
+6. Estrutura de Capital;(=) Caixa + Carteira de Crédito Líquidos;X;;
+6. Estrutura de Capital;(=) Caixa Líquido;X;;
+6. Estrutura de Capital;(=) Caixa Líquido Ajustado;X;;
+6. Estrutura de Capital;(=) Endividamento Bruto;X;;
+6. Estrutura de Capital;Caixa Líquido Ajustado / EBITDA Ajustado;X;;
+6. Estrutura de Capital;Caixa, Aplicações e Cartões de Crédito;X;;
+6. Estrutura de Capital;EBITDA Ajustado (Últimos 12 Meses);X;;
+6. Estrutura de Capital;Endividamento de Curto Prazo / Total;X;;
+6. Estrutura de Capital;Endividamento de Longo Prazo / Total;X;;
+14. Luizacred - Carteira Atraso;Carteira Total em IFRS 9 (R$ milhões);;;
+14. Luizacred - Carteira Atraso;Expectativa de Recebimento de Carteira Vencida acima 360 dias;;;
+14. Luizacred - Carteira Atraso;Índice de Cobertura Total;;;
+14. Luizacred - Carteira Atraso;PDD Total em IFRS 9;;;
+2. Ajustado;Custo Total;;;
+2. Ajustado;Depreciação e Amortização;;;
+2. Ajustado;Despesas com Vendas;;;
+2. Ajustado;Despesas Gerais e Administrativas;;;
+2. Ajustado;EBIT;;;
+2. Ajustado;EBITDA;;;
+2. Ajustado;Equivalência Patrimonial;;;
+2. Ajustado;Impostos e Cancelamentos;;;
+2. Ajustado;IR / CS;;;
+2. Ajustado;Lucro Bruto;;;
+2. Ajustado;Lucro Líquido;;;
+2. Ajustado;Lucro Operacional;;;
+2. Ajustado;Outras Receitas Operacionais, Líquidas;;;
+2. Ajustado;Perda em Liquidação Duvidosa;;;
+2. Ajustado;Receita Bruta;;;
+2. Ajustado;Receita Líquida;;;
+2. Ajustado;Resultado Financeiro;;;
+2. Ajustado;Total de Despesas Operacionais;;;
+2.1 Ajustes Não Recorrentes;Ajuste de competência;;;
+2.1 Ajustes Não Recorrentes;Ajustes - EBIT;;;
+2.1 Ajustes Não Recorrentes;Ajustes - EBITDA;;;
+2.1 Ajustes Não Recorrentes;Ajustes - Lucro Bruto;;;
+2.1 Ajustes Não Recorrentes;Ajustes - Lucro Líquido;;;
+2.1 Ajustes Não Recorrentes;Ajustes - Resultado Financeiro;;;
+2.1 Ajustes Não Recorrentes;Amortização do ágio de aquisições referentes a períodos anteriores;;;
+2.1 Ajustes Não Recorrentes;Atualização monetária créditos tributários;;;
+2.1 Ajustes Não Recorrentes;Baixa de repasses a sellers;;;
+2.1 Ajustes Não Recorrentes;Créditos tributários;;;
+2.1 Ajustes Não Recorrentes;Despesas reestruturação e integração;;;
+2.1 Ajustes Não Recorrentes;Ganho (Perda) na Venda de Ativo Imobilizado;;;
+2.1 Ajustes Não Recorrentes;Honorários especialistas;;;
+2.1 Ajustes Não Recorrentes;IR / CS;;;
+2.1 Ajustes Não Recorrentes;IR / CS diferido sobre ágio na incorporação de controladas;;;
+2.1 Ajustes Não Recorrentes;Outras despesas;;;
+2.1 Ajustes Não Recorrentes;PDD;;;
+2.1 Ajustes Não Recorrentes;Provisão adicional de estoques;;;
+2.1 Ajustes Não Recorrentes;Provisão para riscos tributários, cíveis e trabalhistas;;;
+2.1 Ajustes Não Recorrentes;Resultado de equivalência patrimonial;;;
+2.1 Ajustes Não Recorrentes;Revisão de estimativas;;;
+2.1 Ajustes Não Recorrentes;Valor justo do passivo de aquisição de empresas;;;
+2.1 Ajustes Não Recorrentes;Venda de participação societária;;;

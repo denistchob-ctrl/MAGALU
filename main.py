@@ -6,6 +6,7 @@ from magalu_fontes_externas import (
     ReclameAquiLoader,
 )
 from magalu_google_trends_live import GoogleTrendsPyTrendsLoader
+from magalu_google_trends_anual import GoogleTrendsPorRegiaoAnual
 
 modo_debug = True
 
@@ -15,77 +16,96 @@ modo_debug = True
 # ----------------------------------------------------------------------
 print("Carregando planilha de resultados trimestrais...")
 loader = MagaluDataLoader("RESULTADO_2T26_POR.xlsx")
-relatorios = limpar_loader(loader)   # limpa loader.dados, loader.colunas e loader.arrays "in place"
+relatorios = limpar_loader(loader)   # limpa in place
 
 if modo_debug:
-    loader.listar_guias()                          # todas as guias
-    loader.listar_indicadores("1. Indicadores")     # linhas disponíveis numa guia
-    loader.get_series("1. Indicadores", "EBITDA")   # array (Series) indexado por trimestre
-    loader.get_array("1. Indicadores", "EBITDA")    # só o numpy array, sem rótulos
-    loader.get_sheet_df("4. Balanço Patrimonial")   # DataFrame completo da guia
-    loader.buscar_indicador("margem")               # busca indicador em todas as guias de uma vez
-
-    # (opcional) gera os .txt de conferência já com os dados limpos
+    loader.listar_guias()
+    loader.listar_indicadores("1. Indicadores")
+    loader.get_series("1. Indicadores", "EBITDA")
+    loader.get_array("1. Indicadores", "EBITDA")
+    loader.get_sheet_df("4. Balanço Patrimonial")
+    loader.buscar_indicador("margem")
     # exportar_guias_para_txt(loader, pasta_saida="saida_txt")
     # exportar_tudo_em_um_arquivo(loader, caminho_saida="saida_txt/00_TODAS_AS_GUIAS.txt")
 
 # ----------------------------------------------------------------------
-# 2) Cotação da ação (Histórico_de_Cotações_...xlsx)
+# 2) Cotação da ação
 # ----------------------------------------------------------------------
 print("Carregando histórico de cotações da ação...")
 cotacao = CotacaoAcaoLoader()
 if modo_debug:
-    cotacao.df                                  # DataFrame diário completo (índice = Data)
-    cotacao.get_serie("Fechamento")             # Series só com o fechamento
-    cotacao.get_serie("Volume_Financeiro")      # Series só com o volume financeiro negociado
+    cotacao.df
+    cotacao.get_serie("Fechamento")
+    cotacao.get_serie("Volume_Financeiro")
 
 # ----------------------------------------------------------------------
-# 3) Google Trends (ao vivo via pytrends, com backup automático em
-#    BD/ultimaLeituraGA.csv e BD/ultimaLeituraGAporRegiao.csv)
+# 3) Google Trends (ao vivo via pytrends, com backup automático)
+#    - Série mensal: backup em BD/ultimaLeituraGA.csv
+#    - Região agregada do loader live é IGNORADA — a região passa a vir
+#      do consolidado anual (ver bloco 3b).
 # ----------------------------------------------------------------------
-# Personalizando termos, período e geografia:
-print("Carregando dados do Google Trends...")
+print("Carregando dados do Google Trends (série mensal)...")
 trends = None
 try:
     trends = GoogleTrendsPyTrendsLoader(
         termos=["Magazine Luiza"],
         geo="BR",
-        timeframe="all",     # 'all' = todo o histórico disponível (desde 2004)
+        timeframe="all",
     )
     if trends.usando_backup:
-        print("⚠ Google Trends indisponível agora — usando a última leitura salva em backup "
-              "(pode estar desatualizada).")
+        print("⚠ Google Trends indisponível agora — usando a última leitura "
+              "salva em backup (pode estar desatualizada).")
 except RuntimeError as erro:
-    # Consulta ao vivo falhou E não havia backup salvo ainda (ex.: primeira
-    # execução neste ambiente). O restante do pipeline (planilha, cotação,
-    # Reclame Aqui) não depende do Trends, então seguimos em frente sem ele
-    # em vez de derrubar o script inteiro.
-    print(f"⚠ Não foi possível obter dados do Google Trends (nem ao vivo, nem backup): {erro}")
+    print(f"⚠ Não foi possível obter dados do Google Trends (nem ao vivo, "
+          f"nem backup): {erro}")
 
 if modo_debug and trends is not None:
-    trends.serie_temporal        # DataFrame ['Ano', 'Data', 'Quantidade']
-    trends.por_regiao            # DataFrame ['Região', 'Quantidade']
-    trends.get_serie_temporal()  # Series indexada por data
-    gtregiao = trends.get_por_regiao()                        # Series indexada por região, com o total agregado
-    print("Top 10 regiões com mais interesse:")
-    print(gtregiao.sort_values(ascending=False).head(10))   # top 10 regiões com mais interesse
+    trends.serie_temporal
+    trends.get_serie_temporal()
 
 # ----------------------------------------------------------------------
-# 4) Reclame Aqui (RA-<empresa>-<categoria>.csv)
-#    Empresas descobertas automaticamente na pasta BD: consorcio, fisica,
-#    online, luizacred (grafias "luizcred"/"luizacred" são unificadas).
+# 3b) Google Trends por região, ano a ano (fonte única de verdade p/ região)
+#     Anos passados vêm do consolidado em disco (GA_porRegiao_ano_a_ano.csv);
+#     apenas o ano corrente é reconsultado ao vivo no Google Trends.
+#     Derivados gerados automaticamente:
+#       - GA_porRegiao_agregada.csv
+#       - GA_serie_temporal_anualizada.csv
+# ----------------------------------------------------------------------
+print("Carregando Google Trends por região, ano a ano...")
+ga_anual = GoogleTrendsPorRegiaoAnual(
+    ano_inicio=2004,
+    ano_fim=2026,
+    termos=["Magazine Luiza"],
+    apenas_ano_corrente_ao_vivo=True,
+    pausa_entre_anos=15,
+)
+
+if modo_debug:
+    print("Anos disponíveis:", ga_anual.anos_disponiveis())
+    print("Regiões disponíveis:", ga_anual.regioes_disponiveis())
+    print("\nPrimeiras linhas do consolidado:")
+    print(ga_anual.df.head(10))
+    print("\nTop 10 regiões em 2024:")
+    print(ga_anual.df_por_ano(2024).sort_values(ascending=False).head(10))
+    print("\nRegião agregada (soma dos anos):")
+    print(ga_anual.regiao_agregada().sort_values("Quantidade", ascending=False).head(10))
+    print("\nSérie anualizada:")
+    print(ga_anual.serie_temporal_anualizada())
+
+# ----------------------------------------------------------------------
+# 4) Reclame Aqui
 # ----------------------------------------------------------------------
 print("Carregando dados do Reclame Aqui...")
 ra = ReclameAquiLoader()
 if modo_debug:
-    empresas = ra.listar_empresas()                  # ex.: ['consorcio', 'fisica', 'luizacred', 'online']
+    empresas = ra.listar_empresas()
     print("Empresas com dados no Reclame Aqui:")
     print(empresas)
-    ra.listar_categorias("online")        # ex.: ['categorias', 'desempenho', 'problemas', 'produtos']
-    ra.categorias("fisica")               # DataFrame: categoria x quantidade de reclamações
-    ra.problemas("fisica")                # DataFrame: problema x quantidade de reclamações
-    ra.produtos("fisica")                 # DataFrame: produto/serviço x quantidade de reclamações
-    ra.desempenho("fisica")               # DataFrame: métricas anuais de reputação/atendimento
-    desempenho = ra.get("luizacred", "desempenho")     # forma equivalente e genérica de acessar qualquer empresa/categoria
+    ra.listar_categorias("online")
+    ra.categorias("fisica")
+    ra.problemas("fisica")
+    ra.produtos("fisica")
+    ra.desempenho("fisica")
+    desempenho = ra.get("luizacred", "desempenho")
     print("Desempenho da Luizacred:")
     print(desempenho)

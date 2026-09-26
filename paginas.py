@@ -35,7 +35,7 @@ class PaginaInicio:
             "DRE": ("📊", "Planilha de resultados trimestrais (RESULTADO_2T26_POR.xlsx)"),
             "Cotações": ("📈", "Histórico diário da ação na bolsa"),
             "Reclame Aqui": ("🗣️", "Reputação e reclamações — 4 unidades de negócio"),
-            "Google Trends": ("🔎", "Interesse de busca pela marca, ao vivo"),
+            "Google Trends": ("🔎", "Interesse de busca pela marca (série mensal + ano a ano)"),
         }
         for coluna, fonte in zip(colunas, FONTES):
             icone, descricao = descricoes[fonte]
@@ -83,8 +83,10 @@ class PaginaCargaHigienizacao:
 
         with st.expander("Ver guias e o que a higienização ajustou em cada uma"):
             for relatorio in repositorio.relatorios_limpeza_dre:
-                mudou = (relatorio["cabecalhos_renomeados"] or relatorio["colunas_removidas"]
-                         or relatorio.get("tracos_convertidos") or relatorio["valores_zerados"])
+                mudou = (relatorio["cabecalhos_renomeados"]
+                         or relatorio["colunas_removidas"]
+                         or relatorio.get("tracos_convertidos")
+                         or relatorio["valores_zerados"])
                 marcador = "🧹" if mudou else "✓"
                 st.markdown(f"**{marcador} {relatorio['guia']}**")
                 if relatorio["cabecalhos_renomeados"]:
@@ -101,7 +103,8 @@ class PaginaCargaHigienizacao:
             return
 
         df = repositorio.cotacao.df
-        st.write(f"**{len(df)} pregões carregados**, de {df.index.min().date()} a {df.index.max().date()}.")
+        st.write(f"**{len(df)} pregões carregados**, de {df.index.min().date()} "
+                 f"a {df.index.max().date()}.")
         with st.expander("Ver amostra dos dados"):
             st.dataframe(df.tail(5))
 
@@ -120,16 +123,52 @@ class PaginaCargaHigienizacao:
 
     def _secao_google_trends(self, repositorio):
         st.markdown("## Google Trends")
-        if "Google Trends" in repositorio.erros:
-            st.error(f"Falha ao carregar: {repositorio.erros['Google Trends']}")
+
+        # --- Série mensal (loader live) ---
+        trends = getattr(repositorio, "trends", None)
+        if trends is None:
+            st.warning("Google Trends (série mensal) não carregado.")
+        else:
+            if trends.usando_backup:
+                st.warning("⚠ Consulta ao vivo indisponível agora — exibindo a "
+                           "última leitura salva em backup.")
+            else:
+                st.success("Série mensal obtida ao vivo (Google Trends).")
+            st.write(f"**{len(trends.serie_temporal)} meses** carregados "
+                     f"(granularidade mensal).")
+            st.caption("A região agregada do loader live foi DESCONSIDERADA — "
+                       "ela era uma 'foto' de um momento específico e ficava "
+                       "inconsistente com o consolidado ano a ano.")
+
+        # --- Consolidado ano a ano (fonte única de verdade p/ região) ---
+        st.markdown("### Interesse por região — ano a ano")
+        ga_anual = getattr(repositorio, "ga_anual", None)
+        if ga_anual is None or ga_anual.df.empty:
+            st.info("Sem dados consolidados por região/ano.")
             return
 
-        trends = repositorio.trends
-        if trends.usando_backup:
-            st.warning("⚠ Consulta ao vivo indisponível agora — exibindo a última leitura salva em backup.")
-        else:
-            st.success("Dados obtidos ao vivo (Google Trends).")
-        st.write(f"**{len(trends.serie_temporal)} meses** e **{len(trends.por_regiao)} regiões** carregados.")
+        anos = ga_anual.anos_disponiveis()
+        regioes = ga_anual.regioes_disponiveis()
+        st.write(
+            f"**{len(ga_anual.df)} linhas** consolidadas, cobrindo "
+            f"**{len(anos)} ano(s)** ({anos[0]}–{anos[-1]}) e "
+            f"**{len(regioes)} região(ões)**."
+        )
+        st.caption(
+            "Anos passados são lidos do backup consolidado "
+            "(`GA_porRegiao_ano_a_ano.csv`); apenas o ano corrente "
+            f"({anos[-1]}) é reconsultado ao vivo."
+        )
+
+        with st.expander("Ver amostra do consolidado"):
+            st.dataframe(ga_anual.df.head(20))
+
+        with st.expander("Ver região agregada (derivada do consolidado)"):
+            serie = repositorio.trends_regiao_agregada()
+            if not serie.empty:
+                st.dataframe(serie.sort_values(ascending=False))
+            else:
+                st.info("Sem dados.")
 
 
 class PaginaDashboard:
@@ -155,7 +194,8 @@ class PaginaDashboard:
 
     def _dashboard_dre(self, repositorio, ano):
         indicador = st.selectbox(
-            "Indicador", ["EBITDA", "Receita Líquida Total", "Lucro Líquido", "Margem EBITDA"]
+            "Indicador",
+            ["EBITDA", "Receita Líquida Total", "Lucro Líquido", "Margem EBITDA"],
         )
         serie = repositorio.serie_dre_por_ano("1. Indicadores", indicador, ano)
         fig = FabricaGraficos.dre_trimestral(serie, indicador, ano)
@@ -182,8 +222,39 @@ class PaginaDashboard:
         st.plotly_chart(fig2, width='stretch')
 
     def _dashboard_trends(self, repositorio, ano):
+        st.subheader("Google Trends — interesse de busca")
+
+        # 1) Série mensal do ano
         df = repositorio.trends_por_ano(ano)
         fig = FabricaGraficos.google_trends_mensal(df, ano)
         st.plotly_chart(fig, width='stretch')
-        if repositorio.trends.usando_backup:
-            st.caption("⚠ Exibindo última leitura salva em backup (consulta ao vivo indisponível).")
+
+        if repositorio.trends and repositorio.trends.usando_backup:
+            st.caption("⚠ Série mensal vinda do backup (consulta ao vivo indisponível).")
+
+        # 2) Ranking por região no ano
+        st.markdown("---")
+        serie_regiao = repositorio.trends_regiao_por_ano(ano)
+        if not serie_regiao.empty:
+            fig2 = FabricaGraficos.google_trends_regiao_barras(serie_regiao, ano)
+            st.plotly_chart(fig2, width='stretch')
+        else:
+            st.info(f"Sem dados de interesse por região para {ano}.")
+
+        # 3) Heatmap Ano × Região
+        st.markdown("---")
+        matriz = repositorio.trends_regiao_matriz()
+        if not matriz.empty:
+            fig3 = FabricaGraficos.google_trends_heatmap_ano_regiao(matriz)
+            st.plotly_chart(fig3, width='stretch')
+        else:
+            st.info("Sem dados consolidados por ano/região.")
+
+        # 4) Ranking agregado histórico (substitui o antigo 'ultimaLeituraGAporRegiao')
+        st.markdown("---")
+        serie_agregada = repositorio.trends_regiao_agregada()
+        if not serie_agregada.empty:
+            fig4 = FabricaGraficos.google_trends_regiao_agregada(serie_agregada)
+            st.plotly_chart(fig4, width='stretch')
+        else:
+            st.info("Sem dados agregados por região.")
