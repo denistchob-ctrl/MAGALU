@@ -286,11 +286,14 @@ class PaginaAto5:
         serie_receita = repositorio.serie_dre_por_granularidade(
             "1. Indicadores", "Receita Líquida Total", "anual", None)
 
-        # Interesse anual (média por ano do Trends)
+        # Interesse anual (média por ano do Trends), limitado a 2018 em diante
+        # para alinhar com a janela da Receita Líquida no gráfico "tesoura".
         trends = repositorio.trends
         interesse_anual = None
         if trends is not None and not trends.serie_temporal.empty:
             df_t = trends.serie_temporal.copy()
+            # Filtra o período do Google Trends para coincidir com o da Receita
+            df_t = df_t[df_t["Ano"] >= 2018]
             interesse_anual = df_t.groupby("Ano")["Quantidade"].mean()
 
         if not serie_receita.empty:
