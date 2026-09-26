@@ -167,15 +167,32 @@ class RepositorioDados:
         return self._agregar_serie(serie, granularidade, ano)
 
     def _filtrar_trimestres_por_ano(self, serie, ano):
-        """Filtra trimestres por ano, mantendo o rótulo original."""
-        if ano is None:
+        """
+        Filtra a série para conter APENAS rótulos de trimestre (ex.: '1T18'),
+        descartando qualquer outro rótulo (anos como '2018', semestres como
+        '1S18', datas etc.) que eventualmente coexistam na mesma guia.
+
+        Se 'ano' for informado, filtra também por aquele ano.
+        """
+        if serie is None or serie.empty:
             return serie
-        sufixo = f"{ano % 100:02d}"
-        return serie[
-            [c for c in serie.index
-             if PADRAO_TRIMESTRE_ANO.match(str(c))
-             and PADRAO_TRIMESTRE_ANO.match(str(c)).group(2) == sufixo]
-        ]
+
+        # 1) Mantém apenas rótulos que casam com o padrão de trimestre
+        mascara_trimestre = serie.index.map(
+            lambda c: bool(PADRAO_TRIMESTRE_ANO.match(str(c)))
+        )
+        serie = serie[mascara_trimestre]
+
+        # 2) Se um ano específico foi pedido, filtra por ele
+        if ano is not None:
+            sufixo = f"{ano % 100:02d}"
+            serie = serie[
+                [c for c in serie.index
+                if PADRAO_TRIMESTRE_ANO.match(str(c))
+                and PADRAO_TRIMESTRE_ANO.match(str(c)).group(2) == sufixo]
+            ]
+
+        return serie
 
     def _agregar_serie(self, serie, granularidade, ano):
         """Agrega a série trimestral em semestral ou anual."""
