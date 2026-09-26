@@ -350,22 +350,31 @@ def ato5_tesoura_receita_interesse(df_receita_anual, serie_interesse_anual):
     O gráfico mais impactante: Receita (barras) crescendo × Interesse
     de busca (linha) caindo. A 'tesoura' que mostra o divórcio entre
     crescimento financeiro e relevância de marca.
+
+    O eixo X é tratado como NUMÉRICO (ano inteiro) para garantir a
+    ordenação cronológica correta e o alinhamento das duas séries,
+    mesmo quando elas cobrem intervalos diferentes (Receita começa em
+    2018; Google Trends começa em 2004).
     """
     fig = make_subplots(specs=[[{"secondary_y": True}]])
 
+    # --- Receita Líquida (barras) ---
     if df_receita_anual is not None and not df_receita_anual.empty:
+        anos_receita = [int(a) for a in df_receita_anual.index]
         fig.add_trace(go.Bar(
             name="Receita Líquida (R$ bi)",
-            x=[str(i) for i in df_receita_anual.index],
+            x=anos_receita,
             y=df_receita_anual.values / 1000,  # converte para bilhões
             marker_color=CORES["receita"],
             opacity=0.85,
         ), secondary_y=False)
 
+    # --- Interesse de busca (linha) ---
     if serie_interesse_anual is not None and not serie_interesse_anual.empty:
+        anos_interesse = [int(a) for a in serie_interesse_anual.index]
         fig.add_trace(go.Scatter(
             name="Interesse de busca (média anual)",
-            x=[str(i) for i in serie_interesse_anual.index],
+            x=anos_interesse,
             y=serie_interesse_anual.values,
             mode="lines+markers",
             line=dict(color=CORES["interesse"], width=3),
@@ -378,11 +387,18 @@ def ato5_tesoura_receita_interesse(df_receita_anual, serie_interesse_anual):
         legend=dict(orientation="h", yanchor="bottom", y=1.02),
         hovermode="x unified",
         height=550,
+        # Força o eixo X a ser tratado como numérico, com ticks inteiros
+        xaxis=dict(
+            type="linear",
+            tickmode="linear",
+            dtick=1,
+            tickformat="d",
+            title="Ano",
+        ),
     )
     fig.update_yaxes(title_text="Receita Líquida (R$ bilhões)", secondary_y=False)
     fig.update_yaxes(title_text="Interesse de busca (0-100)", secondary_y=True)
     return fig
-
 
 def ato5_scorecard(df_scorecard):
     """
