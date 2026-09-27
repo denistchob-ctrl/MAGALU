@@ -95,7 +95,7 @@ def ato1_cotacao_volume(serie_fechamento, serie_volume):
             name="Volume Financeiro (R$ milhões)",
             x=serie_volume.index,
             y=serie_volume.values / 1000000, #em milhões
-            marker_color="#7FA8C9",       # azul médio, visível contra branco
+            marker_color="#122636",       # azul médio, visível contra branco
             opacity=0.75,                  # mais opaco
             yaxis="y2",                    # garante o eixo secundário
         ), secondary_y=True)
