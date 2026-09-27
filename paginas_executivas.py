@@ -15,7 +15,8 @@ import streamlit as st
 from graficos_executivos import (
     ato1_receita_ebitda,
     ato1_cotacao_volume,
-    ato2_reputacao_e_interesse,
+    ato2_vendas_e_interesse,
+    ato2_reputacao_ra,
     ato2_top_problemas,
     ato3_mapa_interesse,
     ato3_heatmap_ano_regiao,
@@ -162,37 +163,55 @@ class PaginaAto1:
 class PaginaAto2:
     def render(self, repositorio):
         st.title("Ato 2 — Como o cliente nos vê")
-        st.caption("Reputação (Reclame Aqui) × Relevância de marca (Google Trends)")
+        st.caption("Relevância de marca (Google Trends) × Vendas × Reputação (Reclame Aqui)")
 
         ano = _seletor_ano(repositorio, key="ato2_ano")
         mes = _seletor_mes(key="ato2_mes")
 
-        # --- Reputação + Interesse ---
-        st.subheader("2.1 Reputação × Interesse de busca")
-        ra = repositorio.reclame_aqui
-        df_ra = ra.desempenho("online") if ra is not None else None
+        # --- Vendas × Interesse de busca (substitui o antigo RA × Trends) ---
+        st.subheader("2.1 Vendas Totais × Interesse de busca")
+        st.caption(
+            "O interesse de busca cai enquanto as vendas sobem — a mesma "
+            "tese do Ato 5, agora no nível operacional."
+        )
 
+        # Vendas Totais (trimestral)
+        serie_vendas = repositorio.serie_dre_por_granularidade(
+            "1. Indicadores", "Vendas Totais (incluindo marketplace)",
+            "trimestral", None,
+        )
+
+        # Interesse de busca (mensal)
         trends = repositorio.trends
         serie_trends = None
         if trends is not None and not trends.serie_temporal.empty:
             serie_trends = trends.serie_temporal.set_index("Data")["Quantidade"]
             serie_trends = _filtrar_serie_por_ano_mes(serie_trends, ano, mes)
 
-        fig = ato2_reputacao_e_interesse(df_ra, serie_trends)
+        fig = ato2_vendas_e_interesse(serie_vendas, serie_trends)
         st.plotly_chart(fig, width="stretch")
 
-        # --- Top problemas ---
-        st.subheader("2.2 Top problemas por empresa")
+        # --- Reputação (Reclame Aqui) em seção própria ---
+        st.markdown("---")
+        st.subheader("2.2 Reputação — Reclame Aqui")
+
+        ra = repositorio.reclame_aqui
         if ra is not None:
             empresa = st.selectbox(
                 "Empresa", ra.listar_empresas(), key="ato2_empresa",
             )
-            df_prob = ra.problemas(empresa)
-            fig2 = ato2_top_problemas(df_prob, empresa, top_n=5)
+
+            # Nota Média e % Voltariam — gráfico próprio, sem misturar com Trends
+            df_ra = ra.desempenho(empresa)
+            fig2 = ato2_reputacao_ra(df_ra, empresa)
             st.plotly_chart(fig2, width="stretch")
+
+            # Top problemas
+            df_prob = ra.problemas(empresa)
+            fig3 = ato2_top_problemas(df_prob, empresa, top_n=5)
+            st.plotly_chart(fig3, width="stretch")
         else:
             st.info("Dados do Reclame Aqui não disponíveis.")
-
 
 # ======================================================================
 # Ato 3 — Onde a marca é forte/fraca

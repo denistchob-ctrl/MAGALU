@@ -12,7 +12,7 @@ from graficos import FabricaGraficos
 
 OBJETIVO_PROJETO = (
     "Analisar a evolução financeira, operacional e reputacional do Magazine Luiza "
-    "entre 2021 e 2026, através de informações disponíveis no próprio site da "
+    "entre 2018 e 2026, através de informações disponíveis no próprio site da "
     "empresa como também em outros sites. Criação de insights e dashboards que "
     "permitam acompanhar não somente as variáveis financeiras e operacionais como "
     "também investimentos realizados, valores de ações na bolsa, indicadores "
@@ -32,9 +32,9 @@ class PaginaInicio:
         st.markdown("### Fontes de dados do projeto")
         colunas = st.columns(4)
         descricoes = {
-            "DRE": ("📊", "Planilha de resultados trimestrais (RESULTADO_2T26_POR.xlsx)"),
+            "DRE": ("📊", "Planilha de resultados trimestrais"),
             "Cotações": ("📈", "Histórico diário da ação na bolsa"),
-            "Reclame Aqui": ("🗣️", "Reputação e reclamações — 4 unidades de negócio"),
+            "Reclame Aqui": ("🗣️", "Reputação e reclamações — 4 unidades de negócio (Lojas Física e Online, Consórcio e Luizacred)"),
             "Google Trends": ("🔎", "Interesse de busca pela marca (série mensal + ano a ano)"),
         }
         for coluna, fonte in zip(colunas, FONTES):
@@ -103,10 +103,15 @@ class PaginaCargaHigienizacao:
             return
 
         df = repositorio.cotacao.df
-        st.write(f"**{len(df)} pregões carregados**, de {df.index.min().date()} "
-                 f"a {df.index.max().date()}.")
+        st.write(f"**{len(df)} pregões carregados**, de "
+                 f"{df.index.min().date()} a {df.index.max().date()}.")
+
         with st.expander("Ver amostra dos dados"):
-            st.dataframe(df.tail(5))
+            # Amostra com data formatada (sem hora) e índice reiniciado
+            amostra = df.tail(5).reset_index()
+            amostra["Data"] = amostra["Data"].dt.strftime("%d/%m/%Y")
+            st.dataframe(amostra, hide_index=True)
+
 
     def _secao_reclame_aqui(self, repositorio):
         st.markdown("## Reclame Aqui")

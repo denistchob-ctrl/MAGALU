@@ -7,6 +7,7 @@ st.plotly_chart(). Mantém a lógica de visualização separada das páginas
 (paginas_executivas.py) e do acesso a dados (repositorio_dados.py).
 """
 
+import re
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
@@ -121,56 +122,109 @@ def ato1_cotacao_volume(serie_fechamento, serie_volume):
 # ATO 2 — Como o cliente nos vê (reputação)
 # ======================================================================
 
-def ato2_reputacao_e_interesse(df_ra, serie_trends):
+def ato2_reputacao_ra(df_ra, empresa):
     """
-    Nota Média (RA) + % Voltariam a fazer negócio (RA) + Interesse de busca
-    (Trends, linha suavizada). Três eixos conceituais, mas dois eixos Y:
-    - Y1: Nota Média (0-10) e Interesse (0-100)
-    - Y2: % Voltariam (0-100)
+    Reputação do Reclame Aqui (apenas RA, sem cruzar com Trends):
+    Nota Média (barras, eixo 1) e % Voltariam a fazer negócio (linha, eixo 2).
     """
     fig = make_subplots(specs=[[{"secondary_y": True}]])
 
-    # Nota Média (RA) — barras
-    if df_ra is not None and not df_ra.empty and "Nota Média" in df_ra.columns:
+    if df_ra is None or df_ra.empty:
+        fig.update_layout(title=f"Reclame Aqui — {empresa} (sem dados)",
+                          template=TEMPLATE)
+        return fig
+
+    periodos = [str(i) for i in df_ra.index]
+
+    if "Nota Média" in df_ra.columns:
         fig.add_trace(go.Bar(
-            name="Nota Média (RA)",
-            x=[str(i) for i in df_ra.index],
-            y=df_ra["Nota Média"].values,
+            name="Nota Média (0-10)",
+            x=periodos, y=df_ra["Nota Média"].values,
             marker_color=CORES["nota_ra"],
         ), secondary_y=False)
 
-    # Interesse de busca (Trends) — linha
-    if serie_trends is not None and not serie_trends.empty:
-        fig.add_trace(go.Scatter(
-            name="Interesse de busca (Trends)",
-            x=serie_trends.index,
-            y=serie_trends.values,
-            mode="lines",
-            line=dict(color=CORES["interesse"], width=2),
-            yaxis="y",
-        ), secondary_y=False)
-
-    # % Voltariam a fazer negócio — linha no eixo 2
-    if df_ra is not None and not df_ra.empty and "Voltariam a fazer negócio" in df_ra.columns:
+    if "Voltariam a fazer negócio" in df_ra.columns:
         fig.add_trace(go.Scatter(
             name="Voltariam a fazer negócio (%)",
-            x=[str(i) for i in df_ra.index],
-            y=df_ra["Voltariam a fazer negócio"].values * 100,
+            x=periodos, y=df_ra["Voltariam a fazer negócio"].values * 100,
             mode="lines+markers",
             line=dict(color=CORES["lealdade"], width=2, dash="dot"),
         ), secondary_y=True)
 
     fig.update_layout(
-        title="Reputação (Reclame Aqui) × Interesse de busca (Google Trends)",
+        title=f"Reclame Aqui — {empresa.capitalize()} ({', '.join(periodos)})",
+        template=TEMPLATE,
+        legend=dict(orientation="h", yanchor="bottom", y=1.02),
+        hovermode="x unified",
+        height=450,
+    )
+    fig.update_yaxes(title_text="Nota Média (0-10)",
+                     secondary_y=False, range=[0, 10])
+    fig.update_yaxes(title_text="% Voltariam a fazer negócio",
+                     secondary_y=True, range=[0, 100], ticksuffix="%")
+    return fig
+
+
+def ato2_vendas_e_interesse(df_vendas, serie_trends):
+    """
+    Vendas Totais (barras trimestrais, em R$ milhões) × Interesse de busca
+    (linha mensal, 0-100). A granularidade é diferente, mas o eixo X
+    compartilhado (tempo) permite ver a relação.
+
+    df_vendas: pandas Series indexada por trimestre ('1T18', '2T18', ...).
+    serie_trends: pandas Series indexada por data (mensal).
+    """
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+    # --- Vendas Totais (barras) ---
+    if df_vendas is not None and not df_vendas.empty:
+        # Converte '1T18' -> data de início do trimestre para alinhar com o eixo
+        rotulos, valores = [], []
+        for rotulo, valor in df_vendas.items():
+            texto = str(rotulo)
+            m = re.match(r'^(\d)T(\d{2})$', texto)
+            if not m:
+                continue
+            tri = int(m.group(1))
+            ano = 2000 + int(m.group(2))
+            # Mês de início do trimestre: 1T=jan, 2T=abr, 3T=jul, 4T=out
+            mes = 1 + (tri - 1) * 3
+            rotulos.append(pd.Timestamp(year=ano, month=mes, day=1))
+            valores.append(valor)
+
+        if rotulos:
+            fig.add_trace(go.Bar(
+                name="Vendas Totais (R$ milhões)",
+                x=rotulos,
+                y=valores,
+                marker_color=CORES["receita"],
+                opacity=0.75,
+            ), secondary_y=False)
+
+    # --- Interesse de busca (linha) ---
+    if serie_trends is not None and not serie_trends.empty:
+        fig.add_trace(go.Scatter(
+            name="Interesse de busca (mensal)",
+            x=serie_trends.index,
+            y=serie_trends.values,
+            mode="lines",
+            line=dict(color=CORES["interesse"], width=2),
+        ), secondary_y=True)
+
+    fig.update_layout(
+        title="Vendas Totais × Interesse de busca (Google Trends)",
         template=TEMPLATE,
         legend=dict(orientation="h", yanchor="bottom", y=1.02),
         hovermode="x unified",
         height=500,
+        xaxis=dict(
+            tickformat="%Y",
+            tickangle=-45,
+        ),
     )
-    fig.update_yaxes(title_text="Nota Média / Interesse", secondary_y=False, range=[0, 100])
-    fig.update_yaxes(title_text="% Voltariam", secondary_y=True, range=[0, 100], ticksuffix="%")
+    fig.update_yaxes(title_text="Vendas (R$ milhões)", secondary_y=False)
+    fig.update_yaxes(title_text="Interesse de busca (0-100)", secondary_y=True)
     return fig
-
 
 def ato2_top_problemas(df_problemas, empresa, top_n=5):
     """Top N problemas do Reclame Aqui — barras horizontais."""
