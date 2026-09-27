@@ -459,7 +459,7 @@ class ReclameAquiLoader:
         self._carregar()
 
     def _normalizar_empresa(self, nome_empresa):
-        nome_empresa = nome_empresa.strip().lower()
+        nome_empresa = nome_empresa.strip().title()
         return self.ALIAS_EMPRESA.get(nome_empresa, nome_empresa)
 
     def _interpretar_nome_arquivo(self, nome_arquivo):

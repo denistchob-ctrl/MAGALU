@@ -37,7 +37,7 @@ MENU_ATO4 = "4️⃣ O que estamos fazendo"
 MENU_ATO5 = "5️⃣ O que fazer"
 
 # --- Menu acadêmico (transparência do projeto) ---
-MENU_INICIO = "📚 Início (acadêmico)"
+MENU_INICIO = "📚 Estrutura de Dados"
 MENU_CARGA = "📚 Carga e Higienização"
 
 PAGINAS = {
@@ -57,7 +57,7 @@ def main():
     repositorio = obter_repositorio()
 
     st.sidebar.title("📊 Dashboard Executivo")
-    st.sidebar.caption("Magazine Luiza — análise 2021–2026")
+    st.sidebar.caption("Magazine Luiza — análise 2018–2026")
     st.sidebar.markdown("---")
 
     pagina_escolhida = st.sidebar.radio(

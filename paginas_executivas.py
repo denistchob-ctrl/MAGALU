@@ -444,18 +444,20 @@ def _montar_scorecard(repositorio):
 
 OBJETIVO_PROJETO = (
     "Analisar a evolução financeira, operacional e reputacional do Magazine Luiza "
-    "entre 2021 e 2026, através de informações disponíveis no próprio site da "
+    "entre 2018 e 2026, através de informações disponíveis no próprio site da "
     "empresa como também em outros sites. Criação de insights e dashboards que "
     "permitam acompanhar não somente as variáveis financeiras e operacionais como "
     "também investimentos realizados, valores de ações na bolsa, indicadores "
     "sociais, reputacionais e ações de marketing."
+    "\nAlguns gráficos ou dados podem conter períodos menores ou maiores devido"
+    "à limitação das pesquisas durante a extração dos dados"
 )
 
 FONTES = ["DRE", "Cotações", "Reclame Aqui", "Google Trends"]
 
 
 class PaginaInicio:
-    """Tela acadêmica: objetivo do projeto e visão geral das fontes de dados."""
+    """Apresentação dos Dados: objetivo do projeto e visão geral das fontes de dados."""
 
     def render(self, repositorio):
         st.title("Início — Objetivo e Fontes")
