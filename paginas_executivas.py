@@ -178,7 +178,7 @@ class PaginaAto2:
         # Vendas Totais (trimestral)
         serie_vendas = repositorio.serie_dre_por_granularidade(
             "1. Indicadores", "Vendas Totais (incluindo marketplace)",
-            "trimestral", None,
+            "trimestral", ano,     # ← aplica o filtro do sidebar
         )
 
         # Interesse de busca (mensal), limitado a 2018+ para alinhar

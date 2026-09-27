@@ -95,7 +95,7 @@ def ato1_cotacao_volume(serie_fechamento, serie_volume):
             name="Volume Financeiro (R$ milhões)",
             x=serie_volume.index,
             y=serie_volume.values / 1000000, #em milhões
-            marker_color="#122636",       # azul médio, visível contra branco
+            marker_color="#115009",       # verde 
             opacity=0.75,                  # mais opaco
             yaxis="y2",                    # garante o eixo secundário
         ), secondary_y=True)
@@ -231,10 +231,11 @@ def ato2_vendas_e_interesse(df_vendas, serie_trends):
         hovermode="x unified",
         height=500,
         xaxis=dict(
-            tickformat="%Y",
+            tickformat="%m/%Y",   # mostra mês/ano — melhor quando filtra 1 ano
             tickangle=-45,
         ),
     )
+
     fig.update_yaxes(title_text="Vendas (R$ milhões)", secondary_y=False)
     fig.update_yaxes(title_text="Interesse de busca (0-100)", secondary_y=True)
     return fig
