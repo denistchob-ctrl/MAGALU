@@ -48,7 +48,7 @@ PASTA_SAIDA = "inventario"
 NOME_PLANILHA_DRE = "RESULTADO_2T26_POR.xlsx"
 
 # Janela de análise do projeto — usada pelo loader anual do Google Trends.
-ANO_INICIAL = 2021
+ANO_INICIAL = 2018
 ANO_FINAL = 2026
 
 

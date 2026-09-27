@@ -49,7 +49,7 @@ from magalu_google_trends_anual import GoogleTrendsPorRegiaoAnual
 
 PADRAO_TRIMESTRE_ANO = re.compile(r'^(\d)T(\d{2})$')
 
-# Janela de análise do projeto (ver texto de objetivo da tela inicial).
+# Janela de análise do projeto (ver texto de objetivo da tela inicial). ajuste novo
 ANO_INICIAL = 2018
 ANO_FINAL = 2026
 
