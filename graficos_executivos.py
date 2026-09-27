@@ -81,30 +81,34 @@ def ato1_receita_ebitda(df_receita, df_ebitda, df_margem):
     fig.update_yaxes(title_text="Margem EBITDA (%)", secondary_y=True, ticksuffix="%")
     return fig
 
-
 def ato1_cotacao_volume(serie_fechamento, serie_volume):
     """
-    Cotação (linha) + Volume Financeiro (barras, eixo 2).
+    Cotação (linha, eixo 1) + Volume Financeiro (barras, eixo 2).
+    As barras ficam num eixo separado porque o volume é ordens de
+    magnitude maior que o preço — sem isso, o volume 'achata' o preço.
     """
     fig = make_subplots(specs=[[{"secondary_y": True}]])
 
-    if not serie_fechamento.empty:
+    # --- Volume primeiro (fica atrás da linha) ---
+    if serie_volume is not None and not serie_volume.empty:
+        fig.add_trace(go.Bar(
+            name="Volume Financeiro (R$ milhões)",
+            x=serie_volume.index,
+            y=serie_volume.values / 1000000, #em milhões
+            marker_color="#7FA8C9",       # azul médio, visível contra branco
+            opacity=0.75,                  # mais opaco
+            yaxis="y2",                    # garante o eixo secundário
+        ), secondary_y=True)
+
+    # --- Cotação depois (fica na frente) ---
+    if serie_fechamento is not None and not serie_fechamento.empty:
         fig.add_trace(go.Scatter(
             name="Fechamento (R$)",
             x=serie_fechamento.index,
             y=serie_fechamento.values,
             mode="lines",
-            line=dict(color=CORES["cotacao"], width=2),
+            line=dict(color="#1E6091", width=2),   # azul escuro, contrasta com o volume
         ), secondary_y=False)
-
-    if not serie_volume.empty:
-        fig.add_trace(go.Bar(
-            name="Volume Financeiro",
-            x=serie_volume.index,
-            y=serie_volume.values,
-            marker_color=CORES["volume"],
-            opacity=0.5,
-        ), secondary_y=True)
 
     fig.update_layout(
         title="Cotação da ação (MGLU3) e volume financeiro",
@@ -112,11 +116,20 @@ def ato1_cotacao_volume(serie_fechamento, serie_volume):
         legend=dict(orientation="h", yanchor="bottom", y=1.02),
         hovermode="x unified",
         height=500,
+        xaxis=dict(tickformat="%Y", tickangle=-45),
+        bargap=0.1,                        # barras mais largas / menos espaço
     )
-    fig.update_yaxes(title_text="Preço (R$)", secondary_y=False)
-    fig.update_yaxes(title_text="Volume Financeiro", secondary_y=True)
+    fig.update_yaxes(
+        title_text="Preço (R$)",
+        secondary_y=False,
+        range=[0, None],                   # começa em 0, sem forçar teto
+    )
+    fig.update_yaxes(
+        title_text="Volume Financeiro",
+        secondary_y=True,
+        showgrid=False,                    # evita grid duplicado
+    )
     return fig
-
 
 # ======================================================================
 # ATO 2 — Como o cliente nos vê (reputação)

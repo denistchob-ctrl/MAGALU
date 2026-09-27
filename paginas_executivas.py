@@ -28,7 +28,7 @@ from graficos_executivos import (
 from graficos import FabricaGraficos
 
 OPCAO_TODOS = "Todos"
-GRANULARIDADES = ["Trimestral", "Semestral", "Anual"]
+GRANULARIDADES = ["Anual", "Trimestral", "Semestral"]
 
 
 # ======================================================================
@@ -181,11 +181,15 @@ class PaginaAto2:
             "trimestral", None,
         )
 
-        # Interesse de busca (mensal)
+        # Interesse de busca (mensal), limitado a 2018+ para alinhar
+        # com a janela das Vendas Totais.
         trends = repositorio.trends
         serie_trends = None
         if trends is not None and not trends.serie_temporal.empty:
             serie_trends = trends.serie_temporal.set_index("Data")["Quantidade"]
+            # Recorte: só a partir de 2018
+            serie_trends = serie_trends[serie_trends.index.year >= 2018]
+            # Aplica o filtro de ano/mês do sidebar, se houver
             serie_trends = _filtrar_serie_por_ano_mes(serie_trends, ano, mes)
 
         fig = ato2_vendas_e_interesse(serie_vendas, serie_trends)
