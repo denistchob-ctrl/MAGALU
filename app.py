@@ -56,6 +56,7 @@ MENU_V2_REL = "v2 · 6️⃣ Relações entre Indicadores"
 
 MENU_INICIO = "📚 Início (acadêmico)"
 MENU_CARGA = "📚 Carga e Higienização"
+Nada = "------------------"
 
 PAGINAS = {
     MENU_V1_ABERTURA: V1Abertura(),
@@ -64,6 +65,7 @@ PAGINAS = {
     MENU_V1_ATO3: V1Ato3(),
     MENU_V1_ATO4: V1Ato4(),
     MENU_V1_ATO5: V1Ato5(),
+    Nada: None,
     MENU_V2_EXEC: PaginaV2VisaoExecutiva(),
     MENU_V2_CRESC: PaginaV2Crescimento(),
     MENU_V2_OMNI: PaginaV2Omnichannel(),
