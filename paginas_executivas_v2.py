@@ -16,6 +16,7 @@ Estrutura de cada página:
 import pandas as pd
 import numpy as np
 import streamlit as st
+import re
 
 from config_indicadores import INDICADORES, CORES, MIN_OBSERVACOES_CORRELACAO
 from formatos import formata_moeda, formata_pct, formata_variacao
@@ -122,39 +123,32 @@ class PaginaV2VisaoExecutiva:
             ("Participação E-commerce", "participacao_ecommerce", False),
         ]
 
-        # Linha 1: 4 primeiros KPIs
-        linha1 = st.columns(4)
-        for i, (label, chave, is_moeda) in enumerate(indicadores_kpi[:4]):
-            with linha1[i]:
+        def _render_kpi(coluna, label, chave, is_moeda):
+            with coluna:
                 serie = _serie(repositorio, chave, gran, None)
                 if serie.empty:
                     _kpi(label, "—", None)
-                    continue
-                atual = serie.dropna().iloc[-1] if not serie.dropna().empty else None
-                var = variacao_ultimo_vs_anterior(serie)
-                if atual is None:
+                    return
+                s = serie.dropna()
+                if s.empty:
                     _kpi(label, "—", None)
-                else:
-                    valor_str = formata_moeda(atual) if is_moeda else formata_pct(atual)
-                    _kpi(label, valor_str, var)
+                    return
+                atual = s.iloc[-1]
+                var = variacao_ultimo_vs_anterior(serie)
+                valor_str = formata_moeda(atual) if is_moeda else formata_pct(atual)
+                _kpi(label, valor_str, var)
+
+        # Linha 1: 4 primeiros KPIs
+        linha1 = st.columns(4)
+        for i, (label, chave, is_moeda) in enumerate(indicadores_kpi[:4]):
+            _render_kpi(linha1[i], label, chave, is_moeda)
 
         # Linha 2: 2 KPIs restantes + MGLU3
         linha2 = st.columns(4)
         for i, (label, chave, is_moeda) in enumerate(indicadores_kpi[4:6]):
-            with linha2[i]:
-                serie = _serie(repositorio, chave, gran, None)
-                if serie.empty:
-                    _kpi(label, "—", None)
-                    continue
-                atual = serie.dropna().iloc[-1] if not serie.dropna().empty else None
-                var = variacao_ultimo_vs_anterior(serie)
-                if atual is None:
-                    _kpi(label, "—", None)
-                else:
-                    valor_str = formata_moeda(atual) if is_moeda else formata_pct(atual)
-                    _kpi(label, valor_str, var)
+            _render_kpi(linha2[i], label, chave, is_moeda)
 
-        # MGLU3 na mesma linha, coluna 3
+        # MGLU3 na coluna 3 da linha 2 (uma única vez)
         with linha2[2]:
             if repositorio.cotacao is not None:
                 serie_fech = repositorio.cotacao.get_serie("Fechamento")
@@ -166,16 +160,6 @@ class PaginaV2VisaoExecutiva:
                     _kpi("MGLU3 (últ. fechamento)", "—", None)
             else:
                 _kpi("MGLU3 (últ. fechamento)", "—", None)
-
-        # Cotação MGLU3
-        col_cot = st.columns(4)[2]
-        with col_cot:
-            if repositorio.cotacao is not None:
-                serie_fech = repositorio.cotacao.get_serie("Fechamento")
-                if not serie_fech.empty:
-                    atual = serie_fech.iloc[-1]
-                    var = variacao_ultimo_vs_anterior(serie_fech.tail(60))
-                    _kpi("MGLU3 (últ. fechamento)", f"R$ {atual:.2f}", var)
 
         # --- Gráfico temporal com indicadores selecionáveis ---
         st.subheader("Evolução dos indicadores")
@@ -401,84 +385,70 @@ class PaginaV2Cliente:
             width="stretch",
         )
 
-
-
-
-        # # --- RA por unidade de negócio ---
-        # st.subheader(f"Reclame Aqui — {unidade.capitalize()}")
-        # df_ra = None
-        # if repositorio.reclame_aqui is not None:
-        #     try:
-        #         df_ra = repositorio.reclame_aqui.desempenho(unidade)
-        #     except KeyError:
-        #         st.info(f"Unidade '{unidade}' não encontrada no Reclame Aqui.")
-        #         df_ra = None
-
         # --- RA por unidade de negócio ---
         st.subheader(f"Reclame Aqui — {unidade.capitalize()}")
 
         df_ra = None
         if repositorio.reclame_aqui is not None:
             try:
-                df_ra_full = repositorio.reclame_aqui.desempenho(unidade)
-                # Remove a linha "Geral" (total consolidado, não é período)
-                df_ra = df_ra_full[
-                    ~df_ra_full.index.astype(str).str.lower().isin(["geral", "total"])
-                ].copy()
-                # Ordena cronologicamente: extrai o ano do índice e ordena
-                def _chave_ordenacao(idx):
-                    texto = str(idx)
-                    # tenta achar um ano de 4 dígitos
-                    import re as _re
-                    m = _re.search(r'(\d{4})', texto)
-                    return int(m.group(1)) if m else 9999
-                df_ra = df_ra.loc[sorted(df_ra.index, key=_chave_ordenacao)]
+                df_full = repositorio.reclame_aqui.desempenho(unidade)
             except KeyError:
                 st.info(f"Unidade '{unidade}' não encontrada no Reclame Aqui.")
-                df_ra = None
+                df_full = None
 
-        # Para alinhar as barras de RA (rótulos '2024') com a linha de Vendas
-        # (datas reais), convertemos os rótulos de RA em timestamps.
-        if df_ra is not None and not df_ra.empty:
-            import re as _re
-            novos_indices = []
-            for rotulo in df_ra.index:
-                texto = str(rotulo)
-                m = _re.match(r'^(\d{4})$', texto)
-                if m:
-                    novos_indices.append(pd.Timestamp(year=int(m.group(1)), month=1, day=1))
-                else:
-                    # Semestre: '1S2024' / '2S2024'
-                    m = _re.match(r'^(\d)S(\d{4})$', texto)
+            if df_full is not None and not df_full.empty:
+                # 1) Remove a linha "Geral" (total consolidado, não é período)
+                idx_str = df_full.index.astype(str).str.strip().str.lower()
+                df_ra = df_full[~idx_str.isin(["geral", "total", "geral "])].copy()
+
+                # 2) Converte cada rótulo em Timestamp para ordenar cronologicamente
+                #    Aceita: '2024', '1S2024', '2S2024', '2024-1', '1/2024' etc.
+                novos_indices = []
+                for rotulo in df_ra.index:
+                    texto = str(rotulo).strip()
+                    ts = None
+                    # '2024'
+                    m = re.match(r'^(\d{4})$', texto)
                     if m:
-                        sem = int(m.group(1)); ano_ = int(m.group(2))
-                        mes = 1 if sem == 1 else 7
-                        novos_indices.append(pd.Timestamp(year=ano_, month=mes, day=1))
-                    else:
-                        novos_indices.append(rotulo)
-            df_ra = df_ra.copy()
-            df_ra.index = novos_indices
-            df_ra = df_ra.sort_index()
+                        ts = pd.Timestamp(year=int(m.group(1)), month=1, day=1)
+                    # '1S2024' ou '2S2024'
+                    if ts is None:
+                        m = re.match(r'^(\d)S(\d{4})$', texto)
+                        if m:
+                            sem, a = int(m.group(1)), int(m.group(2))
+                            mes = 1 if sem == 1 else 7
+                            ts = pd.Timestamp(year=a, month=mes, day=1)
+                    # '2024 1S' / '2024-1S' / '2024-1'
+                    if ts is None:
+                        m = re.match(r'^(\d{4})\D+(\d)', texto)
+                        if m:
+                            a, s = int(m.group(1)), int(m.group(2))
+                            mes = 1 if s == 1 else 7
+                            ts = pd.Timestamp(year=a, month=mes, day=1)
+                    novos_indices.append(ts if ts is not None else rotulo)
 
+                df_ra.index = novos_indices
+                # Ordena: Timestamps primeiro (cronologicamente), strings depois
+                try:
+                    df_ra = df_ra.sort_index()
+                except TypeError:
+                    # Se misturar tipos, ordena por string como fallback
+                    df_ra = df_ra.loc[sorted(df_ra.index, key=str)]
+
+        # Renderiza o gráfico apropriado para a unidade
         if unidade == "online":
             serie_v = _serie(repositorio, "vendas_ecommerce_total", gran, ano)
-            st.plotly_chart(
-                g2.cliente_ra_vs_vendas_online(df_ra, serie_v),
-                width="stretch",
-            )
+            st.plotly_chart(g2.cliente_ra_vs_vendas_online(df_ra, serie_v),
+                            width="stretch")
         elif unidade == "fisica":
             serie_v = _serie(repositorio, "vendas_lojas_fisicas", gran, ano)
-            st.plotly_chart(
-                g2.cliente_ra_vs_vendas_fisica(df_ra, serie_v),
-                width="stretch",
-            )
+            st.plotly_chart(g2.cliente_ra_vs_vendas_fisica(df_ra, serie_v),
+                            width="stretch")
         elif unidade == "luizacred":
             serie_fat = _serie(repositorio, "luizacred_faturamento", gran, ano)
             serie_luc = _serie(repositorio, "luizacred_lucro", gran, ano)
-            st.plotly_chart(
-                g2.cliente_luizacred(df_ra, serie_fat, serie_luc),
-                width="stretch",
-            )
+            st.plotly_chart(g2.cliente_luizacred(df_ra, serie_fat, serie_luc),
+                            width="stretch")
         else:
             st.info("Sem cruzamento específico definido para esta unidade. "
                     "Exibindo apenas a Nota Média.")
@@ -553,10 +523,16 @@ class PaginaV2Investimentos:
         if repositorio.cotacao is not None:
             fech = repositorio.cotacao.get_serie("Fechamento")
             if not fech.empty:
-                # Agrega por ano SEM resample (evita o erro de 'Y' vs 'YE'):
-                # pega o último fechamento de cada ano.
-                fech_por_ano = fech.groupby(fech.index.year).last()
+                # Agrega por ano SEM resample — usa groupby direto sobre o ano.
+                # (resample com 'Y' quebra em Pandas >= 2.2, e 'YE' não
+                # existe em versões antigas; groupby é universal.)
+                fech_ano = fech.copy()
+                fech_ano.index = fech_ano.index.year
+                fech_por_ano = fech_ano.groupby(level=0).last()
                 fech_por_ano.index.name = "Ano"
+                # Converte o índice para string, para alinhar com as séries
+                # anuais do DRE (que têm índice '2018', '2019', ...).
+                fech_por_ano.index = fech_por_ano.index.astype(str)
                 series_base["MGLU3"] = fech_por_ano
 
         df_base = pd.DataFrame({
@@ -568,6 +544,7 @@ class PaginaV2Investimentos:
         else:
             st.info(mensagem_sem_dados("Base 100 indisponível"))
 
+            
         # --- Cotação × Volume ---
         st.subheader("Cotação MGLU3 × Volume negociado")
         if repositorio.cotacao is not None:

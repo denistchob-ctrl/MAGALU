@@ -123,6 +123,31 @@ class RepositorioDados:
         except Exception as erro:
             self.erros['Google Trends (anual)'] = str(erro)
 
+    def _filtrar_trimestres_por_ano(self, serie, ano):
+        if serie is None:
+            return pd.Series(dtype=float)
+
+        # Colapsa DataFrame (índice duplicado) em Series
+        if isinstance(serie, pd.DataFrame):
+            serie = serie.apply(pd.to_numeric, errors="coerce").sum(axis=0)
+        if getattr(serie.index, "has_duplicates", False):
+            serie = serie.groupby(level=0).sum()
+
+        if serie.empty:
+            return serie
+
+        mascara = serie.index.map(lambda c: bool(PADRAO_TRIMESTRE_ANO.match(str(c))))
+        serie = serie[mascara]
+
+        if ano is not None:
+            sufixo = f"{ano % 100:02d}"
+            serie = serie[
+                [c for c in serie.index
+                 if PADRAO_TRIMESTRE_ANO.match(str(c))
+                 and PADRAO_TRIMESTRE_ANO.match(str(c)).group(2) == sufixo]
+            ]
+        return serie
+    
     # ------------------------------------------------------------------
     # Consulta — DRE com suporte a granularidade
     # ------------------------------------------------------------------
@@ -198,16 +223,10 @@ class RepositorioDados:
         """
         Agrega a série trimestral em semestral ou anual.
 
-        Estratégia (por ordem de prioridade):
-          1. Se a série JÁ CONTÉM o rótulo do período agregado (ex.: '2024'
-             para anual, '1S24' para semestral), usa esse valor DIRETAMENTE.
-             Isso preserva o número oficial divulgado pela empresa —
-             especialmente importante para percentuais (margens, participações),
-             onde a média dos trimestres pode distorcer.
-          2. Se o rótulo não existe, CALCULA:
-             - MÉDIA para indicadores percentuais (lista em
-               config_indicadores.INDICADORES_PERCENTUAIS);
-             - SOMA para os demais.
+        Estratégia:
+          1. Se o valor agregado (ex.: '2024', '1S24') já existe na série,
+             usa direto.
+          2. Senão, calcula: MÉDIA para percentuais, SOMA para os demais.
         """
         from config_indicadores import INDICADORES_PERCENTUAIS
 
@@ -217,77 +236,71 @@ class RepositorioDados:
                 f"Use 'trimestral', 'semestral' ou 'anual'."
             )
 
-        # --- Normalização inicial -------------------------------------
-        # Se a série vier com índice duplicado (indicador aparece mais de
-        # uma vez na guia), colapsa em uma única linha antes de processar.
+        # --- Normalização: colapsa índice duplicado em uma Series simples ---
+        # Caso 1: veio um DataFrame (df.loc[indicador] com índice duplicado)
         if isinstance(serie, pd.DataFrame):
             serie = serie.apply(pd.to_numeric, errors="coerce").sum(axis=0)
-        else:
-            if serie.index.has_duplicates:
-                serie = serie.groupby(level=0).sum()
+        # Caso 2: é uma Series com índice duplicado
+        if getattr(serie.index, "has_duplicates", False):
+            serie = serie.groupby(level=0).sum()
 
         eh_percentual = chave_indicador in INDICADORES_PERCENTUAIS
 
-        # --- 1) Coleta trimestres e rótulos agregados existentes ------
-        # Guardamos os valores trimestrais para eventual recálculo e
-        # também os rótulos agregados já presentes na série.
-        trimestres = []       # (ano_completo, tri, valor)
-        rotulos_anuais = {}   # '2024' -> valor
-        rotulos_semestrais = {}  # '1S24' -> valor
+        # --- Coleta trimestres e rótulos agregados já presentes ---
+        trimestres = []
+        rotulos_anuais = {}
+        rotulos_semestrais = {}
 
         for rotulo, valor in serie.items():
-            texto = str(rotulo)
-            if pd.isna(valor):
+            # Se ainda vier uma Series (não deveria após a normalização),
+            # colapsa em escalar somando os valores não nulos.
+            if isinstance(valor, pd.Series):
+                valor = valor.dropna().sum()
+            try:
+                if pd.isna(valor):
+                    continue
+            except (TypeError, ValueError):
                 continue
 
-            # Rótulo de trimestre: '1T18'
+            texto = str(rotulo)
+
+            # Trimestre: '1T18'
             m_tri = PADRAO_TRIMESTRE_ANO.match(texto)
             if m_tri:
                 tri = int(m_tri.group(1))
-                ano_2d = int(m_tri.group(2))
-                ano_completo = 2000 + ano_2d
+                ano_completo = 2000 + int(m_tri.group(2))
                 trimestres.append((ano_completo, tri, float(valor)))
                 continue
 
-            # Rótulo de ano: '2018'
+            # Ano: '2018'
             m_ano = re.match(r'^(\d{4})$', texto)
             if m_ano:
                 rotulos_anuais[int(m_ano.group(1))] = float(valor)
                 continue
 
-            # Rótulo de semestre: '1S18'
+            # Semestre: '1S18'
             m_sem = re.match(r'^(\d)S(\d{2})$', texto)
             if m_sem:
                 sem = int(m_sem.group(1))
-                ano_2d = int(m_sem.group(2))
-                rotulos_semestrais[(2000 + ano_2d, sem)] = float(valor)
+                ano_completo = 2000 + int(m_sem.group(2))
+                rotulos_semestrais[(ano_completo, sem)] = float(valor)
                 continue
 
-        # --- Filtro por ano, se pedido ---------------------------------
         if ano is not None:
             trimestres = [t for t in trimestres if t[0] == ano]
 
-        # --- 2) Monta o resultado, período por período ----------------
         agrupado = {}
 
         if granularidade == "anual":
-            # Conjunto de anos a cobrir: os que têm trimestre OU os que já
-            # têm valor anual direto na série.
-            anos_disponiveis = sorted(
-                {t[0] for t in trimestres} | set(rotulos_anuais.keys())
-            )
+            anos = sorted({t[0] for t in trimestres} | set(rotulos_anuais.keys()))
             if ano is not None:
-                anos_disponiveis = [a for a in anos_disponiveis if a == ano]
+                anos = [a for a in anos if a == ano]
 
-            for a in anos_disponiveis:
+            for a in anos:
                 chave = str(a)
-
-                # (1) Se o valor anual já existe na série, usa direto.
                 if a in rotulos_anuais:
                     agrupado[chave] = rotulos_anuais[a]
                     continue
-
-                # (2) Senão, calcula a partir dos trimestres daquele ano.
                 vals = [v for (aa, _tri, v) in trimestres if aa == a]
                 if not vals:
                     continue
@@ -296,24 +309,18 @@ class RepositorioDados:
                 )
 
         else:  # semestral
-            # Conjunto de (ano, semestre) a cobrir.
             chaves_sem = set()
             for (aa, tri, _v) in trimestres:
                 chaves_sem.add((aa, 1 if tri <= 2 else 2))
             chaves_sem |= set(rotulos_semestrais.keys())
-
             if ano is not None:
                 chaves_sem = {k for k in chaves_sem if k[0] == ano}
 
             for (a, sem) in sorted(chaves_sem):
                 chave = f"{sem}S{a % 100:02d}"
-
-                # (1) Se o valor semestral já existe, usa direto.
                 if (a, sem) in rotulos_semestrais:
                     agrupado[chave] = rotulos_semestrais[(a, sem)]
                     continue
-
-                # (2) Senão, agrega os dois trimestres correspondentes.
                 if sem == 1:
                     vals = [v for (aa, tri, v) in trimestres
                             if aa == a and tri in (1, 2)]
@@ -329,7 +336,6 @@ class RepositorioDados:
         if not agrupado:
             return pd.Series(dtype=float)
 
-        # --- 3) Ordena cronologicamente ---------------------------------
         if granularidade == "anual":
             chaves_ordenadas = sorted(agrupado.keys(), key=lambda s: int(s))
         else:
@@ -338,7 +344,7 @@ class RepositorioDados:
                 key=lambda s: (int(s[2:]) if len(s) > 2 else 0, int(s[0])),
             )
 
-        return pd.Series({k: agrupado[k] for k in chaves_ordenadas})    
+        return pd.Series({k: agrupado[k] for k in chaves_ordenadas})
     
     # ------------------------------------------------------------------
     # Cotações
