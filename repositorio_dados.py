@@ -140,7 +140,8 @@ class RepositorioDados:
             return pd.Series(dtype=float)
 
     def serie_dre_por_granularidade(self, guia, indicador,
-                                    granularidade="trimestral", ano=None):
+                                    granularidade="trimestral", ano=None,
+                                    chave_indicador=None):
         """
         Devolve a série do DRE agregada conforme a granularidade escolhida,
         evitando misturar no mesmo gráfico trimestres, semestres e anos
@@ -160,11 +161,11 @@ class RepositorioDados:
         if serie.empty:
             return serie
 
-        # Se a granularidade pedida é a bruta, apenas filtra por ano (se houver)
         if granularidade == "trimestral":
             return self._filtrar_trimestres_por_ano(serie, ano)
 
-        return self._agregar_serie(serie, granularidade, ano)
+        return self._agregar_serie(serie, granularidade, ano,
+                                   chave_indicador=chave_indicador)
 
     def _filtrar_trimestres_por_ano(self, serie, ano):
         """..."""
@@ -193,36 +194,16 @@ class RepositorioDados:
 
         return serie
 
-    def _xxxfiltrar_trimestres_por_ano(self, serie, ano):
+    def _agregar_serie(self, serie, granularidade, ano, chave_indicador=None):
         """
-        Filtra a série para conter APENAS rótulos de trimestre (ex.: '1T18'),
-        descartando qualquer outro rótulo (anos como '2018', semestres como
-        '1S18', datas etc.) que eventualmente coexistam na mesma guia.
+        Agrega a série trimestral em semestral ou anual.
 
-        Se 'ano' for informado, filtra também por aquele ano.
+        Para indicadores PERCENTUAIS (margens, participações), usa MÉDIA
+        em vez de soma — somar 4 trimestres de margem não faz sentido.
+        A lista de chaves percentuais está em config_indicadores.INDICADORES_PERCENTUAIS.
         """
-        if serie is None or serie.empty:
-            return serie
+        from config_indicadores import INDICADORES_PERCENTUAIS
 
-        # 1) Mantém apenas rótulos que casam com o padrão de trimestre
-        mascara_trimestre = serie.index.map(
-            lambda c: bool(PADRAO_TRIMESTRE_ANO.match(str(c)))
-        )
-        serie = serie[mascara_trimestre]
-
-        # 2) Se um ano específico foi pedido, filtra por ele
-        if ano is not None:
-            sufixo = f"{ano % 100:02d}"
-            serie = serie[
-                [c for c in serie.index
-                if PADRAO_TRIMESTRE_ANO.match(str(c))
-                and PADRAO_TRIMESTRE_ANO.match(str(c)).group(2) == sufixo]
-            ]
-
-        return serie
-
-    def _agregar_serie(self, serie, granularidade, ano):
-        """Agrega a série trimestral em semestral ou anual."""
         if granularidade not in ("semestral", "anual"):
             raise ValueError(
                 f"Granularidade inválida: '{granularidade}'. "
@@ -230,59 +211,15 @@ class RepositorioDados:
             )
 
         # Se a série vier com índice duplicado (indicador aparece mais de
-        # uma vez na guia), agrega por rótulo antes de processar.
+        # uma vez na guia), colapsa em uma única linha antes de processar.
         if isinstance(serie, pd.DataFrame):
-            # Soma as linhas duplicadas (por rótulo de período)
             serie = serie.apply(pd.to_numeric, errors="coerce").sum(axis=0)
         else:
-            # Série normal: garante que não há rótulos duplicados
             if serie.index.has_duplicates:
                 serie = serie.groupby(level=0).sum()
 
-        # 1) Converte cada rótulo trimestral em (ano, trimestre)
-        dados = []
-        for rotulo, valor in serie.items():
-            m = PADRAO_TRIMESTRE_ANO.match(str(rotulo))
-            if not m:
-                continue
-            tri = int(m.group(1))
-            ano_2d = int(m.group(2))
-            ano_completo = 2000 + ano_2d
-            if ano is not None and ano_completo != ano:
-                continue
-            if pd.isna(valor):
-                valor = 0.0
-            dados.append((ano_completo, tri, valor))
-
-        if not dados:
-            return pd.Series(dtype=float)
-
-        agrupado = {}
-        for ano_completo, tri, valor in dados:
-            if granularidade == "anual":
-                chave = str(ano_completo)
-            else:
-                semestre = 1 if tri <= 2 else 2
-                chave = f"{semestre}S{ano_completo % 100:02d}"
-            agrupado[chave] = agrupado.get(chave, 0.0) + valor
-
-        if granularidade == "anual":
-            chaves_ordenadas = sorted(agrupado.keys())
-        else:
-            chaves_ordenadas = sorted(
-                agrupado.keys(),
-                key=lambda s: (int(s[2:]) if len(s) > 2 else 0, int(s[0])),
-            )
-
-        return pd.Series({k: agrupado[k] for k in chaves_ordenadas})
-
-    def _xxagregar_serie(self, serie, granularidade, ano):
-        """Agrega a série trimestral em semestral ou anual."""
-        if granularidade not in ("semestral", "anual"):
-            raise ValueError(
-                f"Granularidade inválida: '{granularidade}'. "
-                f"Use 'trimestral', 'semestral' ou 'anual'."
-            )
+        # Decide se a agregação é por SOMA ou MÉDIA
+        eh_percentual = chave_indicador in INDICADORES_PERCENTUAIS
 
         # 1) Converte cada rótulo trimestral em (ano, trimestre)
         dados = []
@@ -296,23 +233,31 @@ class RepositorioDados:
             if ano is not None and ano_completo != ano:
                 continue
             if pd.isna(valor):
-                valor = 0.0
-            dados.append((ano_completo, tri, valor))
+                continue  # ignora NaN na agregação (não vira 0)
+            dados.append((ano_completo, tri, float(valor)))
 
         if not dados:
             return pd.Series(dtype=float)
 
-        # 2) Agrupa conforme a granularidade
-        agrupado = {}
+        # 2) Agrupa
+        buckets = {}
         for ano_completo, tri, valor in dados:
             if granularidade == "anual":
                 chave = str(ano_completo)
             else:  # semestral
                 semestre = 1 if tri <= 2 else 2
                 chave = f"{semestre}S{ano_completo % 100:02d}"
-            agrupado[chave] = agrupado.get(chave, 0.0) + valor
+            buckets.setdefault(chave, []).append(valor)
 
-        # 3) Ordena cronologicamente
+        # 3) Reduz cada bucket: média se percentual, soma caso contrário
+        agrupado = {}
+        for chave, valores in buckets.items():
+            if eh_percentual:
+                agrupado[chave] = sum(valores) / len(valores)  # média
+            else:
+                agrupado[chave] = sum(valores)                 # soma
+
+        # 4) Ordena cronologicamente
         if granularidade == "anual":
             chaves_ordenadas = sorted(agrupado.keys())
         else:
