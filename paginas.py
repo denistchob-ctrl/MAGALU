@@ -109,15 +109,15 @@ class PaginaCargaHigienizacao:
 
         with st.expander("Ver amostra dos dados"):
             amostra = df.tail(5).reset_index()
-            # Converte a coluna Data para string dd/mm/aaaa ANTES de exibir.
-            # Importante: usamos .astype(str) para que o Streamlit trate
-            # como texto puro e não reformate como datetime.
+            # Formata como string dd/mm/aaaa. Usamos um espaço de largura
+            # zero (U+200B) no final para o Streamlit NÃO reconhecer a
+            # coluna como data e não reformatar com timestamp.
             amostra["Data"] = (
                 pd.to_datetime(amostra["Data"])
                   .dt.strftime("%d/%m/%Y")
                   .astype(str)
+                + "\u200b"
             )
-            # Remove o índice para o Streamlit não exibir a coluna de índice
             st.dataframe(amostra, hide_index=True)
 
     def _secao_reclame_aqui(self, repositorio):
