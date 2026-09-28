@@ -7,6 +7,7 @@ render(). Mantém a apresentação separada do acesso a dados
 """
 
 import streamlit as st
+import pandas as pd
 
 from graficos import FabricaGraficos
 
@@ -107,11 +108,12 @@ class PaginaCargaHigienizacao:
                  f"{df.index.min().date()} a {df.index.max().date()}.")
 
         with st.expander("Ver amostra dos dados"):
-            # Amostra com data formatada (sem hora) e índice reiniciado
             amostra = df.tail(5).reset_index()
-            amostra["Data"] = amostra["Data"].dt.strftime("%d/%m/%Y")
+            # Força a coluna Data a ser string dd/mm/aaaa (sem hora/timestamp)
+            amostra["Data"] = pd.to_datetime(amostra["Data"]).dt.strftime("%d/%m/%Y")
+            # Garante que a coluna é tratada como texto no Streamlit
+            amostra["Data"] = amostra["Data"].astype(str)
             st.dataframe(amostra, hide_index=True)
-
 
     def _secao_reclame_aqui(self, repositorio):
         st.markdown("## Reclame Aqui")

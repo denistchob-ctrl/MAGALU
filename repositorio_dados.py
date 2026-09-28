@@ -167,6 +167,33 @@ class RepositorioDados:
         return self._agregar_serie(serie, granularidade, ano)
 
     def _filtrar_trimestres_por_ano(self, serie, ano):
+        """..."""
+        if serie is None:
+            return pd.Series(dtype=float)
+
+        # Se veio DataFrame (índice duplicado), colapsa em uma Series
+        if isinstance(serie, pd.DataFrame):
+            serie = serie.apply(pd.to_numeric, errors="coerce").sum(axis=0)
+
+        if serie.empty:
+            return serie
+
+        mascara_trimestre = serie.index.map(
+            lambda c: bool(PADRAO_TRIMESTRE_ANO.match(str(c)))
+        )
+        serie = serie[mascara_trimestre]
+
+        if ano is not None:
+            sufixo = f"{ano % 100:02d}"
+            serie = serie[
+                [c for c in serie.index
+                 if PADRAO_TRIMESTRE_ANO.match(str(c))
+                 and PADRAO_TRIMESTRE_ANO.match(str(c)).group(2) == sufixo]
+            ]
+
+        return serie
+
+    def _xxxfiltrar_trimestres_por_ano(self, serie, ano):
         """
         Filtra a série para conter APENAS rótulos de trimestre (ex.: '1T18'),
         descartando qualquer outro rótulo (anos como '2018', semestres como
@@ -195,6 +222,61 @@ class RepositorioDados:
         return serie
 
     def _agregar_serie(self, serie, granularidade, ano):
+        """Agrega a série trimestral em semestral ou anual."""
+        if granularidade not in ("semestral", "anual"):
+            raise ValueError(
+                f"Granularidade inválida: '{granularidade}'. "
+                f"Use 'trimestral', 'semestral' ou 'anual'."
+            )
+
+        # Se a série vier com índice duplicado (indicador aparece mais de
+        # uma vez na guia), agrega por rótulo antes de processar.
+        if isinstance(serie, pd.DataFrame):
+            # Soma as linhas duplicadas (por rótulo de período)
+            serie = serie.apply(pd.to_numeric, errors="coerce").sum(axis=0)
+        else:
+            # Série normal: garante que não há rótulos duplicados
+            if serie.index.has_duplicates:
+                serie = serie.groupby(level=0).sum()
+
+        # 1) Converte cada rótulo trimestral em (ano, trimestre)
+        dados = []
+        for rotulo, valor in serie.items():
+            m = PADRAO_TRIMESTRE_ANO.match(str(rotulo))
+            if not m:
+                continue
+            tri = int(m.group(1))
+            ano_2d = int(m.group(2))
+            ano_completo = 2000 + ano_2d
+            if ano is not None and ano_completo != ano:
+                continue
+            if pd.isna(valor):
+                valor = 0.0
+            dados.append((ano_completo, tri, valor))
+
+        if not dados:
+            return pd.Series(dtype=float)
+
+        agrupado = {}
+        for ano_completo, tri, valor in dados:
+            if granularidade == "anual":
+                chave = str(ano_completo)
+            else:
+                semestre = 1 if tri <= 2 else 2
+                chave = f"{semestre}S{ano_completo % 100:02d}"
+            agrupado[chave] = agrupado.get(chave, 0.0) + valor
+
+        if granularidade == "anual":
+            chaves_ordenadas = sorted(agrupado.keys())
+        else:
+            chaves_ordenadas = sorted(
+                agrupado.keys(),
+                key=lambda s: (int(s[2:]) if len(s) > 2 else 0, int(s[0])),
+            )
+
+        return pd.Series({k: agrupado[k] for k in chaves_ordenadas})
+
+    def _xxagregar_serie(self, serie, granularidade, ano):
         """Agrega a série trimestral em semestral ou anual."""
         if granularidade not in ("semestral", "anual"):
             raise ValueError(

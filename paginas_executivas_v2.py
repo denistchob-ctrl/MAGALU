@@ -112,7 +112,6 @@ class PaginaV2VisaoExecutiva:
 
         # --- KPIs ---
         st.subheader("Indicadores-chave")
-        cols = st.columns(4)
 
         indicadores_kpi = [
             ("Receita Líquida", "receita_liquida", True),
@@ -123,9 +122,10 @@ class PaginaV2VisaoExecutiva:
             ("Participação E-commerce", "participacao_ecommerce", False),
         ]
 
-        for i, (label, chave, is_moeda) in enumerate(indicadores_kpi):
-            col = cols[i % 4] if i < 4 else st.columns(4)[i - 4]
-            with col:
+        # Linha 1: 4 primeiros KPIs
+        linha1 = st.columns(4)
+        for i, (label, chave, is_moeda) in enumerate(indicadores_kpi[:4]):
+            with linha1[i]:
                 serie = _serie(repositorio, chave, gran, None)
                 if serie.empty:
                     _kpi(label, "—", None)
@@ -137,6 +137,35 @@ class PaginaV2VisaoExecutiva:
                 else:
                     valor_str = formata_moeda(atual) if is_moeda else formata_pct(atual)
                     _kpi(label, valor_str, var)
+
+        # Linha 2: 2 KPIs restantes + MGLU3
+        linha2 = st.columns(4)
+        for i, (label, chave, is_moeda) in enumerate(indicadores_kpi[4:6]):
+            with linha2[i]:
+                serie = _serie(repositorio, chave, gran, None)
+                if serie.empty:
+                    _kpi(label, "—", None)
+                    continue
+                atual = serie.dropna().iloc[-1] if not serie.dropna().empty else None
+                var = variacao_ultimo_vs_anterior(serie)
+                if atual is None:
+                    _kpi(label, "—", None)
+                else:
+                    valor_str = formata_moeda(atual) if is_moeda else formata_pct(atual)
+                    _kpi(label, valor_str, var)
+
+        # MGLU3 na mesma linha, coluna 3
+        with linha2[2]:
+            if repositorio.cotacao is not None:
+                serie_fech = repositorio.cotacao.get_serie("Fechamento")
+                if not serie_fech.empty:
+                    atual = serie_fech.iloc[-1]
+                    var = variacao_ultimo_vs_anterior(serie_fech.tail(60))
+                    _kpi("MGLU3 (últ. fechamento)", f"R$ {atual:.2f}", var)
+                else:
+                    _kpi("MGLU3 (últ. fechamento)", "—", None)
+            else:
+                _kpi("MGLU3 (últ. fechamento)", "—", None)
 
         # Cotação MGLU3
         col_cot = st.columns(4)[2]
@@ -372,15 +401,64 @@ class PaginaV2Cliente:
             width="stretch",
         )
 
+
+
+
+        # # --- RA por unidade de negócio ---
+        # st.subheader(f"Reclame Aqui — {unidade.capitalize()}")
+        # df_ra = None
+        # if repositorio.reclame_aqui is not None:
+        #     try:
+        #         df_ra = repositorio.reclame_aqui.desempenho(unidade)
+        #     except KeyError:
+        #         st.info(f"Unidade '{unidade}' não encontrada no Reclame Aqui.")
+        #         df_ra = None
+
         # --- RA por unidade de negócio ---
         st.subheader(f"Reclame Aqui — {unidade.capitalize()}")
+
         df_ra = None
         if repositorio.reclame_aqui is not None:
             try:
-                df_ra = repositorio.reclame_aqui.desempenho(unidade)
+                df_ra_full = repositorio.reclame_aqui.desempenho(unidade)
+                # Remove a linha "Geral" (total consolidado, não é período)
+                df_ra = df_ra_full[
+                    ~df_ra_full.index.astype(str).str.lower().isin(["geral", "total"])
+                ].copy()
+                # Ordena cronologicamente: extrai o ano do índice e ordena
+                def _chave_ordenacao(idx):
+                    texto = str(idx)
+                    # tenta achar um ano de 4 dígitos
+                    import re as _re
+                    m = _re.search(r'(\d{4})', texto)
+                    return int(m.group(1)) if m else 9999
+                df_ra = df_ra.loc[sorted(df_ra.index, key=_chave_ordenacao)]
             except KeyError:
                 st.info(f"Unidade '{unidade}' não encontrada no Reclame Aqui.")
                 df_ra = None
+
+        # Para alinhar as barras de RA (rótulos '2024') com a linha de Vendas
+        # (datas reais), convertemos os rótulos de RA em timestamps.
+        if df_ra is not None and not df_ra.empty:
+            import re as _re
+            novos_indices = []
+            for rotulo in df_ra.index:
+                texto = str(rotulo)
+                m = _re.match(r'^(\d{4})$', texto)
+                if m:
+                    novos_indices.append(pd.Timestamp(year=int(m.group(1)), month=1, day=1))
+                else:
+                    # Semestre: '1S2024' / '2S2024'
+                    m = _re.match(r'^(\d)S(\d{4})$', texto)
+                    if m:
+                        sem = int(m.group(1)); ano_ = int(m.group(2))
+                        mes = 1 if sem == 1 else 7
+                        novos_indices.append(pd.Timestamp(year=ano_, month=mes, day=1))
+                    else:
+                        novos_indices.append(rotulo)
+            df_ra = df_ra.copy()
+            df_ra.index = novos_indices
+            df_ra = df_ra.sort_index()
 
         if unidade == "online":
             serie_v = _serie(repositorio, "vendas_ecommerce_total", gran, ano)
@@ -471,15 +549,19 @@ class PaginaV2Investimentos:
             "Lucro": _serie(repositorio, "lucro_liquido", "anual", None),
             "Vendas Totais": _serie(repositorio, "vendas_totais", "anual", None),
         }
+
         if repositorio.cotacao is not None:
             fech = repositorio.cotacao.get_serie("Fechamento")
             if not fech.empty:
-                fech_anual = fech.resample("Y").last()
-                fech_anual.index = fech_anual.index.year
-                series_base["MGLU3"] = fech_anual
+                # Agrega por ano SEM resample (evita o erro de 'Y' vs 'YE'):
+                # pega o último fechamento de cada ano.
+                fech_por_ano = fech.groupby(fech.index.year).last()
+                fech_por_ano.index.name = "Ano"
+                series_base["MGLU3"] = fech_por_ano
 
         df_base = pd.DataFrame({
-            k: base_100(v) for k, v in series_base.items() if v is not None and not v.empty
+            k: base_100(v) for k, v in series_base.items()
+            if v is not None and not v.empty
         })
         if not df_base.empty:
             st.plotly_chart(g2.invest_mercado_base100(df_base), width="stretch")
