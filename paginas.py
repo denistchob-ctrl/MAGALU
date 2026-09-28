@@ -109,14 +109,19 @@ class PaginaCargaHigienizacao:
 
         with st.expander("Ver amostra dos dados"):
             amostra = df.tail(5).reset_index()
-            amostra["Data"] = pd.to_datetime(amostra["Data"]).dt.strftime("%d/%m/%Y").to_string()
-            st.dataframe(
-                amostra,
-                hide_index=True,
-                column_config={
-                    "Data": st.column_config.TextColumn("Data"),
-                },
-            )
+            amostra["Data"] = pd.to_datetime(amostra["Data"]).dt.strftime("%d/%m/%Y")
+            st.table(amostra)
+
+        # with st.expander("Ver amostra dos dados"):
+        #     amostra = df.tail(5).reset_index()
+        #     amostra["Data"] = pd.to_datetime(amostra["Data"]).dt.strftime("%d/%m/%Y").to_string()
+        #     st.dataframe(
+        #         amostra,
+        #         hide_index=True,
+        #         column_config={
+        #             "Data": st.column_config.TextColumn("Data"),
+        #         },
+        #     )
 
     def _secao_reclame_aqui(self, repositorio):
         st.markdown("## Reclame Aqui")
