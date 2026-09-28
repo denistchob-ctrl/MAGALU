@@ -74,6 +74,25 @@ INDICADORES = {
 }
 
 # ----------------------------------------------------------------------
+# Indicadores que são PERCENTUAIS/MARGENS — não podem ser somados ao
+# agregar para semestral/anual. Ao agregar, usamos a MÉDIA.
+#
+# Se um indicador percentual não estiver aqui, ele será somado — o que
+# produz valores absurdos (ex.: Participação E-commerce = 282%).
+# ----------------------------------------------------------------------
+INDICADORES_PERCENTUAIS = {
+    "margem_bruta",
+    "margem_ebitda",
+    "margem_ebitda_ajustado",
+    "margem_liquida",
+    "margem_liquida_ajustada",
+    "participacao_ecommerce",
+    "vendas_lojas_fisicas_cresc_pct",
+    # Crescimentos (%) também são percentuais:
+    # ajuste conforme os indicadores que você mapear no dicionário INDICADORES
+}
+
+# ----------------------------------------------------------------------
 # Unidades de negócio do Reclame Aqui
 # ----------------------------------------------------------------------
 UNIDADES_RA = ["online", "fisica", "luizacred", "consorcio"]
