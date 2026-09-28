@@ -58,14 +58,14 @@ def _seletor_unidade_ra(key):
         key=key,
     )
 
-
 def _serie(repositorio, chave, gran, ano):
     """Busca uma série do DRE a partir da chave em INDICADORES."""
     if chave not in INDICADORES:
         return pd.Series(dtype=float)
     guia, indicador = INDICADORES[chave]
-    return repositorio.serie_dre_por_granularidade(guia, indicador, gran, ano)
-
+    return repositorio.serie_dre_por_granularidade(
+        guia, indicador, gran, ano, chave_indicador=chave,
+    )
 
 def _kpi(label, valor_str, variacao=None):
     """Card de KPI."""
