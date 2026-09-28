@@ -292,20 +292,34 @@ class RepositorioDados:
         agrupado = {}
 
         if granularidade == "anual":
-            anos = sorted({t[0] for t in trimestres} | set(rotulos_anuais.keys()))
-            if ano is not None:
-                anos = [a for a in anos if a == ano]
+            anos_com_trimestre = {t[0] for t in trimestres}
+            anos_anuais = set(rotulos_anuais.keys())
+            anos_disponiveis = sorted(anos_com_trimestre | anos_anuais)
 
-            for a in anos:
+            if ano is not None:
+                anos_disponiveis = [a for a in anos_disponiveis if a == ano]
+
+            for a in anos_disponiveis:
                 chave = str(a)
+
+                # (1) Se o valor anual já existe na planilha, usa direto
                 if a in rotulos_anuais:
                     agrupado[chave] = rotulos_anuais[a]
                     continue
-                vals = [v for (aa, _tri, v) in trimestres if aa == a]
-                if not vals:
+
+                # (2) Senão, verifica se o ano está COMPLETO (4 trimestres).
+                #     Anos incompletos (ex.: 2026 com apenas 1T e 2T) são
+                #     descartados para não gerar valores distorcidos.
+                vals_do_ano = [v for (aa, _tri, v) in trimestres if aa == a]
+                tris_do_ano = {tri for (aa, tri, _v) in trimestres if aa == a}
+                if len(tris_do_ano) < 4:
+                    continue  # ano incompleto — pula
+
+                if not vals_do_ano:
                     continue
                 agrupado[chave] = (
-                    sum(vals) / len(vals) if eh_percentual else sum(vals)
+                    sum(vals_do_ano) / len(vals_do_ano) if eh_percentual
+                    else sum(vals_do_ano)
                 )
 
         else:  # semestral
@@ -318,15 +332,26 @@ class RepositorioDados:
 
             for (a, sem) in sorted(chaves_sem):
                 chave = f"{sem}S{a % 100:02d}"
+
+                # (1) Se o valor semestral já existe na planilha, usa direto
                 if (a, sem) in rotulos_semestrais:
                     agrupado[chave] = rotulos_semestrais[(a, sem)]
                     continue
+
+                # (2) Senão, exige que os DOIS trimestres do semestre existam
                 if sem == 1:
+                    tris_esperados = {1, 2}
                     vals = [v for (aa, tri, v) in trimestres
                             if aa == a and tri in (1, 2)]
                 else:
+                    tris_esperados = {3, 4}
                     vals = [v for (aa, tri, v) in trimestres
                             if aa == a and tri in (3, 4)]
+
+                tris_presentes = {tri for (aa, tri, _v) in trimestres if aa == a}
+                if not tris_esperados.issubset(tris_presentes):
+                    continue  # semestre incompleto — pula
+
                 if not vals:
                     continue
                 agrupado[chave] = (

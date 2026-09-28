@@ -135,9 +135,14 @@ class PaginaV2VisaoExecutiva:
                     return
                 atual = s.iloc[-1]
                 var = variacao_ultimo_vs_anterior(serie)
-                valor_str = formata_moeda(atual) if is_moeda else formata_pct(atual)
+                if is_moeda:
+                    # A planilha está em R$ milhões; multiplica para que o
+                    # formatador exiba 'bi' quando fizer sentido.
+                    valor_str = formata_moeda(atual * 1_000_000)
+                else:
+                    valor_str = formata_pct(atual)
                 _kpi(label, valor_str, var)
-
+                
         # Linha 1: 4 primeiros KPIs
         linha1 = st.columns(4)
         for i, (label, chave, is_moeda) in enumerate(indicadores_kpi[:4]):
