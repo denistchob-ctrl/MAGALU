@@ -520,3 +520,195 @@ def ato5_scorecard(df_scorecard):
         height=max(300, 40 * len(df_scorecard) + 80),
     )
     return fig
+
+# ======================================================================
+# GRÁFICOS ADICIONAIS — para as 5 páginas executivas
+# ======================================================================
+
+def grafico_temporal_multilinhas(df, titulo, yaxis_titulo, cores=None):
+    """
+    Gráfico temporal genérico com múltiplas séries (linhas). Útil para
+    comparar indicadores selecionados pelo usuário.
+    df: DataFrame com uma coluna por indicador e índice = período.
+    """
+    fig = go.Figure()
+    if df is None or df.empty:
+        fig.update_layout(title=f"{titulo} (sem dados)", template=TEMPLATE)
+        return fig
+
+    for coluna in df.columns:
+        fig.add_trace(go.Scatter(
+            name=coluna,
+            x=[str(i) for i in df.index],
+            y=df[coluna].values,
+            mode="lines+markers",
+            line=dict(width=2),
+        ))
+
+    fig.update_layout(
+        title=titulo,
+        template=TEMPLATE,
+        legend=dict(orientation="h", yanchor="bottom", y=1.02),
+        hovermode="x unified",
+        height=500,
+    )
+    fig.update_yaxes(title_text=yaxis_titulo)
+    return fig
+
+
+def grafico_barras_linha(x, serie_barra, serie_linha,
+                         nome_barra, nome_linha,
+                         titulo, yaxis_barra, yaxis_linha):
+    """Gráfico combinado barras + linha em dois eixos Y."""
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+    if serie_barra is not None and not serie_barra.empty:
+        fig.add_trace(go.Bar(
+            name=nome_barra,
+            x=[str(i) for i in serie_barra.index],
+            y=serie_barra.values,
+            marker_color=CORES["receita"],
+            opacity=0.85,
+        ), secondary_y=False)
+
+    if serie_linha is not None and not serie_linha.empty:
+        fig.add_trace(go.Scatter(
+            name=nome_linha,
+            x=[str(i) for i in serie_linha.index],
+            y=serie_linha.values * 100 if "margem" in nome_linha.lower() else serie_linha.values,
+            mode="lines+markers",
+            line=dict(color=CORES["margem"], width=2, dash="dot"),
+        ), secondary_y=True)
+
+    fig.update_layout(
+        title=titulo,
+        template=TEMPLATE,
+        legend=dict(orientation="h", yanchor="bottom", y=1.02),
+        hovermode="x unified",
+        height=500,
+    )
+    fig.update_yaxes(title_text=yaxis_barra, secondary_y=False)
+    fig.update_yaxes(title_text=yaxis_linha, secondary_y=True)
+    return fig
+
+
+def grafico_area_mix(df_mix, titulo):
+    """
+    Gráfico de área empilhada para mostrar a mudança do mix de canais.
+    df_mix: DataFrame com colunas ['Lojas Físicas', 'E-commerce 1P', 'Marketplace 3P'].
+    """
+    fig = go.Figure()
+    if df_mix is None or df_mix.empty:
+        fig.update_layout(title=f"{titulo} (sem dados)", template=TEMPLATE)
+        return fig
+
+    cores = [CORES["secundaria"], CORES["invest"], CORES["acento"]]
+    for i, coluna in enumerate(df_mix.columns):
+        fig.add_trace(go.Scatter(
+            name=coluna,
+            x=[str(j) for j in df_mix.index],
+            y=df_mix[coluna].values,
+            mode="lines",
+            stackgroup="one",
+            line=dict(width=0.5, color=cores[i % len(cores)]),
+        ))
+
+    fig.update_layout(
+        title=titulo,
+        template=TEMPLATE,
+        legend=dict(orientation="h", yanchor="bottom", y=1.02),
+        hovermode="x unified",
+        height=500,
+    )
+    fig.update_yaxes(title_text="Vendas (R$ milhões)")
+    return fig
+
+
+def grafico_base_100(df_base100, titulo="Base 100 — comparação de trajetórias"):
+    """
+    Gráfico de linhas comparando séries na base 100.
+    df_base100: DataFrame com uma coluna por série, índice = período.
+    """
+    fig = go.Figure()
+    if df_base100 is None or df_base100.empty:
+        fig.update_layout(title=f"{titulo} (sem dados)", template=TEMPLATE)
+        return fig
+
+    for coluna in df_base100.columns:
+        fig.add_trace(go.Scatter(
+            name=coluna,
+            x=[str(i) for i in df_base100.index],
+            y=df_base100[coluna].values,
+            mode="lines+markers",
+            line=dict(width=2),
+        ))
+
+    # Linha de referência em 100
+    fig.add_hline(y=100, line_dash="dash", line_color="#999999",
+                  annotation_text="Base 100", annotation_position="right")
+
+    fig.update_layout(
+        title=titulo,
+        template=TEMPLATE,
+        legend=dict(orientation="h", yanchor="bottom", y=1.02),
+        hovermode="x unified",
+        height=500,
+    )
+    fig.update_yaxes(title_text="Índice (base 100)")
+    return fig
+
+
+def grafico_dispersao(serie_x, serie_y, nome_x, nome_y,
+                      r=None, n=None, titulo=None):
+    """
+    Gráfico de dispersão com linha de tendência (se n >= mínimo) e
+    anotação de correlação.
+    """
+    fig = go.Figure()
+    if serie_x is None or serie_y is None:
+        fig.update_layout(title="Dispersão (sem dados)", template=TEMPLATE)
+        return fig
+
+    df = pd.DataFrame({"x": serie_x, "y": serie_y}).dropna()
+    if df.empty:
+        fig.update_layout(title="Dispersão (sem dados alinhados)", template=TEMPLATE)
+        return fig
+
+    fig.add_trace(go.Scatter(
+        x=df["x"], y=df["y"],
+        mode="markers",
+        marker=dict(size=8, color=CORES["secundaria"]),
+        name="Observações",
+        text=[str(i) for i in df.index],
+    ))
+
+    # Linha de tendência (regressão linear simples) se n >= mínimo
+    if len(df) >= 8 and df["x"].std() > 0:
+        coef = np.polyfit(df["x"], df["y"], 1)
+        x_linha = np.linspace(df["x"].min(), df["x"].max(), 50)
+        y_linha = coef[0] * x_linha + coef[1]
+        fig.add_trace(go.Scatter(
+            x=x_linha, y=y_linha,
+            mode="lines",
+            line=dict(color=CORES["negativo"], width=2, dash="dash"),
+            name="Tendência linear",
+        ))
+
+    anotacao = f"r = {r:.3f}" if r is not None and not np.isnan(r) else "r indisponível"
+    anotacao += f" · n = {n}" if n else ""
+
+    fig.update_layout(
+        title=titulo or f"Dispersão: {nome_x} × {nome_y}",
+        template=TEMPLATE,
+        xaxis_title=nome_x,
+        yaxis_title=nome_y,
+        height=500,
+        annotations=[dict(
+            text=anotacao,
+            xref="paper", yref="paper",
+            x=0.02, y=0.98, showarrow=False,
+            bgcolor="rgba(255,255,255,0.8)",
+            bordercolor="#cccccc", borderwidth=1,
+        )],
+    )
+    return fig
