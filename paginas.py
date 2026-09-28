@@ -109,7 +109,7 @@ class PaginaCargaHigienizacao:
 
         with st.expander("Ver amostra dos dados"):
             amostra = df.tail(5).reset_index()
-            amostra["Data"] = pd.to_datetime(amostra["Data"]).dt.strftime("%d/%m/%Y")
+            amostra["Data"] = pd.to_datetime(amostra["Data"]).dt.strftime("%d/%m/%Y").to_string()
             st.dataframe(
                 amostra,
                 hide_index=True,
