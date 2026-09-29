@@ -45,7 +45,7 @@ Rotina rodando em: https://pi3-magalu.streamlit.app/
 * Remoção do sufixo "REAPRESENTADO" dos cabeçalhos de período
 * Conversão de células com `"-"` (traço) para `0` em indicadores configurados
 
-### Inventário de Dados
+### Inventário de Dados x
 * `inventario_dados.py` gera um inventário (sem valores) do que existe em
   cada fonte, útil para conferir a extração e identificar lacunas.
 * Saídas em `inventario/`:
