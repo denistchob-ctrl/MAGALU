@@ -27,7 +27,6 @@ from dataclasses import dataclass, field
 from datetime import date, timedelta
 from typing import List, Optional, Tuple
 
-from numba import char
 import pandas as pd
 
 cifrao = chr(ord("$"))
