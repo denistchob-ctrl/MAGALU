@@ -48,6 +48,38 @@ STATUS_TXT = {"verificado": "✅ fonte verificada",
               "conhecimento_publico": "🟡 data de conhecimento público — conferir fonte oficial",
               "a_confirmar": "🔴 a confirmar"}
 
+# ----------------------------------------------------------------------
+# Escape de "$": o Streamlit interpreta $...$ como fórmula LaTeX em qualquer
+# texto Markdown, o que corrompe valores como "R$ 6,6 bi ... R$ 6,7 bi".
+# Todo texto exibido passa por estes wrappers, que escapam o "$" (R$ -> R\$).
+# É seguro com textos que já estavam escapados (não duplica a barra).
+# ----------------------------------------------------------------------
+def _esc(texto):
+    if not isinstance(texto, str):
+        return texto
+    return texto.replace("\\$", "$").replace("$", "\\$")
+
+
+def _markdown(texto, *args, **kwargs):
+    return st.markdown(_esc(texto), *args, **kwargs)
+
+
+def _caption(texto, *args, **kwargs):
+    return st.caption(_esc(texto), *args, **kwargs)
+
+
+def _info(texto, *args, **kwargs):
+    return st.info(_esc(texto), *args, **kwargs)
+
+
+def _warning(texto, *args, **kwargs):
+    return st.warning(_esc(texto), *args, **kwargs)
+
+
+def _success(texto, *args, **kwargs):
+    return st.success(_esc(texto), *args, **kwargs)
+
+
 CHAVES_COM_SINAL = {"lucro_liquido", "lucro_liquido_ajustado", "resultado_financeiro",
                     "fluxo_caixa_operacional", "fluxo_caixa_financiamento", "fluxo_caixa_investimento",
                     "luizacred_lucro"}
@@ -98,53 +130,53 @@ def _spec(fonte, chave, eixo=1, tipo=None, cor=None, nome=None, **kw):
 def _avisar_faltantes(fonte, chaves):
     faltam = [rotulo_serie(c) for c in chaves if not fonte.disponivel(c)]
     if faltam:
-        st.warning("⚠ Séries indisponíveis nos dados carregados (os gráficos que dependem delas "
+        _warning("⚠ Séries indisponíveis nos dados carregados (os gráficos que dependem delas "
                    "aparecem parciais): " + ", ".join(faltam) + ".")
     return faltam
 
 
 def _secao_insights(fatos, associacoes, hipoteses):
-    st.markdown("### Insights")
+    _markdown("### Insights")
     if fatos:
-        st.markdown("**Fatos observados nos dados:**")
+        _markdown("**Fatos observados nos dados:**")
         for f in fatos:
-            st.markdown(f"- {f}")
+            _markdown(f"- {f}")
     if associacoes:
-        st.markdown("**Associações (coerência com o evento real — não é causalidade):**")
+        _markdown("**Associações (coerência com o evento real — não é causalidade):**")
         for a in associacoes:
-            st.markdown(f"- {a}")
+            _markdown(f"- {a}")
     if hipoteses:
-        st.markdown("**Hipóteses (requerem investigação adicional):**")
+        _markdown("**Hipóteses (requerem investigação adicional):**")
         for h in hipoteses:
-            st.markdown(f"- {h}")
+            _markdown(f"- {h}")
 
 
 def _como_interpretar(texto):
     with st.expander("Como interpretar"):
-        st.markdown(texto)
+        _markdown(texto)
 
 
 def _bloco_fontes(eventos, titulo="📰 Contexto do mundo real (com fontes)"):
     with st.expander(titulo):
         if not eventos:
-            st.caption("Nenhum evento do catálogo no período selecionado.")
+            _caption("Nenhum evento do catálogo no período selecionado.")
         for ev in sorted(eventos, key=lambda e: e.data_inicio):
             origem = "externo" if ev.origem == "externo" else "interno"
-            st.markdown(f"**{ev.nome}** — {ev.data_exibicao} · _{ev.categoria}, evento {origem}_")
-            st.markdown(ev.descricao)
+            _markdown(f"**{ev.nome}** — {ev.data_exibicao} · _{ev.categoria}, evento {origem}_")
+            _markdown(ev.descricao)
             if ev.fontes:
-                st.markdown("Fontes: " + " · ".join(f"[{t}]({u})" for t, u in ev.fontes))
-            st.caption(STATUS_TXT[ev.status])
-            st.markdown("---")
+                _markdown("Fontes: " + " · ".join(f"[{t}]({u})" for t, u in ev.fontes))
+            _caption(STATUS_TXT[ev.status])
+            _markdown("---")
 
 
 def _tabela_avaliacao(fonte, ev, n, titulo=None):
     """Mostra a tabela antes × depois de um evento e devolve o DataFrame bruto."""
     df = avaliar_evento(fonte, ev, n)
     if titulo:
-        st.markdown(f"**{titulo}**")
+        _markdown(f"**{titulo}**")
     if df.empty:
-        st.caption("Este evento é apresentado como contexto (sem hipótese direcional testável).")
+        _caption("Este evento é apresentado como contexto (sem hipótese direcional testável).")
         return df
     st.dataframe(tabela_para_exibicao(df), hide_index=True, width="stretch")
     return df
@@ -187,7 +219,7 @@ def _cobertura(fonte, chave):
 class PaginaV3Timeline:
     def render(self, repositorio):
         st.title("Linha do Tempo Estratégica do Magalu")
-        st.caption("Quais eventos estratégicos e de mercado ajudam a explicar os movimentos "
+        _caption("Quais eventos estratégicos e de mercado ajudam a explicar os movimentos "
                    "observados nos indicadores?")
 
         ano_ini, ano_fim = st.sidebar.slider(
@@ -197,14 +229,14 @@ class PaginaV3Timeline:
 
         eventos = [e for e in eventos_no_intervalo(EVENTOS, ano_ini, ano_fim) if e.origem in origens]
 
-        st.info("**Regra de leitura:** eventos dão **contexto**, não provam causa. "
+        _info("**Regra de leitura:** eventos dão **contexto**, não provam causa. "
                 "Laranja = evento externo (mercado/economia); azul = evento interno (decisão da empresa). "
                 "Cada evento tem fonte e um status de verificação.")
 
         st.plotly_chart(g3.timeline_estrategica(eventos, ano_ini, ano_fim), width="stretch")
 
         st.subheader("Do evento à percepção do mercado")
-        st.caption("Estrutura de análise usada em todas as páginas v3.")
+        _caption("Estrutura de análise usada em todas as páginas v3.")
         st.graphviz_chart(g3.modelo_conceitual_dot())
 
         st.subheader("Eventos catalogados")
@@ -214,19 +246,19 @@ class PaginaV3Timeline:
 
         n_conf = sum(1 for e in eventos if e.status != "verificado")
         if n_conf:
-            st.warning(f"🟡 {n_conf} evento(s) têm data de conhecimento público, mas ainda sem link de "
+            _warning(f"🟡 {n_conf} evento(s) têm data de conhecimento público, mas ainda sem link de "
                        f"fonte oficial neste catálogo. Confira antes de apresentar.")
 
         _bloco_fontes(eventos)
 
         with st.expander("🔎 Auditoria factual — correções em relação ao roteiro inicial (leia antes da reunião)",
                          expanded=True):
-            st.markdown(
+            _markdown(
                 "- **Retorno ao lucro:** o roteiro original marcava *2024*. As fontes mostram que o "
                 "ponto de virada foi o **4T23** (1º lucro ajustado em dois anos; divulgado em 18/03/2024). "
-                "O ano de 2023 como um todo ainda foi de prejuízo ajustado (R\\$ 550,1 mi).\n"
+                "O ano de 2023 como um todo ainda foi de prejuízo ajustado (R$ 550,1 mi).\n"
                 "- **A história não termina na recuperação:** em 2025 a Selic chegou a 15% e, no **2T26**, "
-                "o resultado voltou ao prejuízo (R\\$ 72,5 mi contábil; R\\$ 50,4 mi ajustado), com e-commerce "
+                "o resultado voltou ao prejuízo (R$ 72,5 mi contábil; R$ 50,4 mi ajustado), com e-commerce "
                 "e marketplace em queda e lojas físicas crescendo. A narrativa \"marketplace como motor de "
                 "recuperação\" precisa ser apresentada com esse contraponto.\n"
                 "- **Cotação MGLU3:** a ação passou por desdobramentos (1:8 em 08/2019, 1:4 em 10/2020) e por "
@@ -258,7 +290,7 @@ class PaginaV3Timeline:
 class PaginaV3EventosIndicadores:
     def render(self, repositorio):
         st.title("Eventos × Indicadores")
-        st.caption("Escolha um evento: o painel destaca os indicadores ligados a ele e confere, com os "
+        _caption("Escolha um evento: o painel destaca os indicadores ligados a ele e confere, com os "
                    "seus dados, se a hipótese direcional se sustenta.")
 
         ctx, ano_ini, ano_fim, mostrar = _controles("v3_ei", repositorio)
@@ -278,30 +310,30 @@ class PaginaV3EventosIndicadores:
         c1.metric("Data", ev.data_exibicao)
         c2.metric("Categoria", ev.categoria)
         c3.metric("Origem", ev.origem.capitalize())
-        st.markdown(ev.descricao)
+        _markdown(ev.descricao)
         if ev.o_que_olhar:
-            st.markdown(f"**O que olhar nos dados:** {ev.o_que_olhar}")
-        st.caption(STATUS_TXT[ev.status])
+            _markdown(f"**O que olhar nos dados:** {ev.o_que_olhar}")
+        _caption(STATUS_TXT[ev.status])
         if ev.fontes:
-            st.markdown("Fontes: " + " · ".join(f"[{t}]({u})" for t, u in ev.fontes))
+            _markdown("Fontes: " + " · ".join(f"[{t}]({u})" for t, u in ev.fontes))
 
         # --- avaliação
         st.subheader("O que aconteceu nos dados?")
         df = _tabela_avaliacao(fonte, ev, n)
         if not df.empty:
             for fr in _frases_associacao(df):
-                st.markdown(f"- {fr}")
-            st.caption(f"Limiares: variação ≥ {5}% (valores) ou ≥ 0,5 p.p. (percentuais) para sair de "
+                _markdown(f"- {fr}")
+            _caption(f"Limiares: variação ≥ {5}% (valores) ou ≥ 0,5 p.p. (percentuais) para sair de "
                        f"'inconclusiva'. Janela: até {n} trimestres antes/depois.")
 
         # --- gráficos dos indicadores destacados (small multiples)
         st.subheader("Indicadores destacados")
-        st.caption("Faixa cinza = período 'antes'; faixa verde = período 'depois'. "
+        _caption("Faixa cinza = período 'antes'; faixa verde = período 'depois'. "
                    "Linha/faixa colorida = evento.")
         disponiveis = [c for c in ev.destaques if fonte.disponivel(c)]
         faltam = [rotulo_serie(c) for c in ev.destaques if not fonte.disponivel(c)]
         if faltam:
-            st.warning("Séries indisponíveis: " + ", ".join(faltam))
+            _warning("Séries indisponíveis: " + ", ".join(faltam))
 
         colunas = st.columns(2)
         for i, chave in enumerate(disponiveis):
@@ -323,7 +355,7 @@ class PaginaV3EventosIndicadores:
         _bloco_fontes([ev], titulo="📰 Detalhe e fontes do evento")
 
         # --- placar global
-        st.markdown("---")
+        _markdown("---")
         st.subheader("Placar de coerência — todos os eventos")
         df_todos = avaliar_todos(fonte, EVENTOS, n)
         p = placar(df_todos)
@@ -334,16 +366,16 @@ class PaginaV3EventosIndicadores:
         k4.metric("⚠ Sem dados", p[SEM_DADOS])
         decididas = p[COERENTE] + p[CONTRARIA]
         if decididas:
-            st.markdown(f"Entre as hipóteses com direção definida, **{p[COERENTE] / decididas:.0%}** "
+            _markdown(f"Entre as hipóteses com direção definida, **{p[COERENTE] / decididas:.0%}** "
                         f"({p[COERENTE]} de {decididas}) foram coerentes com os fatos documentados.")
         if not df_todos.empty:
             st.plotly_chart(g3.placar_coerencia(df_todos), width="stretch", key="v3_ei_placar")
             contr = df_todos[df_todos["Veredito"] == CONTRARIA]
             if not contr.empty:
-                st.markdown("**Onde os dados NÃO confirmam a narrativa** (mostrar estes pontos com "
+                _markdown("**Onde os dados NÃO confirmam a narrativa** (mostrar estes pontos com "
                             "transparência fortalece a credibilidade da apresentação):")
                 for r in contr.to_dict("records"):
-                    st.markdown(f"- _{r['Evento']}_ → {frase_leitura(r)}")
+                    _markdown(f"- _{r['Evento']}_ → {frase_leitura(r)}")
             with st.expander("Ver todas as hipóteses testadas"):
                 mostrar_df = df_todos[["Evento", "Indicador", "Hipótese", "Janela antes", "Janela depois",
                                        "Variação", "Veredito", "Nota"]].copy()
@@ -366,7 +398,7 @@ class PaginaV3EventosIndicadores:
 class PaginaV3Digital:
     def render(self, repositorio):
         st.title("Transformação Digital e Investimentos")
-        st.caption("O avanço dos canais digitais acompanhou a pandemia e a expansão do ecossistema? "
+        _caption("O avanço dos canais digitais acompanhou a pandemia e a expansão do ecossistema? "
                    "E os investimentos de 2021 pesaram no curto prazo e geraram resultado depois?")
 
         ctx, ano_ini, ano_fim, mostrar = _controles("v3_dg", repositorio)
@@ -402,7 +434,7 @@ class PaginaV3Digital:
 
         # --- Caso 2
         st.header("Caso 2 · A explosão de investimentos de 2021")
-        st.markdown("**Pergunta:** os investimentos pesaram no curto prazo e geraram resultado operacional depois?")
+        _markdown("**Pergunta:** os investimentos pesaram no curto prazo e geraram resultado operacional depois?")
         k = st.slider("EBITDA 'futuro': deslocar quantos trimestres à frente?", 0, 8, 4, key="v3_dg_k")
         s_inv, s_ebitda = fonte.trimestral("invest_total"), fonte.trimestral("ebitda")
         fig = g3.serie_com_eventos(
@@ -430,7 +462,7 @@ class PaginaV3Digital:
             if not validos.empty:
                 melhor = validos.loc[validos["r"].abs().idxmax()]
         if modo == "nivel":
-            st.caption("⚠ Em níveis, duas séries que apenas crescem ao longo do tempo parecem correlacionadas "
+            _caption("⚠ Em níveis, duas séries que apenas crescem ao longo do tempo parecem correlacionadas "
                        "(correlação espúria). Prefira a variação a/a.")
 
         _bloco_fontes(evs)
@@ -462,7 +494,7 @@ class PaginaV3Digital:
 class PaginaV3Juros:
     def render(self, repositorio):
         st.title("Juros, Lucro e a Virada")
-        st.caption("Apesar do crescimento de vendas, a rentabilidade ficou pressionada pelos juros? "
+        _caption("Apesar do crescimento de vendas, a rentabilidade ficou pressionada pelos juros? "
                    "A recuperação de 2023–24 se sustentou?")
 
         ctx, ano_ini, ano_fim, mostrar = _controles("v3_jr", repositorio)
@@ -475,9 +507,9 @@ class PaginaV3Juros:
                     "reversao_2t26"], ano_ini, ano_fim)
         _avisar_faltantes(fonte, [chave_lucro, "margem_ebitda", "margem_liquida", "resultado_financeiro",
                                   "fluxo_caixa_operacional", "mglu3", "selic"])
-        st.caption(f"Fonte da Selic: **{ctx.selic.fonte}**.")
+        _caption(f"Fonte da Selic: **{ctx.selic.fonte}**.")
         if ctx.selic.fonte.startswith("Tabela"):
-            st.warning("A Selic veio da tabela embutida (BCB indisponível e sem backup local). "
+            _warning("A Selic veio da tabela embutida (BCB indisponível e sem backup local). "
                        "Confira os valores com a série oficial antes de apresentar.")
 
         # --- Caso 3
@@ -501,7 +533,7 @@ class PaginaV3Juros:
             y1_titulo="% da receita líquida", fmt_y1="pct", y2_titulo="Selic (% a.a.)", fmt_y2="pct2",
             ano_ini=ano_ini, ano_fim=ano_fim, mostrar_rotulos=mostrar)
         st.plotly_chart(fig, width="stretch", key="v3_jr_margens")
-        st.caption("Se a margem EBITDA (operação) melhora enquanto a margem líquida não acompanha, a diferença "
+        _caption("Se a margem EBITDA (operação) melhora enquanto a margem líquida não acompanha, a diferença "
                    "está abaixo do EBITDA — em grande parte, no resultado financeiro.")
 
         st.subheader("Selic e peso financeiro: existe associação?")
@@ -524,8 +556,8 @@ class PaginaV3Juros:
         st.plotly_chart(fig, width="stretch", key="v3_jr_fco_mglu")
         with st.expander("🛠 Ajuste da cotação por desdobramentos e grupamento (transparência)"):
             for linha in fonte.relatorio_ajuste:
-                st.markdown(f"- {linha}")
-            st.caption("Eventos técnicos considerados: " + "; ".join(
+                _markdown(f"- {linha}")
+            _caption("Eventos técnicos considerados: " + "; ".join(
                 f"{e['descricao']} em {e['data']:%d/%m/%Y}" for e in EVENTOS_ACAO) +
                 ". O mesmo cuidado vale para o Base 100 da v2: se a série vier sem ajuste, o MGLU3 aparece distorcido.")
 
@@ -566,19 +598,19 @@ class PaginaV3Juros:
                     q = period_para_rotulo(ultimo_antes.index[-1])
                     ok = "✅" if q == "3T21" else "⚠"
                     st.metric("Último lucro ajustado antes da sequência de prejuízos", q)
-                    st.caption(f"{ok} Documentado: 3T21.")
+                    _caption(f"{ok} Documentado: 3T21.")
             with c2:
                 if not primeiro.empty:
                     q = period_para_rotulo(primeiro.index[0])
                     ok = "✅" if q == "4T23" else "⚠"
                     st.metric("Primeiro lucro ajustado após a sequência", q)
-                    st.caption(f"{ok} Documentado: 4T23 (divulgado em 18/03/2024).")
+                    _caption(f"{ok} Documentado: 4T23 (divulgado em 18/03/2024).")
                 else:
-                    st.info("Nenhum trimestre com lucro ajustado positivo a partir de 2022 nos dados carregados.")
-            st.caption("Se algum quadro mostrar ⚠, a planilha pode ter sido reapresentada ou os dados diferem da "
+                    _info("Nenhum trimestre com lucro ajustado positivo a partir de 2022 nos dados carregados.")
+            _caption("Se algum quadro mostrar ⚠, a planilha pode ter sido reapresentada ou os dados diferem da "
                        "divulgação original — investigue antes de apresentar.")
         else:
-            st.info("Lucro líquido ajustado indisponível nos dados carregados.")
+            _info("Lucro líquido ajustado indisponível nos dados carregados.")
 
         # tabela anual
         chaves = [("lucro_liquido", "Lucro líquido"), ("lucro_liquido_ajustado", "Lucro líquido ajustado"),
@@ -598,12 +630,12 @@ class PaginaV3Juros:
                 linhas.append({"Indicador": "Margem EBITDA (EBITDA / receita líquida)",
                                **{str(a): (formatar_valor("margem_ebitda", eb[a] / rec[a])
                                            if a in eb.index and a in rec.index and rec[a] else "—") for a in anos}})
-            st.markdown("**Anos completos (soma dos 4 trimestres):**")
+            _markdown("**Anos completos (soma dos 4 trimestres):**")
             st.dataframe(pd.DataFrame(linhas), hide_index=True, width="stretch")
         ult = fonte.trimestral("lucro_liquido")
         if not ult.empty:
             q = ult.index[-1]
-            st.caption(f"Último trimestre disponível na planilha: {period_para_rotulo(q)} "
+            _caption(f"Último trimestre disponível na planilha: {period_para_rotulo(q)} "
                        f"(lucro líquido contábil: {formatar_valor('lucro_liquido', ult.iloc[-1])}). "
                        f"Anos incompletos não entram na tabela anual.")
 
@@ -614,7 +646,7 @@ class PaginaV3Juros:
 class PaginaV3Marketplace:
     def render(self, repositorio):
         st.title("Marketplace e Margem")
-        st.caption("O marketplace passou a contribuir mais para a rentabilidade do que apenas para o crescimento?")
+        _caption("O marketplace passou a contribuir mais para a rentabilidade do que apenas para o crescimento?")
 
         ctx, ano_ini, ano_fim, mostrar = _controles("v3_mk", repositorio)
         fonte = ctx.fonte
@@ -662,12 +694,12 @@ class PaginaV3Marketplace:
         x, y = fonte.trimestral("share_3p"), fonte.trimestral("margem_ebitda")
         r, nobs, _ = correlacao_pearson(x, y)
         if nobs and nobs < MIN_OBSERVACOES_CORRELACAO:
-            st.warning(f"Apenas {nobs} observações em comum — resultado instável.")
+            _warning(f"Apenas {nobs} observações em comum — resultado instável.")
         if not np.isnan(r):
             st.metric("Correlação (níveis): participação 3P × margem EBITDA", f"r = {r:.2f}", delta=f"n = {nobs}")
             st.plotly_chart(g2.relacoes_dispersao(x, y, "Participação 3P", "Margem EBITDA", r=r, n=nobs),
                             width="stretch", key="v3_mk_disp")
-            st.caption("⚠ Em níveis, duas séries com tendência parecem correlacionadas. Veja a defasagem em "
+            _caption("⚠ Em níveis, duas séries com tendência parecem correlacionadas. Veja a defasagem em "
                        "variação a/a abaixo.")
         transf = st.radio("Base da correlação por defasagem", ["Variação a/a (recomendado)", "Níveis"],
                           horizontal=True, key="v3_mk_transf")
@@ -733,7 +765,7 @@ NOME_UNIDADE = {"online": "Loja Online", "fisica": "Loja Física", "luizacred": 
 class PaginaV3Marca:
     def render(self, repositorio):
         st.title("Marca e Reputação")
-        st.caption("O interesse pela marca antecede ou acompanha as vendas? E o crescimento da operação "
+        _caption("O interesse pela marca antecede ou acompanha as vendas? E o crescimento da operação "
                    "ocorreu preservando a experiência do cliente?")
 
         ctx, ano_ini, ano_fim, mostrar = _controles("v3_mr", repositorio)
@@ -742,11 +774,11 @@ class PaginaV3Marca:
 
         # ---------------- Caso 6
         st.header("Caso 6 · Marca e interesse do consumidor")
-        st.caption("Google Trends mede **atenção/interesse de busca** — não reputação nem satisfação.")
+        _caption("Google Trends mede **atenção/interesse de busca** — não reputação nem satisfação.")
         trends_m = fonte.trends_mensal()
         vendas = fonte.trimestral("vendas_totais")
         if trends_m.empty:
-            st.warning("Google Trends indisponível nos dados carregados.")
+            _warning("Google Trends indisponível nos dados carregados.")
         else:
             bf = st.checkbox("Marcar Black Friday", value=True, key="v3_mr_bf")
             fig = g3.serie_com_eventos(
@@ -758,7 +790,7 @@ class PaginaV3Marca:
                 ano_ini=ano_ini, ano_fim=ano_fim, mostrar_rotulos=mostrar,
                 eventos_leves=black_fridays(ano_ini, ano_fim) if bf else None)
             st.plotly_chart(fig, width="stretch", key="v3_mr_trends")
-            st.caption("Linhas pontilhadas cinza = Black Friday (4ª quinta de novembro + 1 dia).")
+            _caption("Linhas pontilhadas cinza = Black Friday (4ª quinta de novembro + 1 dia).")
 
             transf = st.radio("Base da correlação", ["Variação a/a (recomendado)", "Níveis"], horizontal=True,
                               key="v3_mr_transf")
@@ -778,20 +810,20 @@ class PaginaV3Marca:
                 leitura = ("a busca ACOMPANHA as vendas (mesmo trimestre)" if k == 0 else
                            f"a busca ANTECEDE as vendas em {k} trimestre(s)" if k > 0 else
                            f"as vendas ANTECEDEM a busca em {abs(k)} trimestre(s)")
-                st.markdown(f"**Leitura:** maior |r| em k = {k} (r = {melhor['r']:.2f}, n = {int(melhor['n'])}): "
+                _markdown(f"**Leitura:** maior |r| em k = {k} (r = {melhor['r']:.2f}, n = {int(melhor['n'])}): "
                             f"{leitura}. Associação temporal — o interesse também reage a campanhas e "
                             f"à própria sazonalidade de Black Friday/Natal.")
 
         # ---------------- Caso 7
         st.header("Caso 7 · Reputação do consumidor (Reclame Aqui)")
-        st.warning(
+        _warning(
             "**Limite dos dados:** o Reclame Aqui do projeto cobre apenas **2024, 2025 e o 1º semestre de 2026** "
             "(≤ 3 pontos por unidade). Isso **não permite testar** os eventos de 2020–2023 e impede correlações. "
             "A página mostra um cruzamento **descritivo**: o crescimento da operação veio acompanhado de queda "
             "ou manutenção da nota?")
         ra = getattr(repositorio, "reclame_aqui", None)
         if ra is None:
-            st.info("Reclame Aqui indisponível nos dados carregados.")
+            _info("Reclame Aqui indisponível nos dados carregados.")
         else:
             abas = st.tabs([NOME_UNIDADE[u] for u in ("online", "fisica", "luizacred")])
             for aba, unidade in zip(abas, ("online", "fisica", "luizacred")):
@@ -817,10 +849,10 @@ class PaginaV3Marca:
         try:
             df = ra.desempenho(unidade)
         except KeyError:
-            st.info(f"Unidade '{unidade}' não encontrada no Reclame Aqui.")
+            _info(f"Unidade '{unidade}' não encontrada no Reclame Aqui.")
             return
         if df is None or df.empty or "Nota Média" not in df.columns:
-            st.info("Sem coluna 'Nota Média' para esta unidade.")
+            _info("Sem coluna 'Nota Média' para esta unidade.")
             return
 
         linhas = []
@@ -831,7 +863,7 @@ class PaginaV3Marca:
             linhas.append((per, rotulo, row))
         linhas.sort(key=lambda t: (t[0][0], t[0][1] or 0))
         if not linhas:
-            st.info("Nenhum período reconhecido (apenas 'Geral').")
+            _info("Nenhum período reconhecido (apenas 'Geral').")
             return
 
         chave_vendas = UNIDADE_VENDAS.get(unidade)
@@ -878,7 +910,7 @@ class PaginaV3Marca:
 
         st.dataframe(pd.DataFrame(tabela), hide_index=True, width="stretch")
         if len(notas) < 3:
-            st.caption(f"n = {len(notas)} ponto(s): suficiente apenas para descrever, não para inferir.")
+            _caption(f"n = {len(notas)} ponto(s): suficiente apenas para descrever, não para inferir.")
         if notas and chave_vendas:
             fig = g3.serie_com_eventos(
                 [dict(nome="Nota média (Reclame Aqui)", serie=pd.Series(notas, index=pd.DatetimeIndex(datas)),
