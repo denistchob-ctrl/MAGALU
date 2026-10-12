@@ -27,7 +27,10 @@ from dataclasses import dataclass, field
 from datetime import date, timedelta
 from typing import List, Optional, Tuple
 
+from numba import char
 import pandas as pd
+
+cifrao = chr(ord("$"))
 
 # ----------------------------------------------------------------------
 # Indicadores EXTRAS (existem na planilha, mas não estão em
@@ -211,10 +214,10 @@ EVENTOS: List[Evento] = [
         data_inicio=date(2021, 7, 15),
         categoria="Estratégia", origem="interno", trimestre_ref="3T21",
         descricao=(
-            "Anunciada em 15/07/2021: R$ 1 bilhão à vista e o restante em ações, com valor total "
-            "estimado em cerca de R$ 3,5 bilhões e parcela final condicionada a metas (jan/2024). "
-            "A KaBuM! tinha receita bruta de R$ 3,4 bi nos 12 meses anteriores e lucro líquido de "
-            "R$ 312 milhões."
+            "Anunciada em 15/07/2021: R" + cifrao + " 1 bilhão à vista e o restante em ações, com valor total "
+            "estimado em cerca de R" + cifrao + " 3,5 bilhões e parcela final condicionada a metas (jan/2024). "
+            "A KaBuM! tinha receita bruta de R" + cifrao + " 3,4 bi nos 12 meses anteriores e lucro líquido de "
+            "R" + cifrao + " 312 milhões."
         ),
         o_que_olhar="E-commerce 1P (onde a KaBuM! é consolidada), participação digital, receita e tecnologia.",
         destaques=("vendas_ecommerce_1p", "participacao_ecommerce", "receita_liquida",
@@ -243,7 +246,7 @@ EVENTOS: List[Evento] = [
         categoria="Financeiro", origem="interno", trimestre_ref="3T21",
         descricao=(
             "Anunciado junto com a KaBuM! em 15/07/2021, com precificação prevista para 22/07/2021 "
-            "e valor de até R$ 4,586 bilhões (base + lote adicional, ao preço de fechamento da véspera). "
+            "e valor de até R" + cifrao + " 4,586 bilhões (base + lote adicional, ao preço de fechamento da véspera). "
             "A captação reforça o caixa para a expansão e aquisições."
         ),
         o_que_olhar="Fluxo de caixa de financiamento e recursos de emissão de ações no 3T21.",
@@ -253,7 +256,7 @@ EVENTOS: List[Evento] = [
             Expectativa("fluxo_caixa_financiamento", "alta", modo="pico"),
         ),
         fontes=(
-            ("Reuters/IstoÉ Dinheiro — oferta de ações de R$ 4,6 bi",
+            ("Reuters/IstoÉ Dinheiro — oferta de ações de R" + cifrao + " 4,6 bi",
              "https://www.istoedinheiro.com.br/magazine-luiza-anuncia-oferta/"),
             ("Mercado & Consumo — cronograma do bookbuilding",
              "https://mercadoeconsumo.com.br/15/07/2021/noticias-varejo/magalu-compra-kabum-plataforma-de-tecnologia-e-games/amp/"),
@@ -269,7 +272,7 @@ EVENTOS: List[Evento] = [
         categoria="Macroeconomia", origem="externo",
         descricao=(
             "A Selic chegou a 13,75% em ago/2022 e ali ficou até o início dos cortes. No Magalu, o "
-            "prejuízo líquido ajustado de 2023 foi de R$ 550,1 mi (R$ 372,1 mi em 2022), mesmo com "
+            "prejuízo líquido ajustado de 2023 foi de R" + cifrao + " 550,1 mi (R" + cifrao + " 372,1 mi em 2022), mesmo com "
             "melhora operacional; a empresa destacou a redução de 20% das despesas financeiras, que "
             "ainda pesavam ~4% da receita líquida. O último lucro ajustado antes do 4T23 havia sido "
             "no 3T21."
@@ -318,8 +321,8 @@ EVENTOS: List[Evento] = [
     ),
     Evento(
         id="aporte_2024",
-        nome="Aumento de capital de R$ 1,25 bi (homologado em fev/2024)",
-        rotulo_curto="Aporte R$ 1,25 bi",
+        nome="Aumento de capital de R" + cifrao + " 1,25 bi (homologado em fev/2024)",
+        rotulo_curto="Aporte R" + cifrao + " 1,25 bi",
         data_inicio=date(2024, 2, 22),
         categoria="Financeiro", origem="interno", trimestre_ref="1T24",
         descricao=(
@@ -350,8 +353,8 @@ EVENTOS: List[Evento] = [
         categoria="Resultado", origem="interno", trimestre_ref="4T23",
         incluir_trimestre_no_depois=True,
         descricao=(
-            "Divulgado em 18/03/2024: lucro líquido ajustado de R$ 101,5 mi no 4T23 (prejuízo de R$ 15,2 mi "
-            "no 4T22), EBITDA ajustado de R$ 756,5 mi (+12,3% a/a) e margem EBITDA ajustada de 7,2%. "
+            "Divulgado em 18/03/2024: lucro líquido ajustado de R" + cifrao + " 101,5 mi no 4T23 (prejuízo de R" + cifrao + " 15,2 mi "
+            "no 4T22), EBITDA ajustado de R" + cifrao + " 756,5 mi (+12,3% a/a) e margem EBITDA ajustada de 7,2%. "
             "ATENÇÃO: o retorno ao lucro ocorreu no 4T23 (Black Friday mais rentável da história), e não "
             "em 2024 como sugeria a primeira versão do roteiro; o ano de 2023 como um todo foi de prejuízo."
         ),
@@ -365,7 +368,7 @@ EVENTOS: List[Evento] = [
             Expectativa("fluxo_caixa_operacional", "alta"),
         ),
         fontes=(
-            ("Mercado & Consumo — 4T23: lucro ajustado de R$ 101,5 mi",
+            ("Mercado & Consumo — 4T23: lucro ajustado de R" + cifrao + " 101,5 mi",
              "https://mercadoeconsumo.com.br/19/03/2024/noticias/magazine-luiza-reverte-prejuizo-e-tem-lucro-liquido-ajustado-de-r-1015-mi-no-4o-trimestre/amp/"),
             ("Finance News — resultado do 4T23 e vendas por canal",
              "https://financenews.com.br/2024/03/magazine-luiza-mglu3-reverte-prejuizo-e-tem-lucro-no-4t23/"),
@@ -451,10 +454,10 @@ EVENTOS: List[Evento] = [
         data_inicio=date(2026, 8, 6),
         categoria="Resultado", origem="interno", trimestre_ref="2T26",
         descricao=(
-            "Divulgado em 06/08/2026: prejuízo líquido de R$ 72,5 mi (ajustado: R$ 50,4 mi); vendas totais "
-            "de R$ 14,5 bi (-5,1% a/a); lojas físicas +10,3% e e-commerce -11,9% (marketplace -12,6%), "
-            "movimento que a empresa liga à preservação de rentabilidade. EBITDA ajustado de R$ 708,8 mi "
-            "(margem de 8,0%). O resultado financeiro líquido ficou negativo em R$ 572,3 mi. "
+            "Divulgado em 06/08/2026: prejuízo líquido de R" + cifrao + " 72,5 mi (ajustado: R" + cifrao + " 50,4 mi); vendas totais "
+            "de R" + cifrao + " 14,5 bi (-5,1% a/a); lojas físicas +10,3% e e-commerce -11,9% (marketplace -12,6%), "
+            "movimento que a empresa liga à preservação de rentabilidade. EBITDA ajustado de R" + cifrao + " 708,8 mi "
+            "(margem de 8,0%). O resultado financeiro líquido ficou negativo em R" + cifrao + " 572,3 mi. "
             "Este evento limita a narrativa 'marketplace como motor de recuperação': em 2026 ele recua."
         ),
         o_que_olhar="Vendas por canal, margem EBITDA e resultado financeiro no 2T26 contra o 2T25.",
@@ -467,9 +470,9 @@ EVENTOS: List[Evento] = [
             Expectativa("lucro_liquido", "queda", modo="aa"),
         ),
         fontes=(
-            ("BPMoney — 2T26: prejuízo ajustado de R$ 50,4 mi, lojas +10,3%, e-commerce -11,9%",
+            ("BPMoney — 2T26: prejuízo ajustado de R" + cifrao + " 50,4 mi, lojas +10,3%, e-commerce -11,9%",
              "https://bpmoney.com.br/negocios/empresas/magazine-luiza-prejuizo-50-milhoes-2t26/"),
-            ("Money Times — prejuízo de R$ 72,5 mi no 2T26",
+            ("Money Times — prejuízo de R" + cifrao + " 72,5 mi no 2T26",
              "https://www.moneytimes.com.br/magazine-luiza-mglu3-tem-prejuizo-de-r-725-milhoes-no-2t26-estamos-fazendo-tudo-para-voltar-a-dar-lucro-sem-depender-dos-juros-diz-cfo-lmrs/"),
             ("Visão Invest — EBITDA ajustado e vendas por canal no 2T26",
              "https://visnoinvest.com.br/news/14628/magazine-luiza-mglu3-registra-ebitda-de-r-7088-mi-no-2t26"),

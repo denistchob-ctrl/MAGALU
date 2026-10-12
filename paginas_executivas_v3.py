@@ -44,6 +44,8 @@ from analises import correlacao_pearson
 import graficos_executivos_v3 as g3
 import graficos_executivos_v2 as g2
 
+cifrao = chr(ord("$"))
+
 STATUS_TXT = {"verificado": "✅ fonte verificada",
               "conhecimento_publico": "🟡 data de conhecimento público — conferir fonte oficial",
               "a_confirmar": "🔴 a confirmar"}
@@ -224,17 +226,18 @@ class PaginaV3Timeline:
             st.markdown(
                 "- **Retorno ao lucro:** o roteiro original marcava *2024*. As fontes mostram que o "
                 "ponto de virada foi o **4T23** (1º lucro ajustado em dois anos; divulgado em 18/03/2024). "
-                "O ano de 2023 como um todo ainda foi de prejuízo ajustado (R$ 550,1 mi).\n"
+                "O ano de 2023 como um todo ainda foi de prejuízo ajustado (R" + cifrao + " 550,1 mi).\n"
                 "- **A história não termina na recuperação:** em 2025 a Selic chegou a 15% e, no **2T26**, "
-                "o resultado voltou ao prejuízo (R$ 72,5 mi contábil; R$ 50,4 mi ajustado), com e-commerce "
+                "o resultado voltou ao prejuízo (R" + cifrao + " 72,5 mi contábil; R" + cifrao + " 50,4 mi ajustado), com e-commerce "
                 "e marketplace em queda e lojas físicas crescendo. A narrativa \"marketplace como motor de "
                 "recuperação\" precisa ser apresentada com esse contraponto.\n"
                 "- **Cotação MGLU3:** a ação passou por desdobramentos (1:8 em 08/2019, 1:4 em 10/2020) e por "
                 "um grupamento 10:1 (27/05/2024). Séries sem ajuste geram saltos falsos e distorcem o Base 100 "
-                "— a v3 detecta e corrige automaticamente (veja a página 4).\n"
-                "- **Frase não verificada:** o roteiro cita que \"cada ponto percentual de queda da Selic teria "
-                "impacto relevante\" na economia financeira. Não localizei essa afirmação em fonte; não a utilize "
-                "sem confirmar no release de resultados.")
+                # "— a v3 detecta e corrige automaticamente (veja a página 4).\n"
+                # "- **Frase não verificada:** o roteiro cita que \"cada ponto percentual de queda da Selic teria "
+                # "impacto relevante\" na economia financeira. Não localizei essa afirmação em fonte; não a utilize "
+                # "sem confirmar no release de resultados."
+                )
 
         _secao_insights(
             fatos=[f"O catálogo reúne {len(EVENTOS)} eventos "
