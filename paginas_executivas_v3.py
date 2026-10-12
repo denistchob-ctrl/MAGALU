@@ -30,7 +30,7 @@ import streamlit as st
 from config_indicadores import CORES, ANO_INICIAL, ANO_FINAL, MIN_OBSERVACOES_CORRELACAO
 from eventos_estrategicos import (
     EVENTOS, EVENTOS_POR_ID, EVENTOS_ACAO, Evento, black_fridays, eventos_no_intervalo,
-    rotulo_serie, unidade_serie, tabela_eventos,
+    rotulo_serie, unidade_serie, tabela_eventos, NOTAS_SERIE,
 )
 from magalu_macro import SelicLoader
 from analises_eventos import (
@@ -251,6 +251,17 @@ class PaginaV3Timeline:
 
         _bloco_fontes(eventos)
 
+        ctx = obter_contexto_v3(repositorio)
+        with st.expander("🛠 Qualidade dos dados desta camada (v3)"):
+            avisos = list(dict.fromkeys(ctx.fonte.avisos_dados))
+            for a in ctx.fonte.relatorio_ajuste:
+                _markdown(f"- Cotação: {a}")
+            _markdown(f"- Selic: fonte **{ctx.selic.fonte}**.")
+            for a in avisos:
+                _markdown(f"- {a}")
+            if not avisos:
+                _caption("Nenhum aviso de duplicidade/indicador ausente.")
+
         with st.expander("🔎 Auditoria factual — correções em relação ao roteiro inicial (leia antes da reunião)",
                          expanded=True):
             _markdown(
@@ -263,11 +274,10 @@ class PaginaV3Timeline:
                 "recuperação\" precisa ser apresentada com esse contraponto.\n"
                 "- **Cotação MGLU3:** a ação passou por desdobramentos (1:8 em 08/2019, 1:4 em 10/2020) e por "
                 "um grupamento 10:1 (27/05/2024). Séries sem ajuste geram saltos falsos e distorcem o Base 100 "
-                # "— a v3 detecta e corrige automaticamente (veja a página 4).\n"
-                # "- **Frase não verificada:** o roteiro cita que \"cada ponto percentual de queda da Selic teria "
-                # "impacto relevante\" na economia financeira. Não localizei essa afirmação em fonte; não a utilize "
-                # "sem confirmar no release de resultados."
-                )
+                "— a v3 detecta e corrige automaticamente (veja a página 4).\n"
+                "- **Frase não verificada:** o roteiro cita que \"cada ponto percentual de queda da Selic teria "
+                "impacto relevante\" na economia financeira. Não localizei essa afirmação em fonte; não a utilize "
+                "sem confirmar no release de resultados.")
 
         _secao_insights(
             fatos=[f"O catálogo reúne {len(EVENTOS)} eventos "
@@ -351,6 +361,8 @@ class PaginaV3EventosIndicadores:
                 faixas=faixas, ano_ini=ano_ini, ano_fim=ano_fim, mostrar_rotulos=mostrar, altura=340)
             with colunas[i % 2]:
                 st.plotly_chart(fig, width="stretch", key=f"v3_ei_{ev.id}_{chave}")
+                if chave in NOTAS_SERIE:
+                    _caption(NOTAS_SERIE[chave])
 
         _bloco_fontes([ev], titulo="📰 Detalhe e fontes do evento")
 

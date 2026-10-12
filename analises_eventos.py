@@ -184,6 +184,7 @@ class FonteSeries:
         self.repo = repositorio
         self.selic = selic
         self._cache = {}
+        self.avisos_dados = []          # transparência: duplicatas, séries ausentes etc.
         self.fech_ajustada = pd.Series(dtype=float)
         self.relatorio_ajuste = []
         self._preparar_cotacao()
@@ -227,6 +228,20 @@ class FonteSeries:
             magnitudes[c] = pd.to_numeric(linha, errors="coerce").abs().median()
         return max(magnitudes, key=lambda k: (0 if pd.isna(magnitudes[k]) else magnitudes[k]))
 
+    def _linha_dre(self, guia, rotulo, chave):
+        """Linha do DRE como Series. Se o rótulo se repete na guia (ex.: 'Marketplace (3P)'
+        aparece como VENDA na abertura de vendas e como DEDUÇÃO, com sinal negativo, na
+        abertura da receita bruta), usa a 1ª ocorrência e registra um aviso. NÃO soma as
+        duplicatas: somar vendas + dedução zera a série."""
+        df = self.repo.loader_dre.get_sheet_df(guia)
+        linha = df.loc[rotulo]
+        if isinstance(linha, pd.DataFrame):
+            self.avisos_dados.append(
+                f"'{rotulo}' (guia '{guia}') aparece {len(linha)}x; usada a 1ª ocorrência "
+                f"para '{chave}' (evita somar venda + dedução).")
+            linha = linha.iloc[0]
+        return linha
+
     def _dre(self, chave):
         mapa = {**INDICADORES, **INDICADORES_V3}
         if chave not in mapa:
@@ -234,9 +249,9 @@ class FonteSeries:
         guia, indicador = mapa[chave]
         rotulo = self._resolver_rotulo(guia, indicador)
         if rotulo is None:
+            self.avisos_dados.append(f"Indicador '{indicador}' não encontrado na guia '{guia}' (chave '{chave}').")
             return pd.Series(dtype=float)
-        bruta = self.repo.serie_dre_por_granularidade(guia, rotulo, "trimestral", None)
-        s = limpar_serie_trimestral(bruta)
+        s = limpar_serie_trimestral(self._linha_dre(guia, rotulo, chave))
         if eh_percentual(chave):
             s = normalizar_fracao(s)
         return s

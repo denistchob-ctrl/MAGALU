@@ -41,6 +41,7 @@ INDICADORES_V3 = {
     "emissao_acoes":           ("7. Fluxo de Caixa Gerencial", "Recursos provenientes da emissão de ações"),
     "luizacred_carteira":      ("13. Luizacred - DRE", "Carteira de Crédito"),
     "margem_ebitda_ajustado":  ("1. Indicadores", "Margem EBITDA Ajustado"),
+    "investimento_controlada": ("7. Fluxo de Caixa Gerencial", "Investimento em Controlada"),
 }
 
 # Séries que são fração (0–1) e NÃO devem ser somadas ao agregar.
@@ -81,17 +82,32 @@ META_SERIES = {
     "luizacred_faturamento":  ("Faturamento Luizacred", "moeda"),
     "luizacred_lucro":        ("Lucro Luizacred", "moeda"),
     "luizacred_carteira":     ("Carteira de Crédito Luizacred", "moeda"),
-    "resultado_financeiro":   ("Resultado Financeiro Líquido", "moeda"),
+    "resultado_financeiro":   ("Resultado Financeiro Líquido (negativo = despesa)", "moeda"),
     "despesas_financeiras":   ("Despesas Financeiras", "moeda"),
     "juros_emprestimos":      ("Juros de Empréstimos", "moeda"),
     "aumento_capital_privado":("Aumento de Capital Privado", "moeda"),
     "emissao_acoes":          ("Recursos da Emissão de Ações", "moeda"),
+    "investimento_controlada":("Investimento em Controlada (aquisições)", "moeda"),
     # especiais
     "mglu3":                  ("MGLU3 (fechamento ajustado)", "preco"),
     "selic":                  ("Selic (meta, fim do trimestre)", "pct"),
     "trends":                 ("Interesse de busca (Google Trends)", "indice"),
     "share_3p":               ("Marketplace 3P / Vendas Totais", "pct"),
     "resfin_sobre_receita":   ("Resultado Financeiro / Receita Líquida", "pct"),
+}
+
+# Notas de leitura (sinal e natureza da série) — exibidas sob os gráficos.
+NOTA_SINAL = "Convenção da planilha: valor negativo = saída de caixa / despesa. Não é erro de dados."
+NOTA_PONTUAL = "Evento pontual: a série é zero na maioria dos trimestres; só aparecem barras onde houve a operação."
+NOTAS_SERIE = {
+    "fluxo_caixa_investimento": NOTA_SINAL,
+    "fluxo_caixa_financiamento": "Positivo = entrada de recursos (captações, emissões); negativo = pagamentos.",
+    "resultado_financeiro": NOTA_SINAL + " Quanto mais negativo, maior o custo financeiro líquido.",
+    "despesas_financeiras": NOTA_SINAL,
+    "juros_emprestimos": NOTA_SINAL,
+    "investimento_controlada": NOTA_SINAL + " Aqui, mais negativo = mais caixa gasto em aquisições de empresas.",
+    "emissao_acoes": NOTA_PONTUAL,
+    "aumento_capital_privado": NOTA_PONTUAL,
 }
 
 CATEGORIAS = ["Mercado", "Macroeconomia", "Estratégia", "Financeiro", "Operação", "Resultado"]
@@ -194,8 +210,8 @@ EVENTOS: List[Evento] = [
             "empresas em um ano e meio, ampliando o ecossistema digital (conteúdo, fintech, "
             "categorias novas). O recorte de datas é aproximado."
         ),
-        o_que_olhar="Investimento em tecnologia, vendas 1P/marketplace e fluxo de caixa de investimento.",
-        destaques=("invest_tecnologia", "fluxo_caixa_investimento", "vendas_ecommerce_total", "receita_liquida"),
+        o_que_olhar="Investimento em controladas (caixa gasto em aquisições), tecnologia e vendas 1P/marketplace.",
+        destaques=("investimento_controlada", "invest_tecnologia", "vendas_ecommerce_total", "receita_liquida"),
         expectativas=(),   # contexto: sem teste direcional
         fontes=(
             ("Reuters/IstoÉ Dinheiro — 21 empresas adquiridas em um ano e meio",
@@ -211,14 +227,14 @@ EVENTOS: List[Evento] = [
         data_inicio=date(2021, 7, 15),
         categoria="Estratégia", origem="interno", trimestre_ref="3T21",
         descricao=(
-            "Anunciada em 15/07/2021: R\\$ 1 bilhão à vista e o restante em ações, com valor total "
-            "estimado em cerca de R\\$ 3,5 bilhões e parcela final condicionada a metas (jan/2024). "
-            "A KaBuM! tinha receita bruta de R\\$ 3,4 bi nos 12 meses anteriores e lucro líquido de "
-            "R\\$ 312 milhões."
+            "Anunciada em 15/07/2021: R$ 1 bilhão à vista e o restante em ações, com valor total "
+            "estimado em cerca de R$ 3,5 bilhões e parcela final condicionada a metas (jan/2024). "
+            "A KaBuM! tinha receita bruta de R$ 3,4 bi nos 12 meses anteriores e lucro líquido de "
+            "R$ 312 milhões."
         ),
         o_que_olhar="E-commerce 1P (onde a KaBuM! é consolidada), participação digital, receita e tecnologia.",
         destaques=("vendas_ecommerce_1p", "participacao_ecommerce", "receita_liquida",
-                   "invest_tecnologia", "vendas_totais", "mglu3"),
+                   "investimento_controlada", "invest_tecnologia", "vendas_totais", "mglu3"),
         expectativas=(
             Expectativa("vendas_ecommerce_1p", "alta"),
             Expectativa("receita_liquida", "alta"),
@@ -243,7 +259,7 @@ EVENTOS: List[Evento] = [
         categoria="Financeiro", origem="interno", trimestre_ref="3T21",
         descricao=(
             "Anunciado junto com a KaBuM! em 15/07/2021, com precificação prevista para 22/07/2021 "
-            "e valor de até R\\$ 4,586 bilhões (base + lote adicional, ao preço de fechamento da véspera). "
+            "e valor de até R$ 4,586 bilhões (base + lote adicional, ao preço de fechamento da véspera). "
             "A captação reforça o caixa para a expansão e aquisições."
         ),
         o_que_olhar="Fluxo de caixa de financiamento e recursos de emissão de ações no 3T21.",
@@ -253,7 +269,7 @@ EVENTOS: List[Evento] = [
             Expectativa("fluxo_caixa_financiamento", "alta", modo="pico"),
         ),
         fontes=(
-            ("Reuters/IstoÉ Dinheiro — oferta de ações de R\\$ 4,6 bi",
+            ("Reuters/IstoÉ Dinheiro — oferta de ações de R$ 4,6 bi",
              "https://www.istoedinheiro.com.br/magazine-luiza-anuncia-oferta/"),
             ("Mercado & Consumo — cronograma do bookbuilding",
              "https://mercadoeconsumo.com.br/15/07/2021/noticias-varejo/magalu-compra-kabum-plataforma-de-tecnologia-e-games/amp/"),
@@ -269,7 +285,7 @@ EVENTOS: List[Evento] = [
         categoria="Macroeconomia", origem="externo",
         descricao=(
             "A Selic chegou a 13,75% em ago/2022 e ali ficou até o início dos cortes. No Magalu, o "
-            "prejuízo líquido ajustado de 2023 foi de R\\$ 550,1 mi (R\\$ 372,1 mi em 2022), mesmo com "
+            "prejuízo líquido ajustado de 2023 foi de R$ 550,1 mi (R$ 372,1 mi em 2022), mesmo com "
             "melhora operacional; a empresa destacou a redução de 20% das despesas financeiras, que "
             "ainda pesavam ~4% da receita líquida. O último lucro ajustado antes do 4T23 havia sido "
             "no 3T21."
@@ -451,10 +467,10 @@ EVENTOS: List[Evento] = [
         data_inicio=date(2026, 8, 6),
         categoria="Resultado", origem="interno", trimestre_ref="2T26",
         descricao=(
-            "Divulgado em 06/08/2026: prejuízo líquido de R\\$ 72,5 mi (ajustado: R\\$ 50,4 mi); vendas totais "
-            "de R\\$ 14,5 bi (-5,1% a/a); lojas físicas +10,3% e e-commerce -11,9% (marketplace -12,6%), "
-            "movimento que a empresa liga à preservação de rentabilidade. EBITDA ajustado de R\\$ 708,8 mi "
-            "(margem de 8,0%). O resultado financeiro líquido ficou negativo em R\\$ 572,3 mi. "
+            "Divulgado em 06/08/2026: prejuízo líquido de R$ 72,5 mi (ajustado: R$ 50,4 mi); vendas totais "
+            "de R$ 14,5 bi (-5,1% a/a); lojas físicas +10,3% e e-commerce -11,9% (marketplace -12,6%), "
+            "movimento que a empresa liga à preservação de rentabilidade. EBITDA ajustado de R$ 708,8 mi "
+            "(margem de 8,0%). O resultado financeiro líquido ficou negativo em R$ 572,3 mi. "
             "Este evento limita a narrativa 'marketplace como motor de recuperação': em 2026 ele recua."
         ),
         o_que_olhar="Vendas por canal, margem EBITDA e resultado financeiro no 2T26 contra o 2T25.",
@@ -467,9 +483,9 @@ EVENTOS: List[Evento] = [
             Expectativa("lucro_liquido", "queda", modo="aa"),
         ),
         fontes=(
-            ("BPMoney — 2T26: prejuízo ajustado de R\\$ 50,4 mi, lojas +10,3%, e-commerce -11,9%",
+            ("BPMoney — 2T26: prejuízo ajustado de R$ 50,4 mi, lojas +10,3%, e-commerce -11,9%",
              "https://bpmoney.com.br/negocios/empresas/magazine-luiza-prejuizo-50-milhoes-2t26/"),
-            ("Money Times — prejuízo de R\\$ 72,5 mi no 2T26",
+            ("Money Times — prejuízo de R$ 72,5 mi no 2T26",
              "https://www.moneytimes.com.br/magazine-luiza-mglu3-tem-prejuizo-de-r-725-milhoes-no-2t26-estamos-fazendo-tudo-para-voltar-a-dar-lucro-sem-depender-dos-juros-diz-cfo-lmrs/"),
             ("Visão Invest — EBITDA ajustado e vendas por canal no 2T26",
              "https://visnoinvest.com.br/news/14628/magazine-luiza-mglu3-registra-ebitda-de-r-7088-mi-no-2t26"),

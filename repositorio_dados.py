@@ -160,9 +160,12 @@ class RepositorioDados:
         if self.loader_dre is None:
             return pd.Series(dtype=float)
         try:
-            return self.loader_dre.get_series(guia, indicador)
+            serie = self.loader_dre.get_series(guia, indicador)
         except KeyError:
             return pd.Series(dtype=float)
+        if isinstance(serie, pd.DataFrame):   # rótulo duplicado na guia
+            serie = serie.iloc[0]             # 1ª ocorrência (não somar venda + dedução)
+        return serie
 
     def serie_dre_por_granularidade(self, guia, indicador,
                                     granularidade="trimestral", ano=None,
