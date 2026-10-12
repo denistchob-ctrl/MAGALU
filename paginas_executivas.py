@@ -93,24 +93,40 @@ class PaginaAbertura:
         st.title("📊 Dashboard Executivo — Magazine Luiza")
         st.markdown(
             """
-            Esta apresentação está organizada em **5 atos**, cada um respondendo
-            a uma pergunta-chave da diretoria:
+            Esta apresentação está organizada em **5 ou 6 atos**, conforme a versão (v1 v2 v3)
+            cada um respondendo a uma pergunta-chave da diretoria:
 
+            Versão 1: (primeira idéia de dashboard executivo)
             1. **Onde estamos** — situação financeira e de mercado.
             2. **Como o cliente nos vê** — reputação e relevância de marca.
             3. **Onde a marca é forte/fraca** — geografia do interesse.
             4. **O que estamos fazendo** — investimentos e fluxo de caixa.
             5. **O que fazer** — síntese e recomendações.
 
-            Ao final do menu, há também **duas páginas acadêmicas**:
-            **Início** (objetivo e fontes) e **Carga e Higienização**
-            (transparência sobre o processo).
+            Versão 2: (expansão da versão 1 com cruzamento de indicadores)
+            1. **Visão Executiva** — síntese de todos os atos.
+            2. **Crescimento e Rentabilidade** — receita, margem e lucro.
+            3. **Omnichannel** — lojas físicas, e-commerce e marketplace.
+            4. **Cliente, Marca e Reputação** — interesse de busca e Reclame Aqui.
+            5. **Investimentos e Mercado** — CAPEX, fluxo de caixa e cotação.
+            6. **Relações entre Indicadores** — correlações e insights.
+
+            Versão 3: (mais detalhada, com linha do tempo e eventos estratégicos × indicadores)
+            1. **Linha do Tempo Estratégica** — visão histórica e projeções.
+            2. **Eventos × Indicadores** — impactos de eventos sobre os indicadores.
+            3. **Transformação Digital** — evolução do digital e do marketplace.
+            4. **Juros, Lucro e Virada** — análise de rentabilidade e endividamento.
+            5. **Marketplace e Margem** — evolução do marketplace e da margem.
+            6. **Marca e Reputação** — análise de marca, reputação e interesse de busca.
+
+            Ao final do menu, há também **duas páginas com finalidades acadêmicas**:
+            **Objetivo do Projeto** e **Carga e Higienização**.
             """
         )
-        st.info(
-            "💡 **Dica:** comece pelo Ato 5 (síntese) se quiser a conclusão "
-            "primeiro. Os outros atos detalham o caminho até ela."
-        )
+        # st.info(
+        #     "💡 **Dica:** comece pelo Ato 5 (síntese) se quiser a conclusão "
+        #     "primeiro. Os outros atos detalham o caminho até ela."
+        # )
 
 
 # ======================================================================
@@ -154,6 +170,14 @@ class PaginaAto1:
             st.plotly_chart(fig2, width="stretch")
         else:
             st.info("Dados de cotação não disponíveis.")
+
+        st.info(
+            "\n**EBITDA** - Earnings Before Interest, Taxes, Depreciation and Amortization ou " 
+            "**Lucro Antes de Juros, Impostos, Depreciação e Amortização**. Um indicador "
+            "que mede a performance operacional de uma empresa sem considerar efeitos financeiros,"
+            "tributários e contábeis. Ele mostra quanto o negócio gera de resultado apenas com suas" 
+            "atividades principais."
+        )
 
 
 # ======================================================================
@@ -293,6 +317,14 @@ class PaginaAto4:
         else:
             st.info("Dados de fluxo de caixa não disponíveis.")
 
+        st.info(
+            "\n**EBITDA** - Earnings Before Interest, Taxes, Depreciation and Amortization ou " 
+            "**Lucro Antes de Juros, Impostos, Depreciação e Amortização**. Um indicador "
+            "que mede a performance operacional de uma empresa sem considerar efeitos financeiros,"
+            "tributários e contábeis. Ele mostra quanto o negócio gera de resultado apenas com suas" 
+            "atividades principais."
+        )
+
 
 # ======================================================================
 # Ato 5 — O que fazer
@@ -348,6 +380,13 @@ class PaginaAto5:
             """
         )
 
+        st.info(
+            "\n**EBITDA** - Earnings Before Interest, Taxes, Depreciation and Amortization ou " 
+            "**Lucro Antes de Juros, Impostos, Depreciação e Amortização**. Um indicador "
+            "que mede a performance operacional de uma empresa sem considerar efeitos financeiros,"
+            "tributários e contábeis. Ele mostra quanto o negócio gera de resultado apenas com suas" 
+            "atividades principais."
+        )
 
 # ======================================================================
 # Helpers internos

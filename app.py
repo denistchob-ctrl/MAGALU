@@ -51,7 +51,7 @@ st.set_page_config(
 )
 
 # --- Menu ---
-MENU_V1_ABERTURA = "🏠 v1 · Abertura"
+MENU_V1_ABERTURA = "🏠 Apresentação"
 MENU_V1_ATO1 = "v1 · 1️⃣ Onde estamos"
 MENU_V1_ATO2 = "v1 · 2️⃣ Como o cliente nos vê"
 MENU_V1_ATO3 = "v1 · 3️⃣ Onde a marca é forte/fraca"
@@ -75,7 +75,7 @@ Nada1 = "-----------------"
 Nada2 = "------------------"
 Nada3 = "-------------------"
 
-MENU_INICIO = "📚 Início (acadêmico)"
+MENU_INICIO = "📚 Objetivo do Projeto"
 MENU_CARGA = "📚 Carga e Higienização"
 
 PAGINAS = {
