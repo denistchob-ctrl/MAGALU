@@ -318,8 +318,8 @@ EVENTOS: List[Evento] = [
     ),
     Evento(
         id="aporte_2024",
-        nome="Aumento de capital de R\\$ 1,25 bi (homologado em fev/2024)",
-        rotulo_curto="Aporte R\\$ 1,25 bi",
+        nome="Aumento de capital de R$ 1,25 bi (homologado em fev/2024)",
+        rotulo_curto="Aporte R$ 1,25 bi",
         data_inicio=date(2024, 2, 22),
         categoria="Financeiro", origem="interno", trimestre_ref="1T24",
         descricao=(
@@ -350,8 +350,8 @@ EVENTOS: List[Evento] = [
         categoria="Resultado", origem="interno", trimestre_ref="4T23",
         incluir_trimestre_no_depois=True,
         descricao=(
-            "Divulgado em 18/03/2024: lucro líquido ajustado de R\\$ 101,5 mi no 4T23 (prejuízo de R\\$ 15,2 mi "
-            "no 4T22), EBITDA ajustado de R\\$ 756,5 mi (+12,3% a/a) e margem EBITDA ajustada de 7,2%. "
+            "Divulgado em 18/03/2024: lucro líquido ajustado de R$ 101,5 mi no 4T23 (prejuízo de R$ 15,2 mi "
+            "no 4T22), EBITDA ajustado de R$ 756,5 mi (+12,3% a/a) e margem EBITDA ajustada de 7,2%. "
             "ATENÇÃO: o retorno ao lucro ocorreu no 4T23 (Black Friday mais rentável da história), e não "
             "em 2024 como sugeria a primeira versão do roteiro; o ano de 2023 como um todo foi de prejuízo."
         ),
@@ -365,7 +365,7 @@ EVENTOS: List[Evento] = [
             Expectativa("fluxo_caixa_operacional", "alta"),
         ),
         fontes=(
-            ("Mercado & Consumo — 4T23: lucro ajustado de R\\$ 101,5 mi",
+            ("Mercado & Consumo — 4T23: lucro ajustado de R$ 101,5 mi",
              "https://mercadoeconsumo.com.br/19/03/2024/noticias/magazine-luiza-reverte-prejuizo-e-tem-lucro-liquido-ajustado-de-r-1015-mi-no-4o-trimestre/amp/"),
             ("Finance News — resultado do 4T23 e vendas por canal",
              "https://financenews.com.br/2024/03/magazine-luiza-mglu3-reverte-prejuizo-e-tem-lucro-no-4t23/"),
