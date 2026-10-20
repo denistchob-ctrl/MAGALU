@@ -93,36 +93,55 @@ class PaginaAbertura:
         st.title("📊 Dashboard Executivo — Magazine Luiza")
         st.markdown(
             """
-            Esta apresentação está organizada em **5 ou 6 atos**, conforme a versão (v1 v2 v3)
+            Esta apresentação está organizada em **8 atos**,
             cada um respondendo a uma pergunta-chave da diretoria:
 
-            Versão 1: (primeira idéia de dashboard executivo)
-            1. **Onde estamos** — situação financeira e de mercado.
-            2. **Como o cliente nos vê** — reputação e relevância de marca.
-            3. **Onde a marca é forte/fraca** — geografia do interesse.
-            4. **O que estamos fazendo** — investimentos e fluxo de caixa.
-            5. **O que fazer** — síntese e recomendações.
-
-            Versão 2: (expansão da versão 1 com cruzamento de indicadores)
-            1. **Visão Executiva** — síntese de todos os atos.
-            2. **Crescimento e Rentabilidade** — receita, margem e lucro.
-            3. **Omnichannel** — lojas físicas, e-commerce e marketplace.
-            4. **Cliente, Marca e Reputação** — interesse de busca e Reclame Aqui.
-            5. **Investimentos e Mercado** — CAPEX, fluxo de caixa e cotação.
-            6. **Relações entre Indicadores** — correlações e insights.
-
-            Versão 3: (mais detalhada, com linha do tempo e eventos estratégicos × indicadores)
             1. **Linha do Tempo Estratégica** — visão histórica e projeções.
             2. **Eventos × Indicadores** — impactos de eventos sobre os indicadores.
             3. **Transformação Digital** — evolução do digital e do marketplace.
             4. **Juros, Lucro e Virada** — análise de rentabilidade e endividamento.
             5. **Marketplace e Margem** — evolução do marketplace e da margem.
-            6. **Marca e Reputação** — análise de marca, reputação e interesse de busca.
+            6. **Omnichannel** — lojas físicas, e-commerce e marketplace.
+            7. **Cliente, Marca e Reputação** — interesse de busca e Reclame Aqui.
+            8. **Investimentos e Mercado** — CAPEX, fluxo de caixa e cotação.
 
             Ao final do menu, há também **duas páginas com finalidades acadêmicas**:
             **Objetivo do Projeto** e **Carga e Higienização**.
             """
         )
+        # Apresentação da v3 que ainda mostrava todas as versões
+        # st.markdown(
+        #     """
+        #     Esta apresentação está organizada em **5 ou 6 atos**, conforme a versão (v1 v2 v3)
+        #     cada um respondendo a uma pergunta-chave da diretoria:
+
+        #     Versão 1: (primeira idéia de dashboard executivo)
+        #     1. **Onde estamos** — situação financeira e de mercado.
+        #     2. **Como o cliente nos vê** — reputação e relevância de marca.
+        #     3. **Onde a marca é forte/fraca** — geografia do interesse.
+        #     4. **O que estamos fazendo** — investimentos e fluxo de caixa.
+        #     5. **O que fazer** — síntese e recomendações.
+
+        #     Versão 2: (expansão da versão 1 com cruzamento de indicadores)
+        #     1. **Visão Executiva** — síntese de todos os atos.
+        #     2. **Crescimento e Rentabilidade** — receita, margem e lucro.
+        #     3. **Omnichannel** — lojas físicas, e-commerce e marketplace.
+        #     4. **Cliente, Marca e Reputação** — interesse de busca e Reclame Aqui.
+        #     5. **Investimentos e Mercado** — CAPEX, fluxo de caixa e cotação.
+        #     6. **Relações entre Indicadores** — correlações e insights.
+
+        #     Versão 3: (mais detalhada, com linha do tempo e eventos estratégicos × indicadores)
+        #     1. **Linha do Tempo Estratégica** — visão histórica e projeções.
+        #     2. **Eventos × Indicadores** — impactos de eventos sobre os indicadores.
+        #     3. **Transformação Digital** — evolução do digital e do marketplace.
+        #     4. **Juros, Lucro e Virada** — análise de rentabilidade e endividamento.
+        #     5. **Marketplace e Margem** — evolução do marketplace e da margem.
+        #     6. **Marca e Reputação** — análise de marca, reputação e interesse de busca.
+
+        #     Ao final do menu, há também **duas páginas com finalidades acadêmicas**:
+        #     **Objetivo do Projeto** e **Carga e Higienização**.
+        #     """
+        # )
         # st.info(
         #     "💡 **Dica:** comece pelo Ato 5 (síntese) se quiser a conclusão "
         #     "primeiro. Os outros atos detalham o caminho até ela."
