@@ -94,7 +94,7 @@ class ContextoV3:
         self.fonte = fonte
 
 
-@st.cache_resource(show_spinner="Preparando a camada de eventos (v3): Selic, cotação ajustada...")
+@st.cache_resource(show_spinner="Preparando a camada de eventos: Selic, cotação ajustada...")
 def obter_contexto_v3(_repositorio):
     selic = SelicLoader()
     return ContextoV3(selic, FonteSeries(_repositorio, selic))
@@ -236,7 +236,7 @@ class PaginaV3Timeline:
         st.plotly_chart(g3.timeline_estrategica(eventos, ano_ini, ano_fim), width="stretch")
 
         st.subheader("Do evento à percepção do mercado")
-        _caption("Estrutura de análise usada em todas as páginas v3.")
+        _caption("Estrutura de análise usada em todas as páginas.")
         st.graphviz_chart(g3.modelo_conceitual_dot())
 
         st.subheader("Eventos catalogados")
@@ -252,7 +252,7 @@ class PaginaV3Timeline:
         _bloco_fontes(eventos)
 
         ctx = obter_contexto_v3(repositorio)
-        with st.expander("🛠 Qualidade dos dados desta camada (v3)"):
+        with st.expander("🛠 Qualidade dos dados desta camada"):
             avisos = list(dict.fromkeys(ctx.fonte.avisos_dados))
             for a in ctx.fonte.relatorio_ajuste:
                 _markdown(f"- Cotação: {a}")
@@ -274,9 +274,9 @@ class PaginaV3Timeline:
                 "recuperação\" precisa ser apresentada com esse contraponto.\n"
                 "- **Cotação MGLU3:** a ação passou por desdobramentos (1:8 em 08/2019, 1:4 em 10/2020) e por "
                 "um grupamento 10:1 (27/05/2024). Séries sem ajuste geram saltos falsos e distorcem o Base 100 "
-                "— a v3 detecta e corrige automaticamente (veja a página 4).\n"
+                "— a apresentação atual detecta e corrige automaticamente (veja a página 4).\n"
                 "- **Frase não verificada:** o roteiro cita que \"cada ponto percentual de queda da Selic teria "
-                "impacto relevante\" na economia financeira. Não localizei essa afirmação em fonte; não a utilize "
+                "impacto relevante\" na economia financeira. Não foi localizada uma fonte oficial, não a utilize "
                 "sem confirmar no release de resultados.")
 
         _secao_insights(
@@ -535,7 +535,7 @@ class PaginaV3Juros:
             ano_ini=ano_ini, ano_fim=ano_fim, mostrar_rotulos=mostrar)
         st.plotly_chart(fig, width="stretch", key="v3_jr_selic_lucro")
 
-        st.subheader("Operação × resultado final: onde os juros 'comem' a margem")
+        st.subheader("Operação × resultado final: onde os juros 'absorvem' a margem")
         fig = g3.serie_com_eventos(
             [_spec(fonte, "margem_ebitda", cor=CORES["positivo"], largura=3),
              _spec(fonte, "margem_liquida", cor=CORES["primaria"], largura=3),
@@ -571,7 +571,7 @@ class PaginaV3Juros:
                 _markdown(f"- {linha}")
             _caption("Eventos técnicos considerados: " + "; ".join(
                 f"{e['descricao']} em {e['data']:%d/%m/%Y}" for e in EVENTOS_ACAO) +
-                ". O mesmo cuidado vale para o Base 100 da v2: se a série vier sem ajuste, o MGLU3 aparece distorcido.")
+                ". O mesmo cuidado vale para o Base 100, se a série vier sem ajuste, o MGLU3 apareceria distorcido.")
 
         # --- Caso 5
         st.header("Caso 5 · Retorno ao lucro (e o que veio depois)")
@@ -620,7 +620,7 @@ class PaginaV3Juros:
                 else:
                     _info("Nenhum trimestre com lucro ajustado positivo a partir de 2022 nos dados carregados.")
             _caption("Se algum quadro mostrar ⚠, a planilha pode ter sido reapresentada ou os dados diferem da "
-                       "divulgação original — investigue antes de apresentar.")
+                       "divulgação original, base desse projeto.")
         else:
             _info("Lucro líquido ajustado indisponível nos dados carregados.")
 
