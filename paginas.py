@@ -142,18 +142,20 @@ class PaginaCargaHigienizacao:
         # --- Série mensal (loader live) ---
         trends = getattr(repositorio, "trends", None)
         if trends is None:
-            st.warning("Google Trends (série mensal) não carregado.")
+            st.warning("Google Trends (série mensal) não carregado. Verifique a internet ou os backups.")
+            return
+
+        if getattr(trends, "usando_backup", False):
+            st.warning("⚠ Consulta ao vivo indisponível agora — exibindo a "
+                       "última leitura salva em backup (os dados estão presentes).")
         else:
-            if trends.usando_backup:
-                st.warning("⚠ Consulta ao vivo indisponível agora — exibindo a "
-                           "última leitura salva em backup.")
-            else:
-                st.success("Série mensal obtida ao vivo (Google Trends).")
-            st.write(f"**{len(trends.serie_temporal)} meses** carregados "
-                     f"(granularidade mensal).")
-            st.caption("A região agregada do loader live foi DESCONSIDERADA — "
-                       "ela era uma 'foto' de um momento específico e ficava "
-                       "inconsistente com o consolidado ano a ano.")
+            st.success("Série mensal obtida ao vivo (Google Trends).")
+            
+        st.write(f"**{len(trends.serie_temporal)} meses** carregados "
+                 f"(granularidade mensal).")
+        st.caption("A região agregada do loader live foi DESCONSIDERADA — "
+                   "ela era uma 'foto' de um momento específico e ficava "
+                   "inconsistente com o consolidado ano a ano.")
 
         # --- Consolidado ano a ano (fonte única de verdade p/ região) ---
         st.markdown("### Interesse por região — ano a ano")
@@ -194,9 +196,20 @@ class PaginaDashboard:
         st.title("Dashboard")
         st.caption(f"Fonte: {fonte} · Ano: {ano}")
 
-        if fonte in repositorio.erros:
-            st.error(f"Esta fonte não pôde ser carregada: {repositorio.erros[fonte]}")
-            return
+        # if fonte in repositorio.erros:
+        #     st.error(f"Esta fonte não pôde ser carregada: {repositorio.erros[fonte]}")
+        #     return
+
+        if fonte == "Google Trends":
+            if getattr(repositorio, "trends", None) is not None:
+                st.success("Carregada")
+            else:
+                st.error("Não carregada")
+        else:
+            if fonte in repositorio.erros:
+                st.error(f"Esta fonte não pôde ser carregada: {repositorio.erros[fonte]}")
+            else:
+                st.success("Carregada")
 
         if fonte == "DRE":
             self._dashboard_dre(repositorio, ano)

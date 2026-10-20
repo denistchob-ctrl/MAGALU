@@ -16,6 +16,8 @@ from formatos import formata_moeda, formata_pct
 from validacoes import mensagem_sem_dados
 from analises import correlacao_pearson, base_100
 import graficos_executivos_v2 as g2
+import graficos_executivos_v3 as g3                 # <-- ADICIONAR
+from eventos_estrategicos import EVENTOS_POR_ID     # <-- ADICIONAR
 from analises_eventos import FonteSeries, COERENTE, CONTRARIA, INCONCLUSIVO, SEM_DADOS, ICONE_VEREDITO, TEXTO_VEREDITO
 
 # --- Importações da v3 ---
