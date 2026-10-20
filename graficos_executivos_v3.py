@@ -184,8 +184,8 @@ def timeline_estrategica(eventos, ano_ini=2018, ano_fim=2026, altura=520):
             meio = x0 + (x1 - x0) / 2
             fig.add_trace(go.Scatter(
                 x=[x0, meio, x1], y=[ev.categoria] * 3, mode="lines+text",
-                line=dict(color=cor, width=18), opacity=0.55,
-                text=["", ev.rotulo_curto, ""], textposition=ev.texto_pos-5,
+                line=dict(color=cor, width=18), opacity=0.85,
+                text=["", ev.rotulo_curto, ""], textposition=ev.texto_pos,
                 textfont=dict(size=12, color="#000000", weight="bold"),
                 customdata=info * 3,
                 hovertemplate="<b>%{customdata[0]}</b><br>%{customdata[1]}<extra></extra>",
@@ -194,7 +194,7 @@ def timeline_estrategica(eventos, ano_ini=2018, ano_fim=2026, altura=520):
             fig.add_trace(go.Scatter(
                 x=[pd.Timestamp(ev.data_inicio)], y=[ev.categoria], mode="markers+text",
                 marker=dict(symbol="diamond", size=17, color=cor, line=dict(color="white", width=1.5)),
-                text=[ev.rotulo_curto], textposition=ev.texto_pos+5,
+                text=[ev.rotulo_curto], textposition=ev.texto_pos,
                 textfont=dict(size=12, color="#000000", weight="bold"),
                 customdata=info,
                 hovertemplate="<b>%{customdata[0]}</b><br>%{customdata[1]}<extra></extra>",
