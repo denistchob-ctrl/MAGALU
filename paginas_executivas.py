@@ -525,6 +525,30 @@ class PaginaInicio:
             "conferir como os dados foram carregados e higienizados."
         )
 
+        st.markdown("### Nomenclaturas importantes que devem ser conhecidas:")
+        st.info(
+            "O Magalu opera com dois modelos de venda: 1P (First Party) e 3P (Third Party). "
+            "1P (First Party): Significa 'Primeira Parte'. É o modelo de venda direta. "
+            " O Magalu compra o estoque do fabricante (ou produz, no caso das marcas próprias como a Época), "
+            " vende para o cliente final e é o responsável por toda a operação (faturamento, emissão de nota, "
+            " logística e atendimento). Neste projeto isso aparece como 'E-commerce Tradicional (1P)'."
+        )
+        st.info(
+            "3P (Third Party): Significa 'Terceira Parte'. É o modelo de Marketplace. "
+            " O Magalu atua apenas como 'shopping virtual'. Ele coloca a plataforma, o tráfego "
+            " e o sistema de pagamentos à disposição de lojistas parceiros (os sellers)."
+            " A venda, a nota fiscal e a entrega são de responsabilidade do lojista."
+            " O Magalu ganha uma comissão (take rate). Neste projeto isso aparece como 'Marketplace (3P)'."
+            ""
+        )
+        st.info(
+            " O termo EBITDA significa 'Earnings Before Interest, Taxes, Depreciation and Amortization' ou "
+            " o 'Lucro Antes de Juros, Impostos, Depreciação e Amortização'."
+            " Um indicador que mede a performance operacional de uma empresa sem considerar efeitos financeiros," 
+            " tributários e contábeis. Ele mostra quanto o negócio gera de resultado apenas com suas atividades principais."
+            ""
+        )
+
 
 class PaginaCargaHigienizacao:
     """Tela acadêmica: status de carga e o que a limpeza ajustou."""
