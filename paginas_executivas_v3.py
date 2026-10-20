@@ -521,8 +521,8 @@ class PaginaV3Juros:
                                   "fluxo_caixa_operacional", "mglu3", "selic"])
         _caption(f"Fonte da Selic: **{ctx.selic.fonte}**.")
         if ctx.selic.fonte.startswith("Tabela"):
-            _warning("A Selic veio da tabela embutida (BCB indisponível e sem backup local). "
-                       "Confira os valores com a série oficial antes de apresentar.")
+            _warning("A Selic veio da tabela embutida (BCB indisponível e sem backup local). ")
+                       # "Confira os valores com a série oficial antes de apresentar.")
 
         # --- Caso 3
         st.header("Caso 3 · A crise dos juros")
