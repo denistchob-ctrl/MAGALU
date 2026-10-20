@@ -94,11 +94,18 @@ class ContextoV3:
         self.fonte = fonte
 
 
-@st.cache_resource(show_spinner="Preparando a camada de eventos: Selic, cotação ajustada...")
-def obter_contexto_v3(_repositorio):
-    selic = SelicLoader()
-    return ContextoV3(selic, FonteSeries(_repositorio, selic))
+@st.cache_resource(show_spinner="Carregando Selic...")
+def _obter_selic():
+    """Cacheia APENAS o SelicLoader (que faz request ao BCB).
+    O FonteSeries é reconstruído a cada rerun porque depende do
+    repositório (que pode ter o `trends` recarregado a qualquer momento)."""
+    return SelicLoader()
 
+def obter_contexto_v3(repositorio):
+    """Reconstrói o FonteSeries a cada chamada. Não cachear: o repositório
+    (especialmente `trends`) pode mudar de estado entre reruns."""
+    selic = _obter_selic()
+    return ContextoV3(selic, FonteSeries(repositorio, selic))
 
 def _controles(prefixo, repositorio):
     """Controles de sidebar comuns. Devolve (ctx, ano_ini, ano_fim, mostrar_rotulos)."""
