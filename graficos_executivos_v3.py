@@ -186,7 +186,7 @@ def timeline_estrategica(eventos, ano_ini=2018, ano_fim=2026, altura=520):
                 x=[x0, meio, x1], y=[ev.categoria] * 3, mode="lines+text",
                 line=dict(color=cor, width=18), opacity=0.55,
                 text=["", ev.rotulo_curto, ""], textposition=ev.texto_pos,
-                textfont=dict(size=11, color="#00FA68"),
+                textfont=dict(size=11, color="#000000"),
                 customdata=info * 3,
                 hovertemplate="<b>%{customdata[0]}</b><br>%{customdata[1]}<extra></extra>",
                 showlegend=False))
@@ -195,7 +195,7 @@ def timeline_estrategica(eventos, ano_ini=2018, ano_fim=2026, altura=520):
                 x=[pd.Timestamp(ev.data_inicio)], y=[ev.categoria], mode="markers+text",
                 marker=dict(symbol="diamond", size=17, color=cor, line=dict(color="white", width=1.5)),
                 text=[ev.rotulo_curto], textposition=ev.texto_pos,
-                textfont=dict(size=11, color="#030000"),
+                textfont=dict(size=11, color="#000000"),
                 customdata=info,
                 hovertemplate="<b>%{customdata[0]}</b><br>%{customdata[1]}<extra></extra>",
                 showlegend=False))
