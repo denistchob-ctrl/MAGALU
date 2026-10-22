@@ -12,12 +12,10 @@ from paginas_executivas_v4 import (
     PaginaAbertura,
     PaginaV3Timeline,
     PaginaV3EventosIndicadores,
-    PaginaV3Digital,
     PaginaV3Juros,
-    PaginaV4Marketplace,
-    PaginaV2Omnichannel,
+    PaginaV4InvestimentosDigitalMercado,
+    PaginaV4OmnichannelMarketplace,
     PaginaV2Cliente,
-    PaginaV2Investimentos,
     PaginaInicio,
     PaginaCargaHigienizacao,
 )
@@ -26,29 +24,25 @@ st.set_page_config(page_title="Magazine Luiza — Dashboard Executivo", page_ico
 
 # --- Menu ---
 MENU_ABERTURA = "🏠 Apresentação"
-MENU_V4_TL   = " 1️⃣ Linha do Tempo Estratégica"
-MENU_V4_EI   = " 2️⃣ Eventos × Indicadores"
-MENU_V4_DIG  = " 3️⃣ Transformação Digital"
-MENU_V4_JUR  = " 4️⃣ Juros, Lucro e Virada"
-MENU_V4_MKT  = " 5️⃣ Marketplace e Margem"
-MENU_V4_OMNI = " 6️⃣ Omnichannel"
-MENU_V4_CLI  = " 7️⃣ Cliente, Marca e Reputação"
-MENU_V4_INV  = " 8️⃣ Investimentos e Mercado"
+MENU_V4_TL    = " 1️⃣ Linha do Tempo Estratégica"
+MENU_V4_EI    = " 2️⃣ Eventos × Indicadores"
+MENU_V4_JUR   = " 3️⃣ Juros, Lucro e Virada"
+MENU_V4_INV   = " 4️⃣ Investimentos, Digital e Mercado"
+MENU_V4_OMNI  = " 5️⃣ Omnichannel e Marketplace"
+MENU_V4_CLI   = " 6️⃣ Cliente, Marca e Reputação"
 Nada1 = "-----------------"
 
-MENU_INICIO  = "📚 Objetivo do Projeto"
-MENU_CARGA   = "📚 Carga e Higienização"
+MENU_INICIO   = "📚 Objetivo do Projeto"
+MENU_CARGA    = "📚 Carga e Higienização"
 
 PAGINAS = {
     MENU_ABERTURA: PaginaAbertura(),
     MENU_V4_TL: PaginaV3Timeline(),
     MENU_V4_EI: PaginaV3EventosIndicadores(),
-    MENU_V4_DIG: PaginaV3Digital(),
     MENU_V4_JUR: PaginaV3Juros(),
-    MENU_V4_MKT: PaginaV4Marketplace(),
-    MENU_V4_OMNI: PaginaV2Omnichannel(),
+    MENU_V4_INV: PaginaV4InvestimentosDigitalMercado(),
+    MENU_V4_OMNI: PaginaV4OmnichannelMarketplace(),
     MENU_V4_CLI: PaginaV2Cliente(),
-    MENU_V4_INV: PaginaV2Investimentos(),
     Nada1: None,
     MENU_INICIO: PaginaInicio(),
     MENU_CARGA: PaginaCargaHigienizacao(),
@@ -76,6 +70,8 @@ def main():
     if pagina is None:
         st.info("Selecione uma página do menu.")
         return
+    
+    # O Streamlit executa a renderização da página escolhida
     pagina.render(repositorio)
 
 if __name__ == "__main__":
