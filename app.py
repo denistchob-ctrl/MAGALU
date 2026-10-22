@@ -7,15 +7,27 @@ Ponto de entrada do app Streamlit. Menu da versão 4 (Final).
 import streamlit as st
 from repositorio_dados import obter_repositorio
 
-# --- Importações da v4 ---
+# --- Importações da v4 (apenas as duas classes mescladas) ---
 from paginas_executivas_v4 import (
-    PaginaAbertura,
+    PaginaV4InvestimentosDigitalMercado,
+    PaginaV4OmnichannelMarketplace,
+)
+
+# --- Importações da v3 (páginas mantidas) ---
+from paginas_executivas_v3 import (
     PaginaV3Timeline,
     PaginaV3EventosIndicadores,
     PaginaV3Juros,
-    PaginaV4InvestimentosDigitalMercado,
-    PaginaV4OmnichannelMarketplace,
+)
+
+# --- Importações da v2 (página Cliente, Marca e Reputação) ---
+from paginas_executivas_v2 import (
     PaginaV2Cliente,
+)
+
+# --- Importações da v1 (Acadêmico e Abertura) ---
+from paginas_executivas import (
+    PaginaAbertura,
     PaginaInicio,
     PaginaCargaHigienizacao,
 )
