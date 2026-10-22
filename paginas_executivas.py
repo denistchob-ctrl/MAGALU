@@ -91,24 +91,59 @@ def _filtrar_serie_por_ano_mes(serie, ano, mes=None):
 class PaginaAbertura:
     def render(self, repositorio):
         st.title("📊 Dashboard Executivo — Magazine Luiza")
+        
         st.markdown(
             """
-            Esta apresentação está organizada em **8 atos**,
-            cada um respondendo a uma pergunta-chave da diretoria:
-
-            1. **Linha do Tempo Estratégica** — visão histórica e projeções.
-            2. **Eventos × Indicadores** — impactos de eventos sobre os indicadores.
-            3. **Transformação Digital** — evolução do digital e do marketplace.
-            4. **Juros, Lucro e Virada** — análise de rentabilidade e endividamento.
-            5. **Marketplace e Margem** — evolução do marketplace e da margem.
-            6. **Omnichannel** — lojas físicas, e-commerce e marketplace.
-            7. **Cliente, Marca e Reputação** — interesse de busca e Reclame Aqui.
-            8. **Investimentos e Mercado** — CAPEX, fluxo de caixa e cotação.
-
-            Ao final do menu, há também **duas páginas com finalidades acadêmicas**:
-            **Objetivo do Projeto** e **Carga e Higienização**.
+            Esta apresentação foi desenhada para responder a uma pergunta central da diretoria:
+            **Como o desempenho financeiro, a transformação dos canais, os investimentos, 
+            a percepção do consumidor e o comportamento do mercado evoluíram juntos no Magalu?**
+            
+            Para isso, o conteúdo está dividido em **6 blocos analíticos**:
             """
         )
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown(
+                """
+                **1. Linha do Tempo Estratégica**  
+                *Contexto.* Quais eventos externos (pandemia, juros) e decisões internas 
+                (aquisições, aportes) marcaram o período analisado.
+
+                **2. Eventos × Indicadores**  
+                *Diagnóstico.* Ferramenta interativa para testar se a direção dos dados 
+                confirma ou contraria as narrativas sobre cada evento.
+
+                **3. Juros, Lucro e a Virada**  
+                *Rentabilidade.* Por que o lucro caiu e como a Selic afetou o resultado 
+                final, mesmo com a operação (EBITDA) crescendo.
+                """
+            )
+            
+        with col2:
+            st.markdown(
+                """
+                **4. Investimentos, Digital e Mercado**  
+                *Retorno.* Como os aportes em tecnologia e logística impulsionaram o 
+                e-commerce e como a bolsa (MGLU3) reagiu a essa trajetória.
+
+                **5. Omnichannel e Marketplace**  
+                *Crescimento.* A mudança do mix de canais (1P vs 3P) e o papel do 
+                marketplace na busca por margens maiores.
+
+                **6. Cliente, Marca e Reputação**  
+                *Percepção.* A desconexão entre o interesse de busca (Google Trends) e 
+                o volume de vendas, além da saúde reputacional (Reclame Aqui).
+                """
+            )
+            
+        st.divider()
+        st.info(
+            "As páginas acadêmicas no final do menu (**Objetivo do Projeto** e **Carga e Higienização**) "
+            "detalham as fontes de dados e os tratamentos aplicados."
+        )
+
         # Apresentação da v3 que ainda mostrava todas as versões
         # st.markdown(
         #     """
