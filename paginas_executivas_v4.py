@@ -24,6 +24,13 @@ import graficos_executivos_v3 as g3
 from eventos_estrategicos import EVENTOS_POR_ID
 from analises_eventos import FonteSeries, COERENTE, CONTRARIA, INCONCLUSIVO, SEM_DADOS, ICONE_VEREDITO, TEXTO_VEREDITO
 
+import os
+import warnings
+from statsmodels.tsa.statespace.sarimax import SARIMAX
+from prophet import Prophet
+
+warnings.filterwarnings("ignore") # Suprimir avisos do Prophet/SARIMAX
+
 # --- Importações da v3 ---
 from paginas_executivas_v3 import (
     PaginaV3Timeline, 
@@ -49,8 +56,118 @@ from paginas_executivas_v2 import (
 )
 
 # --- Importações da v1 (acadêmico) ---
-from paginas_executivas import PaginaInicio, PaginaCargaHigienizacao, PaginaAbertura
+from paginas_executivas import PaginaInicio, PaginaCargaHigienizacao
 
+
+# ======================================================================
+# Página 0 — Abertura
+# ======================================================================
+
+class PaginaAbertura:
+    def render(self, repositorio):
+        # Tenta carregar o logo local
+        try:
+            st.image("logo.png", width=400)
+        except:
+            pass
+        
+        st.title("📊 Dashboard Executivo — Magazine Luiza")
+        
+        st.markdown(
+            """
+            Esta apresentação foi desenvolvida para responder a uma pergunta central da diretoria:
+            **Como o desempenho financeiro, a transformação dos canais, os investimentos, 
+            a percepção do consumidor e o comportamento do mercado evoluíram juntos no Magalu?**
+            
+            Para isso, o conteúdo está dividido em blocos analíticos e acadêmicos.
+            """
+        )
+
+        # Estilo CSS para os cartões azuis
+        st.markdown("""
+        <style>
+        .card-item {
+            background-color: #0086FF;
+            color: white !important;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .card-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .card-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            color: white !important;
+        }
+        .card-desc {
+            font-size: 0.9em;
+            color: #f0f0f0 !important;
+            margin: 0;
+        }
+        .card-desc em {
+            color: #ffeb3b !important; /* Amarelo para o contexto (ex: Contexto, Diagnóstico) */
+            font-style: normal;
+            font-weight: bold;
+        }
+        .section-header {
+            color: #333;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #0086FF;
+            padding-bottom: 5px;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
+        col1, col2 = st.columns([2, 1])
+
+        with col1:
+            st.markdown('<div class="section-header">Análise Executiva (7 Blocos)</div>', unsafe_allow_html=True)
+            
+            # Definição dos cartões (Título, Contexto, Descrição)
+            cards = [
+                ("1. Linha do Tempo Estratégica", "Contexto.", "Eventos externos e decisões internas que marcaram o período."),
+                ("2. Eventos × Indicadores", "Diagnóstico.", "Ferramenta interativa para testar hipóteses sobre cada evento."),
+                ("3. Juros, Lucro e a Virada", "Rentabilidade.", "Impacto da Selic no resultado final vs. operação (EBITDA)."),
+                ("4. Investimentos, Digital e Mercado", "Retorno.", "Aportes em tech/logística e a reação da bolsa (MGLU3)."),
+                ("5. Omnichannel e Marketplace", "Crescimento.", "Mix de canais (1P vs 3P) e busca por margens maiores."),
+                ("6. Cliente, Marca e Reputação", "Percepção.", "Interesse de busca (Google Trends) e saúde reputacional (RA)."),
+                ("7. Projeções Preditivas", "Futuro.", "Modelos SARIMAX e Prophet para vendas e interesse de busca.")
+            ]
+
+            for title, context, desc in cards:
+                html = f"""
+                <div class="card-item">
+                    <div class="card-title">{title}</div>
+                    <div class="card-desc"><em>{context}</em> {desc}</div>
+                </div>
+                """
+                st.markdown(html, unsafe_allow_html=True)
+
+        with col2:
+            st.markdown('<div class="section-header" style="border-color: #7F8C8D;">Apoio Acadêmico</div>', unsafe_allow_html=True)
+            
+            # Cartões Acadêmicos
+            cards_academicos = [
+                ("📚 Objetivo do Projeto", "Fontes e Escopo", "Detalhes sobre a origem e coleta de dados."),
+                ("📚 Carga e Higienização", "Transparência", "Como os dados foram limpos e preparados.")
+            ]
+            
+            for title, subtitle, desc in cards_academicos:
+                html = f"""
+                <div class="card-item" style="background-color: #5D6D7E;"> <!-- Cinza azulado para diferenciar -->
+                    <div class="card-title">{title}</div>
+                    <div class="card-desc"><em>{subtitle}.</em> {desc}</div>
+                </div>
+                """
+                st.markdown(html, unsafe_allow_html=True)
 
 # ======================================================================
 # PÁGINA 4 — INVESTIMENTOS, DIGITAL E MERCADO
@@ -233,3 +350,145 @@ class PaginaV4OmnichannelMarketplace:
 
 # --- As páginas 1, 2, 3 e 6 são importadas ou reaproveitadas ---
 # PaginaV3Timeline, PaginaV3EventosIndicadores, PaginaV3Juros e PaginaV2Cliente
+
+# ======================================================================
+# PÁGINA 7 — PROJEÇÕES
+# ======================================================================
+class PaginaV4Projecoes:
+    def render(self, repositorio):
+        st.title("Projeções Preditivas")
+        st.caption("Modelos estatísticos para antecipar tendências de vendas e interesse de marca.")
+
+        st.info(
+            "⚠ **Nota metodológica:** As projeções abaixo usam modelos estatísticos baseados no histórico. "
+            "A faixa sombreada representa o intervalo de confiança. Eventos externos não previstos "
+            "podem alterar significativamente o resultado real."
+        )
+
+        ctx, ano_ini, ano_fim, mostrar = _controles("v4_proj", repositorio)
+        fonte = ctx.fonte
+
+        col1, col2 = st.columns(2)
+
+        # --- 1. Projeção de Vendas (SARIMAX) ---
+        with col1:
+            st.subheader("1. Projeção de Vendas Totais")
+            st.caption("Modelo SARIMAX — Sazonalidade Anual. Próximos 4 trimestres.")
+            
+            serie_vendas = fonte.trimestral("vendas_totais").dropna()
+            
+            if len(serie_vendas) > 8:
+                try:
+                    # Treinando o modelo SARIMAX
+                    # order=(p,d,q) e seasonal_order=(P,D,Q,s) simplificados para negócios
+                    modelo = SARIMAX(serie_vendas, 
+                                     order=(1, 1, 1), 
+                                     seasonal_order=(1, 1, 0, 4), # Sazonalidade de 4 trimestres
+                                     enforce_stationarity=False, 
+                                     enforce_invertibility=False)
+                    resultado = modelo.fit(disp=False)
+                    
+                    # Previsão para os próximos 4 trimestres
+                    previsao = resultado.get_forecast(steps=4)
+                    prev_media = previsao.predicted_mean
+                    prev_ci = previsao.conf_int()
+                    
+                    # Gerando as datas futuras
+                    idx_futuro = pd.period_range(start=serie_vendas.index[-1] + 1, periods=4, freq="Q")
+                    datas_x = [period_para_data(p) for p in serie_vendas.index]
+                    datas_prev = [period_para_data(p) for p in idx_futuro]
+                    
+                    fig = go.Figure()
+                    
+                    # Histórico
+                    fig.add_trace(go.Scatter(x=datas_x, y=serie_vendas.values, mode='lines+markers', name='Histórico', line=dict(color=CORES["secundaria"])))
+                    
+                    # Previsão (Linha tracejada)
+                    fig.add_trace(go.Scatter(x=datas_prev, y=prev_media.values, mode='lines+markers', name='Projeção', line=dict(color=CORES["acento"], dash='dash')))
+                    
+                    # Faixa de confiança (Área sombreada)
+                    fig.add_trace(go.Scatter(
+                        x=datas_prev + datas_prev[::-1],
+                        y=list(prev_ci.iloc[:, 1]) + list(prev_ci.iloc[:, 0])[::-1],
+                        fill='toself',
+                        fillcolor='rgba(241, 143, 1, 0.2)', # Cor do acento com transparência
+                        line=dict(color='rgba(255,255,255,0)'),
+                        hoverinfo="skip",
+                        showlegend=False
+                    ))
+                    
+                    fig.update_layout(title="Projeção de Vendas (R$ milhões)", template="plotly_white", height=400,
+                                      legend=dict(orientation="h", yanchor="bottom", y=1.02))
+                    st.plotly_chart(fig, width="stretch")
+                    
+                    # Mensagem Executiva
+                    proximo_tri = idx_futuro[0]
+                    valor_previsto = prev_media.iloc[0]
+                    st.success(f"**Mensagem Executiva:** Se o padrão sazonal e a tendência recente se mantiverem, as vendas devem ficar em torno de **R$ {valor_previsto:,.1f} milhões** no {period_para_rotulo(proximo_tri)}.")
+                    
+                except Exception as e:
+                    st.error(f"Não foi possível gerar a projeção de vendas (dados insuficientes ou erro no modelo): {e}")
+            else:
+                st.warning("Dados históricos insuficientes para treinar o modelo SARIMAX.")
+
+        # --- 2. Projeção do Google Trends (Prophet) ---
+        with col2:
+            st.subheader("2. Projeção do Interesse de Busca")
+            st.caption("Modelo Prophet — Próximos 6 meses (Google Trends).")
+            
+            trends_m = fonte.trends_mensal()
+            
+            if len(trends_m) > 12:
+                try:
+                    # Preparando os dados para o Prophet
+                    df_prophet = trends_m.reset_index()
+                    df_prophet.columns = ['ds', 'y']
+                    df_prophet['ds'] = df_prophet['ds'].dt.tz_localize(None) # Remove timezone se houver
+                    
+                    # Treinando
+                    m = Prophet(yearly_seasonality=True, weekly_seasonality=False, daily_seasonality=False)
+                    m.fit(df_prophet)
+                    
+                    # Previsão de 6 meses
+                    futuro = m.make_future_dataframe(periods=6, freq='M')
+                    forecast = m.predict(futuro)
+                    
+                    # Plotando
+                    fig = go.Figure()
+                    
+                    # Histórico
+                    fig.add_trace(go.Scatter(x=df_prophet['ds'], y=df_prophet['y'], mode='lines', name='Histórico', line=dict(color=CORES["trends"])))
+                    
+                    # Previsão (pegando apenas o futuro)
+                    df_futuro = forecast[forecast['ds'] > df_prophet['ds'].max()]
+                    fig.add_trace(go.Scatter(x=df_futuro['ds'], y=df_futuro['yhat'], mode='lines', name='Projeção', line=dict(color=CORES["negativo"], dash='dash')))
+                    
+                    # Faixa de confiança
+                    fig.add_trace(go.Scatter(
+                        x=df_futuro['ds'].tolist() + df_futuro['ds'].tolist()[::-1],
+                        y=df_futuro['yhat_upper'].tolist() + df_futuro['yhat_lower'].tolist()[::-1],
+                        fill='toself',
+                        fillcolor='rgba(192, 57, 43, 0.2)', # Vermelho com transparência
+                        line=dict(color='rgba(255,255,255,0)'),
+                        hoverinfo="skip",
+                        showlegend=False
+                    ))
+                    
+                    fig.update_layout(title="Projeção de Interesse de Busca (0-100)", template="plotly_white", height=400,
+                                      legend=dict(orientation="h", yanchor="bottom", y=1.02))
+                    st.plotly_chart(fig, width="stretch")
+                    
+                    # Mensagem Executiva
+                    ultimo_valor = df_futuro['yhat'].iloc[-1]
+                    st.error(f"**Mensagem Executiva:** A tendência de queda (ou estabilização em {ultimo_valor:.0f}) no interesse de busca deve continuar, a menos que haja uma ação de marketing significativa.")
+                    
+                except Exception as e:
+                    st.error(f"Não foi possível gerar a projeção do Google Trends: {e}")
+            else:
+                st.warning("Dados do Google Trends insuficientes para treinar o modelo Prophet.")
+
+        _como_interpretar(
+            "As projeções não são 'bolas de cristal'. Elas usam o comportamento passado (sazonalidade e tendência) "
+            "para desenhar um cenário provável. A área sombreada mostra a margem de erro esperada. "
+            "Quanto mais distante no futuro, maior a incerteza."
+        )
