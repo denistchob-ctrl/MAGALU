@@ -55,8 +55,7 @@ class PaginaInicio:
 
 
 class PaginaCargaHigienizacao:
-    """Mostra o status de carga de cada fonte e o que a rotina de limpeza
-    (magalu_limpeza) ajustou nos dados da planilha de resultados."""
+    """Tela acadêmica: status de carga e o que a limpeza ajustou."""
 
     def render(self, repositorio):
         st.title("Carga e higienização dos dados")
@@ -112,17 +111,6 @@ class PaginaCargaHigienizacao:
             amostra["Data"] = pd.to_datetime(amostra["Data"]).dt.strftime("%d/%m/%Y")
             st.table(amostra)
 
-        # with st.expander("Ver amostra dos dados"):
-        #     amostra = df.tail(5).reset_index()
-        #     amostra["Data"] = pd.to_datetime(amostra["Data"]).dt.strftime("%d/%m/%Y").to_string()
-        #     st.dataframe(
-        #         amostra,
-        #         hide_index=True,
-        #         column_config={
-        #             "Data": st.column_config.TextColumn("Data"),
-        #         },
-        #     )
-
     def _secao_reclame_aqui(self, repositorio):
         st.markdown("## Reclame Aqui")
         if "Reclame Aqui" in repositorio.erros:
@@ -139,20 +127,25 @@ class PaginaCargaHigienizacao:
     def _secao_google_trends(self, repositorio):
         st.markdown("## Google Trends")
 
-        # --- Série mensal (loader live) ---
         trends = getattr(repositorio, "trends", None)
+        
+        # Se o trends for None, mas o arquivo de backup existir, avisamos que está usando backup
         if trends is None:
-            st.warning("Google Trends (série mensal) não carregado. Verifique a internet ou os backups.")
-            return
-
-        if getattr(trends, "usando_backup", False):
-            st.warning("⚠ Consulta ao vivo indisponível agora — exibindo a "
-                       "última leitura salva em backup (os dados estão presentes).")
+            if os.path.exists(os.path.join("BD", "ultimaLeituraGA.csv")):
+                st.success("Google Trends (série mensal) carregado via backup (API falhou).")
+            else:
+                st.warning("Google Trends (série mensal) não carregado e sem backup.")
+                return
         else:
-            st.success("Série mensal obtida ao vivo (Google Trends).")
+            if getattr(trends, "usando_backup", False):
+                st.warning("⚠ Consulta ao vivo indisponível agora — exibindo a "
+                           "última leitura salva em backup (os dados estão presentes).")
+            else:
+                st.success("Série mensal obtida ao vivo (Google Trends).")
             
-        st.write(f"**{len(trends.serie_temporal)} meses** carregados "
-                 f"(granularidade mensal).")
+            st.write(f"**{len(trends.serie_temporal)} meses** carregados "
+                     f"(granularidade mensal).")
+
         st.caption("A região agregada do loader live foi DESCONSIDERADA — "
                    "ela era uma 'foto' de um momento específico e ficava "
                    "inconsistente com o consolidado ano a ano.")
@@ -186,7 +179,6 @@ class PaginaCargaHigienizacao:
                 st.dataframe(serie.sort_values(ascending=False))
             else:
                 st.info("Sem dados.")
-
 
 class PaginaDashboard:
     """Dashboard principal: gráfico(s) da fonte selecionada, filtrados pelo

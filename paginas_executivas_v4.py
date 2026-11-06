@@ -459,8 +459,20 @@ class PaginaV4Projecoes:
             st.subheader("2. Projeção do Interesse de Busca")
             st.caption("Modelo Prophet — Próximos 6 meses (Google Trends).")
             
-            # Garantindo que pegamos a série mensal corretamente
+            # 1. Tentamos pegar do FonteSeries (memória)
             trends_m = fonte.trends_mensal()
+            
+            # 2. Se estiver vazio (API falhou), vamos ler o backup direto do disco
+            if trends_m.empty:
+                try:
+                    caminho_backup = os.path.join("BD", "ultimaLeituraGA.csv")
+                    if os.path.exists(caminho_backup):
+                        df_bkp = pd.read_csv(caminho_backup)
+                        df_bkp['Data'] = pd.to_datetime(df_bkp['Data'])
+                        trends_m = df_bkp.set_index('Data')['Quantidade'].sort_index()
+                        st.info("ℹ️ Utilizando dados de backup para a projeção (API indisponível).")
+                except Exception as e:
+                    st.warning(f"Erro ao tentar ler o backup: {e}")
             
             # Verifica se a série realmente tem dados e tamanho suficiente
             if len(trends_m) > 12:
@@ -468,7 +480,7 @@ class PaginaV4Projecoes:
                     # Preparando os dados para o Prophet (Exige colunas 'ds' e 'y')
                     df_prophet = trends_m.reset_index()
                     
-                    # Renomeando as colunas (o reset_index traz o nome do índice original)
+                    # Renomeando as colunas
                     df_prophet.columns = ['ds', 'y']
                     
                     # Convertendo 'ds' para datetime sem timezone, e 'y' para float
@@ -480,7 +492,7 @@ class PaginaV4Projecoes:
                     m = Prophet(yearly_seasonality=True, weekly_seasonality=False, daily_seasonality=False)
                     m.fit(df_prophet)
                     
-                    # Previsão de 6 meses (Removido o freq='M' que quebra nas versões novas)
+                    # Previsão de 6 meses
                     futuro = m.make_future_dataframe(periods=6)
                     forecast = m.predict(futuro)
                     
@@ -516,9 +528,8 @@ class PaginaV4Projecoes:
                 except Exception as e:
                     st.error(f"Erro no modelo Prophet: {e}")
             else:
-                # Mostra quantos dados vieram para ajudar no debug, caso o erro persista
                 st.warning(f"Dados insuficientes para treinar o Prophet. A série tem apenas {len(trends_m)} pontos.")
-
+                
         _como_interpretar(
             "As projeções não são 'bolas de cristal'. Elas usam o comportamento passado (sazonalidade e tendência) "
             "para desenhar um cenário provável. A área sombreada mostra a margem de erro esperada. "
