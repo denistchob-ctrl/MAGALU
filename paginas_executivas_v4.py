@@ -14,6 +14,7 @@ Versão final (v4) do dashboard executivo. Consolida e mescla:
 import streamlit as st
 import pandas as pd
 import numpy as np
+import plotly.graph_objects as go  # <-- Necessário para os gráficos de projeção
 
 from config_indicadores import CORES, MIN_OBSERVACOES_CORRELACAO
 from formatos import formata_moeda, formata_pct
@@ -22,14 +23,16 @@ from analises import correlacao_pearson, base_100
 import graficos_executivos_v2 as g2
 import graficos_executivos_v3 as g3
 from eventos_estrategicos import EVENTOS_POR_ID
-from analises_eventos import FonteSeries, COERENTE, CONTRARIA, INCONCLUSIVO, SEM_DADOS, ICONE_VEREDITO, TEXTO_VEREDITO
+from analises_eventos import (
+    FonteSeries, COERENTE, CONTRARIA, INCONCLUSIVO, SEM_DADOS, ICONE_VEREDITO, TEXTO_VEREDITO,
+    period_para_data, period_para_rotulo  # <-- ADICIONADO AQUI
+)
 
-import os
 import warnings
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from prophet import Prophet
 
-warnings.filterwarnings("ignore") # Suprimir avisos do Prophet/SARIMAX
+warnings.filterwarnings("ignore")
 
 # --- Importações da v3 ---
 from paginas_executivas_v3 import (
@@ -409,39 +412,30 @@ class PaginaV4Projecoes:
             
             if len(serie_vendas) > 8:
                 try:
-                    # Treinando o modelo SARIMAX
-                    # order=(p,d,q) e seasonal_order=(P,D,Q,s) simplificados para negócios
                     modelo = SARIMAX(serie_vendas, 
                                      order=(1, 1, 1), 
-                                     seasonal_order=(1, 1, 0, 4), # Sazonalidade de 4 trimestres
+                                     seasonal_order=(1, 1, 0, 4),
                                      enforce_stationarity=False, 
                                      enforce_invertibility=False)
                     resultado = modelo.fit(disp=False)
                     
-                    # Previsão para os próximos 4 trimestres
                     previsao = resultado.get_forecast(steps=4)
                     prev_media = previsao.predicted_mean
                     prev_ci = previsao.conf_int()
                     
-                    # Gerando as datas futuras
                     idx_futuro = pd.period_range(start=serie_vendas.index[-1] + 1, periods=4, freq="Q")
                     datas_x = [period_para_data(p) for p in serie_vendas.index]
                     datas_prev = [period_para_data(p) for p in idx_futuro]
                     
                     fig = go.Figure()
-                    
-                    # Histórico
                     fig.add_trace(go.Scatter(x=datas_x, y=serie_vendas.values, mode='lines+markers', name='Histórico', line=dict(color=CORES["secundaria"])))
-                    
-                    # Previsão (Linha tracejada)
                     fig.add_trace(go.Scatter(x=datas_prev, y=prev_media.values, mode='lines+markers', name='Projeção', line=dict(color=CORES["acento"], dash='dash')))
                     
-                    # Faixa de confiança (Área sombreada)
                     fig.add_trace(go.Scatter(
                         x=datas_prev + datas_prev[::-1],
                         y=list(prev_ci.iloc[:, 1]) + list(prev_ci.iloc[:, 0])[::-1],
                         fill='toself',
-                        fillcolor='rgba(241, 143, 1, 0.2)', # Cor do acento com transparência
+                        fillcolor='rgba(241, 143, 1, 0.2)',
                         line=dict(color='rgba(255,255,255,0)'),
                         hoverinfo="skip",
                         showlegend=False
@@ -451,13 +445,12 @@ class PaginaV4Projecoes:
                                       legend=dict(orientation="h", yanchor="bottom", y=1.02))
                     st.plotly_chart(fig, width="stretch")
                     
-                    # Mensagem Executiva
                     proximo_tri = idx_futuro[0]
                     valor_previsto = prev_media.iloc[0]
                     st.success(f"**Mensagem Executiva:** Se o padrão sazonal e a tendência recente se mantiverem, as vendas devem ficar em torno de **R$ {valor_previsto:,.1f} milhões** no {period_para_rotulo(proximo_tri)}.")
                     
                 except Exception as e:
-                    st.error(f"Não foi possível gerar a projeção de vendas (dados insuficientes ou erro no modelo): {e}")
+                    st.error(f"Erro no modelo SARIMAX: {e}")
             else:
                 st.warning("Dados históricos insuficientes para treinar o modelo SARIMAX.")
 
@@ -466,21 +459,29 @@ class PaginaV4Projecoes:
             st.subheader("2. Projeção do Interesse de Busca")
             st.caption("Modelo Prophet — Próximos 6 meses (Google Trends).")
             
+            # Garantindo que pegamos a série mensal corretamente
             trends_m = fonte.trends_mensal()
             
+            # Verifica se a série realmente tem dados e tamanho suficiente
             if len(trends_m) > 12:
                 try:
-                    # Preparando os dados para o Prophet
+                    # Preparando os dados para o Prophet (Exige colunas 'ds' e 'y')
                     df_prophet = trends_m.reset_index()
-                    df_prophet.columns = ['ds', 'y']
-                    df_prophet['ds'] = df_prophet['ds'].dt.tz_localize(None) # Remove timezone se houver
                     
-                    # Treinando
+                    # Renomeando as colunas (o reset_index traz o nome do índice original)
+                    df_prophet.columns = ['ds', 'y']
+                    
+                    # Convertendo 'ds' para datetime sem timezone, e 'y' para float
+                    df_prophet['ds'] = pd.to_datetime(df_prophet['ds']).dt.tz_localize(None)
+                    df_prophet['y'] = pd.to_numeric(df_prophet['y'], errors='coerce')
+                    df_prophet = df_prophet.dropna(subset=['ds', 'y'])
+
+                    # Treinando o Prophet
                     m = Prophet(yearly_seasonality=True, weekly_seasonality=False, daily_seasonality=False)
                     m.fit(df_prophet)
                     
-                    # Previsão de 6 meses
-                    futuro = m.make_future_dataframe(periods=6, freq='M')
+                    # Previsão de 6 meses (Removido o freq='M' que quebra nas versões novas)
+                    futuro = m.make_future_dataframe(periods=6)
                     forecast = m.predict(futuro)
                     
                     # Plotando
@@ -498,7 +499,7 @@ class PaginaV4Projecoes:
                         x=df_futuro['ds'].tolist() + df_futuro['ds'].tolist()[::-1],
                         y=df_futuro['yhat_upper'].tolist() + df_futuro['yhat_lower'].tolist()[::-1],
                         fill='toself',
-                        fillcolor='rgba(192, 57, 43, 0.2)', # Vermelho com transparência
+                        fillcolor='rgba(192, 57, 43, 0.2)',
                         line=dict(color='rgba(255,255,255,0)'),
                         hoverinfo="skip",
                         showlegend=False
@@ -513,9 +514,10 @@ class PaginaV4Projecoes:
                     st.error(f"**Mensagem Executiva:** A tendência de queda (ou estabilização em {ultimo_valor:.0f}) no interesse de busca deve continuar, a menos que haja uma ação de marketing significativa.")
                     
                 except Exception as e:
-                    st.error(f"Não foi possível gerar a projeção do Google Trends: {e}")
+                    st.error(f"Erro no modelo Prophet: {e}")
             else:
-                st.warning("Dados do Google Trends insuficientes para treinar o modelo Prophet.")
+                # Mostra quantos dados vieram para ajudar no debug, caso o erro persista
+                st.warning(f"Dados insuficientes para treinar o Prophet. A série tem apenas {len(trends_m)} pontos.")
 
         _como_interpretar(
             "As projeções não são 'bolas de cristal'. Elas usam o comportamento passado (sazonalidade e tendência) "
