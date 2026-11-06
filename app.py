@@ -65,6 +65,10 @@ PAGINAS = {
     "Carga e Higienização": PaginaCargaHigienizacao(),
 }
 
+def mudar_pagina(nome_pagina):
+    """Função de callback para atualizar o session_state antes do rerun."""
+    st.session_state['pagina_atual'] = nome_pagina
+
 def main():
     repositorio = obter_repositorio()
 
@@ -76,32 +80,39 @@ def main():
     
     st.sidebar.markdown("---")
 
+    # Inicializa a página padrão se não existir
+    if 'pagina_atual' not in st.session_state:
+        st.session_state['pagina_atual'] = MENU_ABERTURA
+
     # --- Renderização do Menu Customizado ---
-    pagina_escolhida = None
-    
-    for nome, pagina in PAGINAS.items():
-        if pagina is None:
+    for nome in PAGINAS.keys():
+        if PAGINAS[nome] is None:
+            # Se for um separador, renderiza como texto
             if nome == SEP_ACADEMICO:
                 st.sidebar.markdown(f"**{nome}**")
             else:
                 st.sidebar.markdown(f"<div style='color: #ccc; font-size: 12px; margin: 5px 0;'>{nome}</div>", unsafe_allow_html=True)
         else:
-            if st.sidebar.button(nome, use_container_width=True, type="primary" if st.session_state.get('pagina_atual') == nome else "secondary"):
-                st.session_state['pagina_atual'] = nome
-                pagina_escolhida = nome
-            elif st.session_state.get('pagina_atual') == nome:
-                pagina_escolhida = nome
-
-    if pagina_escolhida is None:
-        if 'pagina_atual' not in st.session_state:
-            st.session_state['pagina_atual'] = MENU_ABERTURA
-        pagina_escolhida = st.session_state['pagina_atual']
+            # Define o tipo do botão baseado na página atual
+            tipo_botao = "primary" if st.session_state['pagina_atual'] == nome else "secondary"
+            
+            # Usa on_click para atualizar o estado ANTES do rerun
+            st.sidebar.button(
+                nome, 
+                use_container_width=True, 
+                type=tipo_botao,
+                on_click=mudar_pagina,
+                args=(nome,)
+            )
 
     # Checagem de erros amigável
+    pagina_escolhida = st.session_state['pagina_atual']
+    
     if repositorio.erros and pagina_escolhida not in ("Objetivo do Projeto", "Carga e Higienização"):
         st.sidebar.markdown("---")
         st.sidebar.caption(f"⚠ {len(repositorio.erros)} fonte(s) com problema")
 
+    # Renderiza a página escolhida
     pagina = PAGINAS[pagina_escolhida]
     if pagina is not None:
         pagina.render(repositorio)
