@@ -447,6 +447,7 @@ def avaliar_todos(fonte: FonteSeries, eventos, n=4) -> pd.DataFrame:
     return pd.concat(partes, ignore_index=True) if partes else pd.DataFrame()
 
 
+
 def tabela_para_exibicao(df: pd.DataFrame) -> pd.DataFrame:
     """Formata o resultado de avaliar_evento para st.dataframe."""
     if df.empty:
@@ -456,17 +457,22 @@ def tabela_para_exibicao(df: pd.DataFrame) -> pd.DataFrame:
         linhas.append({
             "Indicador": r["Indicador"],
             "Hipótese": "↑ alta" if r["Hipótese"] == "alta" else "↓ queda",
-            f"Antes ({r['Janela antes']})": formatar_valor(r["chave"], r["antes"]),
-            f"Depois ({r['Janela depois']})": formatar_valor(r["chave"], r["depois"]),
+            "Antes": formatar_valor(r["chave"], r["antes"]),
+            "Depois": formatar_valor(r["chave"], r["depois"]),
             "Variação": r["Variação"],
             "Veredito": f"{ICONE_VEREDITO[r['Veredito']]} {TEXTO_VEREDITO[r['Veredito']]}",
             "Observação": r["Nota"],
         })
     out = pd.DataFrame(linhas)
-    # nomes de coluna das janelas variam por linha -> padroniza
-    out.columns = ["Indicador", "Hipótese", "Antes", "Depois", "Variação", "Veredito", "Observação"]
-    return out
 
+    # # nomes de coluna das janelas variam por linha -> padroniza
+    # out.columns = ["Indicador", "Hipótese", "Antes", "Depois", "Variação", "Veredito", "Observação"]
+    
+    # Se por algum motivo o DataFrame estiver vazio após o loop, retorna vazio
+    if out.empty:
+        return out
+        
+    return out
 
 def frase_leitura(r: dict) -> str:
     """Frase em português com os números reais de uma linha de avaliação."""
