@@ -81,8 +81,6 @@ class PaginaAbertura:
             Esta apresentação foi desenvolvida para responder a uma pergunta central da diretoria:
             **Como o desempenho financeiro, a transformação dos canais, os investimentos, 
             a percepção do consumidor e o comportamento do mercado evoluíram juntos no Magalu?**
-            
-            Para isso, o conteúdo está dividido em blocos analíticos e acadêmicos.
             """
         )
 
@@ -459,10 +457,9 @@ class PaginaV4Projecoes:
             st.subheader("2. Projeção do Interesse de Busca")
             st.caption("Modelo Prophet — Próximos 6 meses (Google Trends).")
             
-            # 1. Tentamos pegar do FonteSeries (memória)
             trends_m = fonte.trends_mensal()
             
-            # 2. Se estiver vazio (API falhou), vamos ler o backup direto do disco
+            # Fallback para backup caso a API não traga dados
             if trends_m.empty:
                 try:
                     caminho_backup = os.path.join("BD", "ultimaLeituraGA.csv")
@@ -474,62 +471,77 @@ class PaginaV4Projecoes:
                 except Exception as e:
                     st.warning(f"Erro ao tentar ler o backup: {e}")
             
-            # Verifica se a série realmente tem dados e tamanho suficiente
             if len(trends_m) > 12:
                 try:
-                    # Preparando os dados para o Prophet (Exige colunas 'ds' e 'y')
+                    # 1. Prepara dados
                     df_prophet = trends_m.reset_index()
-                    
-                    # Renomeando as colunas
                     df_prophet.columns = ['ds', 'y']
-                    
-                    # Convertendo 'ds' para datetime sem timezone, e 'y' para float
                     df_prophet['ds'] = pd.to_datetime(df_prophet['ds']).dt.tz_localize(None)
                     df_prophet['y'] = pd.to_numeric(df_prophet['y'], errors='coerce')
                     df_prophet = df_prophet.dropna(subset=['ds', 'y'])
 
-                    # Treinando o Prophet
+                    # 2. Treina
                     m = Prophet(yearly_seasonality=True, weekly_seasonality=False, daily_seasonality=False)
                     m.fit(df_prophet)
                     
-                    # Previsão de 6 meses
+                    # 3. Previsão
                     futuro = m.make_future_dataframe(periods=6)
                     forecast = m.predict(futuro)
                     
-                    # Plotando
+                    # 4. Separa Histórico e Futuro para o plot
+                    # Filtrar histórico para exibir apenas a partir de 2021 (evita esmagar o gráfico)
+                    historico_plot = df_prophet[df_prophet['ds'] >= '2021-01-01']
+                    futuro_plot = forecast[forecast['ds'] > df_prophet['ds'].max()]
+                    
                     fig = go.Figure()
                     
                     # Histórico
-                    fig.add_trace(go.Scatter(x=df_prophet['ds'], y=df_prophet['y'], mode='lines', name='Histórico', line=dict(color=CORES["trends"])))
-                    
-                    # Previsão (pegando apenas o futuro)
-                    df_futuro = forecast[forecast['ds'] > df_prophet['ds'].max()]
-                    fig.add_trace(go.Scatter(x=df_futuro['ds'], y=df_futuro['yhat'], mode='lines', name='Projeção', line=dict(color=CORES["negativo"], dash='dash')))
-                    
-                    # Faixa de confiança
                     fig.add_trace(go.Scatter(
-                        x=df_futuro['ds'].tolist() + df_futuro['ds'].tolist()[::-1],
-                        y=df_futuro['yhat_upper'].tolist() + df_futuro['yhat_lower'].tolist()[::-1],
+                        x=historico_plot['ds'], 
+                        y=historico_plot['y'], 
+                        mode='lines', 
+                        name='Histórico', 
+                        line=dict(color=CORES["trends"], width=2)
+                    ))
+                    
+                    # Ponto de conexão (último valor real) para unir a linha histórica com a projeção
+                    ultimo_real = pd.DataFrame({'ds': [df_prophet['ds'].iloc[-1]], 'y': [df_prophet['y'].iloc[-1]]})
+                    proj_plot = pd.concat([ultimo_real, futuro_plot[['ds', 'yhat']].rename(columns={'yhat': 'y'})])
+                    
+                    # Projeção (começando do último ponto real)
+                    fig.add_trace(go.Scatter(
+                        x=proj_plot['ds'], 
+                        y=proj_plot['y'], 
+                        mode='lines+markers', 
+                        name='Projeção', 
+                        line=dict(color=CORES["negativo"], width=3, dash='dash')
+                    ))
+                    
+                    # Faixa de confiança (apenas no futuro)
+                    fig.add_trace(go.Scatter(
+                        x=futuro_plot['ds'].tolist() + futuro_plot['ds'].tolist()[::-1],
+                        y=futuro_plot['yhat_upper'].tolist() + futuro_plot['yhat_lower'].tolist()[::-1],
                         fill='toself',
-                        fillcolor='rgba(192, 57, 43, 0.2)',
+                        fillcolor='rgba(192, 57, 43, 0.15)',
                         line=dict(color='rgba(255,255,255,0)'),
                         hoverinfo="skip",
                         showlegend=False
                     ))
                     
                     fig.update_layout(title="Projeção de Interesse de Busca (0-100)", template="plotly_white", height=400,
-                                      legend=dict(orientation="h", yanchor="bottom", y=1.02))
+                                      legend=dict(orientation="h", yanchor="bottom", y=1.02),
+                                      hovermode="x unified")
                     st.plotly_chart(fig, width="stretch")
                     
                     # Mensagem Executiva
-                    ultimo_valor = df_futuro['yhat'].iloc[-1]
+                    ultimo_valor = futuro_plot['yhat'].iloc[-1]
                     st.error(f"**Mensagem Executiva:** A tendência de queda (ou estabilização em {ultimo_valor:.0f}) no interesse de busca deve continuar, a menos que haja uma ação de marketing significativa.")
                     
                 except Exception as e:
                     st.error(f"Erro no modelo Prophet: {e}")
             else:
                 st.warning(f"Dados insuficientes para treinar o Prophet. A série tem apenas {len(trends_m)} pontos.")
-                
+
         _como_interpretar(
             "As projeções não são 'bolas de cristal'. Elas usam o comportamento passado (sazonalidade e tendência) "
             "para desenhar um cenário provável. A área sombreada mostra a margem de erro esperada. "
