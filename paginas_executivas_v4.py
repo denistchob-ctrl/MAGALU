@@ -258,28 +258,29 @@ class PaginaV4InvestimentosDigitalMercado:
             st.plotly_chart(g2.invest_mercado_base100(df_base), width="stretch", key="v4_inv_base100")
 
         st.subheader("Cotação MGLU3 × Volume negociado")
-        # st.plotly_chart(
-        #     g2.invest_mercado_cotacao_volume(fonte.trimestral("mglu3"), 
-        #                                      repositorio.cotacao.get_serie("Volume_Financeiro") if repositorio.cotacao else None),
-        #     width="stretch", key="v4_inv_cotacao"
-        # )
-        # Garantindo que as séries tenham o mesmo tipo de índice e não tenham nulos
+        # 1. Pegamos as séries e removemos nulos
         serie_mglu3 = fonte.trimestral("mglu3").dropna()
         serie_vol = repositorio.cotacao.get_serie("Volume_Financeiro") if repositorio.cotacao else pd.Series(dtype=float)
         serie_vol = serie_vol.dropna()
         
         if not serie_mglu3.empty and not serie_vol.empty:
-            # Forçando a conversão dos índices para datetime (evita erro de JSON)
-            serie_mglu3.index = pd.to_datetime(serie_mglu3.index)
-            serie_vol.index = pd.to_datetime(serie_vol.index)
+            # 2. O segredo está aqui: converter o PeriodIndex para DatetimeIndex usando .to_timestamp()
+            if isinstance(serie_mglu3.index, pd.PeriodIndex):
+                serie_mglu3.index = serie_mglu3.index.to_timestamp()
+            elif not isinstance(serie_mglu3.index, pd.DatetimeIndex):
+                serie_mglu3.index = pd.to_datetime(serie_mglu3.index)
+                
+            # O volume já vem como DatetimeIndex do loader, mas garantimos por segurança
+            if not isinstance(serie_vol.index, pd.DatetimeIndex):
+                serie_vol.index = pd.to_datetime(serie_vol.index)
             
+            # 3. Plotamos o gráfico
             st.plotly_chart(
                 g2.invest_mercado_cotacao_volume(serie_mglu3, serie_vol),
                 width="stretch", key="v4_inv_cotacao"
             )
         else:
             st.info("Dados de cotação ou volume indisponíveis para este período.")
-
 
 
         # Avaliações e insights
