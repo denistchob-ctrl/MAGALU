@@ -258,11 +258,29 @@ class PaginaV4InvestimentosDigitalMercado:
             st.plotly_chart(g2.invest_mercado_base100(df_base), width="stretch", key="v4_inv_base100")
 
         st.subheader("Cotação MGLU3 × Volume negociado")
-        st.plotly_chart(
-            g2.invest_mercado_cotacao_volume(fonte.trimestral("mglu3"), 
-                                             repositorio.cotacao.get_serie("Volume_Financeiro") if repositorio.cotacao else None),
-            width="stretch", key="v4_inv_cotacao"
-        )
+        # st.plotly_chart(
+        #     g2.invest_mercado_cotacao_volume(fonte.trimestral("mglu3"), 
+        #                                      repositorio.cotacao.get_serie("Volume_Financeiro") if repositorio.cotacao else None),
+        #     width="stretch", key="v4_inv_cotacao"
+        # )
+        # Garantindo que as séries tenham o mesmo tipo de índice e não tenham nulos
+        serie_mglu3 = fonte.trimestral("mglu3").dropna()
+        serie_vol = repositorio.cotacao.get_serie("Volume_Financeiro") if repositorio.cotacao else pd.Series(dtype=float)
+        serie_vol = serie_vol.dropna()
+        
+        if not serie_mglu3.empty and not serie_vol.empty:
+            # Forçando a conversão dos índices para datetime (evita erro de JSON)
+            serie_mglu3.index = pd.to_datetime(serie_mglu3.index)
+            serie_vol.index = pd.to_datetime(serie_vol.index)
+            
+            st.plotly_chart(
+                g2.invest_mercado_cotacao_volume(serie_mglu3, serie_vol),
+                width="stretch", key="v4_inv_cotacao"
+            )
+        else:
+            st.info("Dados de cotação ou volume indisponíveis para este período.")
+
+
 
         # Avaliações e insights
         n = st.sidebar.slider("Janela de comparação (trimestres)", 2, 8, 4, key="v4_inv_n")
