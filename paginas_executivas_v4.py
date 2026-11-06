@@ -26,7 +26,7 @@ from analises_eventos import FonteSeries, COERENTE, CONTRARIA, INCONCLUSIVO, SEM
 
 # --- Importações da v3 ---
 from paginas_executivas_v3 import (
-    PaginaV3Timeline,
+    PaginaV3Timeline, 
     PaginaV3EventosIndicadores,
     PaginaV3Juros,
     _controles,
