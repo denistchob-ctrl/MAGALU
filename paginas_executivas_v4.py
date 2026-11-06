@@ -64,7 +64,6 @@ from paginas_executivas import PaginaInicio, PaginaCargaHigienizacao
 # ======================================================================
 
 class PaginaAbertura:
-class PaginaAbertura:
     def render(self, repositorio):
         # Tenta carregar o logo local
         try:
@@ -180,7 +179,7 @@ class PaginaAbertura:
                 </div>
                 """
                 st.markdown(html, unsafe_allow_html=True)
-                
+
 # ======================================================================
 # PÁGINA 4 — INVESTIMENTOS, DIGITAL E MERCADO
 # ======================================================================
