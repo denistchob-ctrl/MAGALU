@@ -64,6 +64,7 @@ from paginas_executivas import PaginaInicio, PaginaCargaHigienizacao
 # ======================================================================
 
 class PaginaAbertura:
+class PaginaAbertura:
     def render(self, repositorio):
         # Tenta carregar o logo local
         try:
@@ -90,10 +91,12 @@ class PaginaAbertura:
             background-color: #0086FF;
             color: white !important;
             border-radius: 12px;
-            padding: 20px;
+            padding: 15px;
             margin-bottom: 15px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: transform 0.2s;
+            height: 100%; /* Garante que todos os cartões na mesma linha tenham a mesma altura */
+            box-sizing: border-box;
         }
         .card-item:hover {
             transform: translateY(-3px);
@@ -101,17 +104,18 @@ class PaginaAbertura:
         }
         .card-title {
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 1.05em;
             margin-bottom: 5px;
             color: white !important;
         }
         .card-desc {
-            font-size: 0.9em;
+            font-size: 0.85em;
             color: #f0f0f0 !important;
             margin: 0;
+            line-height: 1.3;
         }
         .card-desc em {
-            color: #ffeb3b !important; /* Amarelo para o contexto (ex: Contexto, Diagnóstico) */
+            color: #ffeb3b !important; /* Amarelo para o contexto */
             font-style: normal;
             font-weight: bold;
         }
@@ -126,32 +130,40 @@ class PaginaAbertura:
         </style>
         """, unsafe_allow_html=True)
 
-        col1, col2 = st.columns([2, 1])
+        # Layout principal: 75% para Executivo, 25% para Acadêmico
+        col_esq, col_dir = st.columns([3, 1])
 
-        with col1:
+        with col_esq:
             st.markdown('<div class="section-header">Análise Executiva (7 Blocos)</div>', unsafe_allow_html=True)
             
-            # Definição dos cartões (Título, Contexto, Descrição)
+            # Definição dos cartões
             cards = [
-                ("1. Linha do Tempo Estratégica", "Contexto.", "Eventos externos e decisões internas que marcaram o período."),
+                ("1. Linha do Tempo", "Contexto.", "Eventos externos e decisões internas que marcaram o período."),
                 ("2. Eventos × Indicadores", "Diagnóstico.", "Ferramenta interativa para testar hipóteses sobre cada evento."),
-                ("3. Juros, Lucro e a Virada", "Rentabilidade.", "Impacto da Selic no resultado final vs. operação (EBITDA)."),
-                ("4. Investimentos, Digital e Mercado", "Retorno.", "Aportes em tech/logística e a reação da bolsa (MGLU3)."),
-                ("5. Omnichannel e Marketplace", "Crescimento.", "Mix de canais (1P vs 3P) e busca por margens maiores."),
-                ("6. Cliente, Marca e Reputação", "Percepção.", "Interesse de busca (Google Trends) e saúde reputacional (RA)."),
-                ("7. Projeções Preditivas", "Futuro.", "Modelos SARIMAX e Prophet para vendas e interesse de busca.")
+                ("3. Juros e Lucro", "Rentabilidade.", "Impacto da Selic no resultado final vs. operação (EBITDA)."),
+                ("4. Investimentos e Mercado", "Retorno.", "Aportes em tech/logística e a reação da bolsa (MGLU3)."),
+                ("5. Omnichannel", "Crescimento.", "Mix de canais (1P vs 3P) e busca por margens maiores."),
+                ("6. Marca e Reputação", "Percepção.", "Interesse de busca (Trends) e saúde reputacional (RA)."),
+                ("7. Projeções Preditivas", "Futuro.", "Modelos SARIMAX e Prophet para vendas e buscas.")
             ]
 
-            for title, context, desc in cards:
-                html = f"""
-                <div class="card-item">
-                    <div class="card-title">{title}</div>
-                    <div class="card-desc"><em>{context}</em> {desc}</div>
-                </div>
-                """
-                st.markdown(html, unsafe_allow_html=True)
+            # Divide os cartões em duas colunas internas
+            sub_col1, sub_col2 = st.columns(2)
+            
+            for i, (title, context, desc) in enumerate(cards):
+                # Alterna entre a coluna 1 e 2
+                col_alvo = sub_col1 if i % 2 == 0 else sub_col2
+                
+                with col_alvo:
+                    html = f"""
+                    <div class="card-item">
+                        <div class="card-title">{title}</div>
+                        <div class="card-desc"><em>{context}</em> {desc}</div>
+                    </div>
+                    """
+                    st.markdown(html, unsafe_allow_html=True)
 
-        with col2:
+        with col_dir:
             st.markdown('<div class="section-header" style="border-color: #7F8C8D;">Apoio Acadêmico</div>', unsafe_allow_html=True)
             
             # Cartões Acadêmicos
@@ -162,13 +174,13 @@ class PaginaAbertura:
             
             for title, subtitle, desc in cards_academicos:
                 html = f"""
-                <div class="card-item" style="background-color: #5D6D7E;"> <!-- Cinza azulado para diferenciar -->
+                <div class="card-item" style="background-color: #5D6D7E;">
                     <div class="card-title">{title}</div>
                     <div class="card-desc"><em>{subtitle}.</em> {desc}</div>
                 </div>
                 """
                 st.markdown(html, unsafe_allow_html=True)
-
+                
 # ======================================================================
 # PÁGINA 4 — INVESTIMENTOS, DIGITAL E MERCADO
 # ======================================================================
