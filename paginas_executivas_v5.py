@@ -451,20 +451,36 @@ class PaginaV5Cliente:
         evs = _evs(["covid", "kabum", "followon", "virada_4t23", "reversao_2t26"], ano_ini, ano_fim)
 
         st.header("Marca e interesse do consumidor")
-        trends_m = fonte.trends_mensal()
-        if not trends_m.empty:
+        trends_m = fonte.trends_mensal() # 1. Tenta pegar da memória
+        if trends_m.empty: # 2. Fallback: Se falhou, lê do backup em disco
+            try:
+                caminho_backup = os.path.join("BD", "ultimaLeituraGA.csv")
+                if os.path.exists(caminho_backup):
+                    df_bkp = pd.read_csv(caminho_backup)
+                    df_bkp['Data'] = pd.to_datetime(df_bkp['Data'])
+                    trends_m = df_bkp.set_index('Data')['Quantidade'].sort_index()
+                    _info("ℹ️ Google Trends carregado a partir do backup local (API indisponível no momento).")
+            except Exception as e:
+                _warning(f"Erro ao tentar ler o backup do Google Trends: {e}")
+
+        if not trends_m.empty: # 3. Renderiza os gráficos
             bf = st.checkbox("Marcar Black Friday", value=False, key="v5_cli_bf")
-            fig = g5.serie_com_eventos([dict(nome="Google Trends (mensal)", serie=trends_m, tipo="linha", eixo=1, fmt="indice", cor=CORES["trends"], largura=2), _spec(fonte, "vendas_totais", eixo=2, cor=CORES["secundaria"], opacidade=0.35)], evs, "Google Trends × Vendas Totais", y1_titulo="Interesse", y2_titulo="Vendas", fmt_y2="num", ano_ini=ano_ini, ano_fim=ano_fim, mostrar_rotulos=mostrar, eventos_leves=black_fridays(ano_ini, ano_fim) if bf else None)
+            fig = g5.serie_com_eventos(
+                [dict(nome="Google Trends (mensal)", serie=trends_m, tipo="linha", eixo=1, fmt="indice", cor=CORES["trends"], largura=2), 
+                 _spec(fonte, "vendas_totais", eixo=2, cor=CORES["secundaria"], opacidade=0.35)], 
+                evs, "Google Trends × Vendas Totais", 
+                y1_titulo="Interesse", y2_titulo="Vendas", fmt_y2="num", 
+                ano_ini=ano_ini, ano_fim=ano_fim, mostrar_rotulos=mostrar, 
+                eventos_leves=black_fridays(ano_ini, ano_fim) if bf else None
+            )
             st.plotly_chart(fig, width="stretch")
             
-            _warning(
-                "**O marketing (interesse de busca) gera vendas ou as vendas geram marketing (boca a boca)?** ."
-            )
+            _warning("**O marketing (interesse de busca) gera vendas ou as vendas geram marketing (boca a boca)?**")
             corr = correlacao_por_defasagem(fonte.trimestral("trends"), fonte.trimestral("vendas_totais"), range(-4, 5), "aa")
             st.plotly_chart(g5.barras_defasagem(corr, "Trends(t) × Vendas(t+k)", r_critico(int(corr["n"].median()) if not corr.empty else 0)), width="stretch")
-            # --- Explicação do gráfico (no padrão _warning) ---
+            
             _warning(
-                "**Como interpretar o gráfico de correlação acima?**\n\n"
+                "**Como interpretar o gráfico de correlação acima?**\n"
                 "* **Correlação de Pearson (eixo Y):** Mede a força da relação linear entre as variáveis, variando de -1 a +1. "
                 "Quanto mais alto o valor, mais forte é a associação. Valores acima da linha tracejada são estatisticamente significativos.\n"
                 "* **Defasagem (eixo X):** Mede o tempo entre os eventos. O valor **0** indica o mesmo trimestre. "
@@ -474,7 +490,7 @@ class PaginaV5Cliente:
                 "**Atenção:** correlação não implica causalidade, mas a força dessa associação indica que o Google Trends é um importante termômetro para o volume de vendas futuro."
             )
         else:
-            _warning("Google Trends indisponível.")
+            _warning("Google Trends indisponível e sem backup local.")
 
         st.header("Reputação do consumidor (Reclame Aqui)")
         _warning("**Limite dos dados:** O Reclame Aqui cobre apenas 2024, 2025 e 1S2026.")
