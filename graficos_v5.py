@@ -75,7 +75,7 @@ def invest_mercado_base100(df_base100):
         ))
 
     fig.add_hline(y=100, line_dash="dash", line_color="#999999", annotation_text="Base 100", annotation_position="right")
-    fig.update_layout(title="Base 100 — desempenho operacional × percepção de mercado", template=TEMPLATE, legend=dict(orientation="h", yanchor="bottom", y=1.02), hovermode="x unified", height=500)
+    fig.update_layout(title="Desempenho Operacional × Percepção de Mercado (base 100)", template=TEMPLATE, legend=dict(orientation="h", yanchor="bottom", y=1.02), hovermode="x unified", height=500)
     fig.update_yaxes(title_text="Índice (base 100)")
     return fig
 
@@ -83,7 +83,7 @@ def invest_mercado_cotacao_volume(serie_fech, serie_volume):
     """Cotação (linha) × Volume (barras)."""
     fig = make_subplots(specs=[[{"secondary_y": True}]])
     if serie_volume is not None and not serie_volume.empty:
-        fig.add_trace(go.Bar(name="Volume Financeiro", x=serie_volume.index, y=serie_volume.values / 1_000_000, marker_color=CORES["volume"], opacity=0.7), secondary_y=True)
+        fig.add_trace(go.Bar(name="Volume Financeiro", x=serie_volume.index, y=serie_volume.values / 1_000_000, marker_color=CORES["acento"], opacity=0.7), secondary_y=True)
     if serie_fech is not None and not serie_fech.empty:
         fig.add_trace(go.Scatter(name="Fechamento (R$)", x=serie_fech.index, y=serie_fech.values, mode="lines", line=dict(color=CORES["mercado"], width=2)), secondary_y=False)
     
@@ -92,15 +92,31 @@ def invest_mercado_cotacao_volume(serie_fech, serie_volume):
     fig.update_yaxes(title_text="Volume (R$ milhões)", secondary_y=True)
     return fig
 
-def omni_receita_por_loja_e_m2(serie_receita_loja, serie_receita_m2):
-    """Receita por loja × Receita por m² (linhas, eixos separados)."""
+def omni_receita_por_loja_e_m2(serie_receita_loja, serie_receita_m2, eventos=None):
+    """Receita por loja × Receita por m² (linhas, eixos separados), com eventos."""
     fig = make_subplots(specs=[[{"secondary_y": True}]])
-    if serie_receita_loja is not None and not serie_receita_loja.empty:
-        fig.add_trace(go.Scatter(name="Receita por Loja", x=[str(i) for i in serie_receita_loja.index], y=serie_receita_loja.values, mode="lines+markers", line=dict(color=CORES["secundaria"], width=3)), secondary_y=False)
-    if serie_receita_m2 is not None and not serie_receita_m2.empty:
-        fig.add_trace(go.Scatter(name="Receita por m²", x=[str(i) for i in serie_receita_m2.index], y=serie_receita_m2.values, mode="lines+markers", line=dict(color=CORES["acento"], width=3, dash="dot")), secondary_y=True)
     
-    fig.update_layout(title="Receita por Loja × Receita por m²", template=TEMPLATE, legend=dict(orientation="h", yanchor="bottom", y=1.02), hovermode="x unified", height=500)
+    # Converte os índices (que podem ser PeriodIndex) para Datas, 
+    # permitindo que o Plotly desenhe as linhas de evento corretamente
+    if serie_receita_loja is not None and not serie_receita_loja.empty:
+        x_loja = [period_para_data(p) if isinstance(p, pd.Period) else p for p in serie_receita_loja.index]
+        fig.add_trace(go.Scatter(name="Receita por Loja", x=x_loja, y=serie_receita_loja.values, mode="lines+markers", line=dict(color=CORES["secundaria"], width=3)), secondary_y=False)
+        
+    if serie_receita_m2 is not None and not serie_receita_m2.empty:
+        x_m2 = [period_para_data(p) if isinstance(p, pd.Period) else p for p in serie_receita_m2.index]
+        fig.add_trace(go.Scatter(name="Receita por m²", x=x_m2, y=serie_receita_m2.values, mode="lines+markers", line=dict(color=CORES["acento"], width=3, dash="dot")), secondary_y=True)
+    
+    # Adiciona o fundo de eventos (se houver)
+    if eventos:
+        _adicionar_eventos(fig, eventos, mostrar_rotulos=True)
+
+    fig.update_layout(
+        title="Receita por Loja × Receita por m²", 
+        template=TEMPLATE, 
+        legend=dict(orientation="h", yanchor="bottom", y=1.02), 
+        hovermode="x unified", 
+        height=500
+    )
     fig.update_yaxes(title_text="R$ / loja", secondary_y=False)
     fig.update_yaxes(title_text="R$ / m²", secondary_y=True)
     return fig
@@ -119,27 +135,102 @@ def cliente_trends_vs_vendas(serie_trends, serie_vendas, nome_vendas="Vendas Tot
     return fig
 
 def cliente_ra_vs_vendas_online(df_ra, serie_vendas_online):
-    """Nota Média RA (barras) × Vendas E-commerce (linha)."""
+    """Nota Média RA (barras largas) × Vendas E-commerce (linha)."""
+    import re
     fig = make_subplots(specs=[[{"secondary_y": True}]])
-    if df_ra is not None and not df_ra.empty and "Nota Média" in df_ra.columns:
-        fig.add_trace(go.Bar(name="Nota Média (RA Online)", x=[str(i) for i in df_ra.index], y=df_ra["Nota Média"].values, marker_color=CORES["ra"]), secondary_y=False)
-    if serie_vendas_online is not None and not serie_vendas_online.empty:
-        fig.add_trace(go.Scatter(name="Vendas E-commerce", x=[str(i) for i in serie_vendas_online.index], y=serie_vendas_online.values, mode="lines+markers", line=dict(color=CORES["secundaria"], width=3)), secondary_y=True)
     
-    fig.update_layout(title="Reclame Aqui (Online) × Vendas E-commerce", template=TEMPLATE, legend=dict(orientation="h", yanchor="bottom", y=1.02), hovermode="x unified", height=500)
+    if df_ra is not None and not df_ra.empty and "Nota Média" in df_ra.columns:
+        for rotulo, row in df_ra.iterrows():
+            texto = str(rotulo).strip()
+            # Ignora "Geral"
+            if texto.lower() in ("geral", "total"):
+                continue
+                
+            nota = row["Nota Média"]
+            if pd.isna(nota):
+                continue
+                
+            # Define a largura da barra baseada no período
+            # Ex: "2024" (largura de 1 ano) ou "1S2024" (largura de 6 meses)
+            x0, x1 = None, None
+            
+            # Caso Anual: 2024
+            m_ano = re.match(r'^(\d{4})$', texto)
+            if m_ano:
+                ano = int(m_ano.group(1))
+                x0 = pd.Timestamp(year=ano, month=1, day=1)
+                x1 = pd.Timestamp(year=ano, month=12, day=31)
+                
+            # Caso Semestral: 1S2024 ou 2S2024
+            m_sem = re.match(r'^(\d)S(\d{4})$', texto)
+            if m_sem and x0 is None:
+                sem = int(m_sem.group(1))
+                ano = int(m_sem.group(2))
+                mes_ini = 1 if sem == 1 else 7
+                mes_fim = 6 if sem == 1 else 12
+                x0 = pd.Timestamp(year=ano, month=mes_ini, day=1)
+                # Pega o último dia do mês final
+                x1 = pd.Timestamp(year=ano, month=mes_fim, day=1) + pd.offsets.MonthEnd(0)
+                
+            if x0 and x1:
+                fig.add_trace(go.Bar(
+                    name="Nota Média (RA Online)", 
+                    x=[x0, x1], 
+                    y=[nota, nota],
+                    width=[x1 - x0, x1 - x0], # Força a barra a preencher o tempo
+                    marker_color=CORES["ra"],
+                    opacity=0.6, # Deixa a barra mais suave para não esconder a linha
+                    hovertemplate=f"Período: {texto}<br>Nota: {nota:.1f}<extra></extra>",
+                    showlegend=(rotulo == df_ra.index[0]) # Mostra a legenda apenas uma vez
+                ), secondary_y=False)
+
+    if serie_vendas_online is not None and not serie_vendas_online.empty:
+        # Converte '2024Q1' para Timestamp para alinhar os eixos
+        x_vendas = [period_para_data(p) if isinstance(p, pd.Period) else p for p in serie_vendas_online.index]
+        fig.add_trace(go.Scatter(
+            name="Vendas E-commerce", 
+            x=x_vendas, 
+            y=serie_vendas_online.values, 
+            mode="lines+markers", 
+            line=dict(color=CORES["secundaria"], width=3)
+        ), secondary_y=True)
+    
+    fig.update_layout(
+        title="Reclame Aqui (Online) × Vendas E-commerce", 
+        template=TEMPLATE, 
+        legend=dict(orientation="h", yanchor="bottom", y=1.02), 
+        hovermode="x unified", 
+        height=500,
+        barmode="overlay" # Permite que a linha fique sobreposta à barra
+    )
     fig.update_yaxes(title_text="Nota (0-10)", secondary_y=False, range=[0, 10])
     fig.update_yaxes(title_text="Vendas (R$)", secondary_y=True)
     return fig
 
+# (Repita a mesma lógica de barras largas para cliente_ra_vs_vendas_fisica)
 def cliente_ra_vs_vendas_fisica(df_ra, serie_vendas_fisica):
-    """Nota Média RA (barras) × Vendas Lojas Físicas (linha)."""
+    import re
     fig = make_subplots(specs=[[{"secondary_y": True}]])
     if df_ra is not None and not df_ra.empty and "Nota Média" in df_ra.columns:
-        fig.add_trace(go.Bar(name="Nota Média (RA Física)", x=[str(i) for i in df_ra.index], y=df_ra["Nota Média"].values, marker_color=CORES["ra"]), secondary_y=False)
+        for rotulo, row in df_ra.iterrows():
+            texto = str(rotulo).strip()
+            if texto.lower() in ("geral", "total"): continue
+            nota = row["Nota Média"]
+            if pd.isna(nota): continue
+            x0, x1 = None, None
+            m_ano = re.match(r'^(\d{4})$', texto)
+            if m_ano:
+                ano = int(m_ano.group(1)); x0 = pd.Timestamp(year=ano, month=1, day=1); x1 = pd.Timestamp(year=ano, month=12, day=31)
+            m_sem = re.match(r'^(\d)S(\d{4})$', texto)
+            if m_sem and x0 is None:
+                sem = int(m_sem.group(1)); ano = int(m_sem.group(2))
+                x0 = pd.Timestamp(year=ano, month=1 if sem==1 else 7, day=1); x1 = pd.Timestamp(year=ano, month=6 if sem==1 else 12, day=1) + pd.offsets.MonthEnd(0)
+            if x0 and x1:
+                fig.add_trace(go.Bar(name="Nota Média (RA Física)", x=[x0, x1], y=[nota, nota], width=[x1-x0, x1-x0], marker_color=CORES["ra"], opacity=0.6, hovertemplate=f"Período: {texto}<br>Nota: {nota:.1f}<extra></extra>", showlegend=(rotulo == df_ra.index[0])), secondary_y=False)
     if serie_vendas_fisica is not None and not serie_vendas_fisica.empty:
-        fig.add_trace(go.Scatter(name="Vendas Lojas Físicas", x=[str(i) for i in serie_vendas_fisica.index], y=serie_vendas_fisica.values, mode="lines+markers", line=dict(color=CORES["secundaria"], width=3)), secondary_y=True)
-    
-    fig.update_layout(title="Reclame Aqui (Física) × Vendas Lojas Físicas", template=TEMPLATE, legend=dict(orientation="h", yanchor="bottom", y=1.02), hovermode="x unified", height=500)
+        x_vendas = [period_para_data(p) if isinstance(p, pd.Period) else p for p in serie_vendas_fisica.index]
+        fig.add_trace(go.Scatter(name="Vendas Lojas Físicas", x=x_vendas, y=serie_vendas_fisica.values, mode="lines+markers", line=dict(color=CORES["secundaria"], width=3)), secondary_y=True)
+    fig.update_layout(title="Reclame Aqui (Física) × Vendas Lojas Físicas", template=TEMPLATE, legend=dict(orientation="h", yanchor="bottom", y=1.02), hovermode="x unified", height=500, barmode="overlay")
     fig.update_yaxes(title_text="Nota (0-10)", secondary_y=False, range=[0, 10])
     fig.update_yaxes(title_text="Vendas (R$)", secondary_y=True)
     return fig

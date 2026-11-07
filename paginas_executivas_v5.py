@@ -291,7 +291,7 @@ class PaginaV5Juros:
         _avisar_faltantes(fonte, [chave_lucro, "margem_ebitda", "margem_liquida", "resultado_financeiro", "fluxo_caixa_operacional", "mglu3", "selic"])
         _caption(f"Fonte da Selic: **{ctx.selic.fonte}**.")
 
-        st.header("Caso 3 · A crise dos juros")
+        st.header("Evento A: A crise dos juros")
         st.subheader("Selic × lucro líquido")
         fig = g5.serie_com_eventos([_spec(fonte, chave_lucro, nome=f"Lucro líquido ({tipo_lucro.lower()})"), _spec(fonte, "selic", eixo=2, cor=CORES["negativo"], degrau=True, fmt="pct2", largura=3)], evs, "Selic × Lucro", y1_titulo="R$ milhões", y2_titulo="Selic (% a.a.)", fmt_y2="pct2", ano_ini=ano_ini, ano_fim=ano_fim, mostrar_rotulos=mostrar)
         st.plotly_chart(fig, width="stretch", key="v5_jr_selic_lucro")
@@ -300,16 +300,17 @@ class PaginaV5Juros:
         fig = g5.serie_com_eventos([_spec(fonte, "margem_ebitda", cor=CORES["positivo"], largura=3), _spec(fonte, "margem_liquida", cor=CORES["primaria"], largura=3), _spec(fonte, "resfin_sobre_receita", cor=CORES["negativo"], dash="dot"), _spec(fonte, "selic", eixo=2, cor=CORES["neutro"], degrau=True, fmt="pct2", dash="dash", largura=1.8)], evs, "Margens × Resultado Financeiro", y1_titulo="%", fmt_y1="pct", y2_titulo="Selic (% a.a.)", fmt_y2="pct2", ano_ini=ano_ini, ano_fim=ano_fim, mostrar_rotulos=mostrar)
         st.plotly_chart(fig, width="stretch", key="v5_jr_margens")
 
-        st.subheader("Selic e peso financeiro: associação?")
-        transf = st.radio("Base", ["Níveis", "Variação a/a"], horizontal=True, key="v5_jr_transf")
-        corr = correlacao_por_defasagem(fonte.trimestral("selic"), fonte.trimestral("resfin_sobre_receita"), range(-2, 5), "nivel" if transf == "Níveis" else "aa")
-        st.plotly_chart(g5.barras_defasagem(corr, "Selic (t) × Res. Financeiro (t+k)", r_critico(int(corr["n"].median()) if not corr.empty else 0)), width="stretch", key="v5_jr_lag")
+        # st.subheader("Selic e peso financeiro: associação?")
+        # transf = st.radio("Base", ["Níveis", "Variação a/a"], horizontal=True, key="v5_jr_transf")
+        # corr = correlacao_por_defasagem(fonte.trimestral("selic"), fonte.trimestral("resfin_sobre_receita"), range(-2, 5), "nivel" if transf == "Níveis" else "aa")
+        # st.plotly_chart(g5.barras_defasagem(corr, "Selic (t) × Res. Financeiro (t+k)", r_critico(int(corr["n"].median()) if not corr.empty else 0)), width="stretch", key="v5_jr_lag")
+        # retirei esse item pois o gráfico não é facil de interpretar e não é central para a narrativa. Mantive a análise de correlação no notebook.
 
         st.subheader("Fluxo de caixa operacional × cotação MGLU3")
         fig = g5.serie_com_eventos([_spec(fonte, "fluxo_caixa_operacional", cor=CORES["secundaria"]), _spec(fonte, "mglu3", eixo=2, cor=CORES["mercado"], fmt="preco", largura=3, nome="MGLU3 (ajustada)")], evs, "FCO × MGLU3", y1_titulo="R$ milhões", y2_titulo="R$ (ajustado)", fmt_y2="preco", ano_ini=ano_ini, ano_fim=ano_fim, mostrar_rotulos=mostrar)
         st.plotly_chart(fig, width="stretch", key="v5_jr_fco_mglu")
 
-        st.header("Caso 5 · Retorno ao lucro (e o que veio depois)")
+        st.header("Evento B: Retorno ao lucro (e o que veio depois)")
         self._painel_virada(fonte, n)
         df_juros = _tabela_avaliacao(fonte, EVENTOS_POR_ID["juros_altos"], n, "Juros elevados — antes × depois")
         df_virada = _tabela_avaliacao(fonte, EVENTOS_POR_ID["virada_4t23"], n, "Virada do 4T23 — antes × depois")
@@ -359,18 +360,18 @@ class PaginaV5InvestimentosDigitalMercado:
         evs = _evs(["covid", "aquisicoes", "kabum", "followon", "aporte_2024", "virada_4t23"], ano_ini, ano_fim)
         _avisar_faltantes(fonte, ["vendas_ecommerce_1p", "vendas_marketplace_3p", "participacao_ecommerce", "invest_tecnologia", "invest_total", "invest_logistica", "ebitda", "mglu3"])
 
-        st.header("1. A transformação digital e os investimentos")
+        st.header("A transformação digital e os investimentos")
         st.plotly_chart(g5.serie_com_eventos([_spec(fonte, "invest_tecnologia", cor=CORES["invest"]), _spec(fonte, "participacao_ecommerce", eixo=2, cor=CORES["primaria"], largura=3)], evs, "Investimento em tecnologia × Participação E-commerce", y1_titulo="R$ milhões", y2_titulo="%", fmt_y2="pct", ano_ini=ano_ini, ano_fim=ano_fim, mostrar_rotulos=mostrar), width="stretch")
 
         st.plotly_chart(g5.serie_com_eventos([_spec(fonte, "vendas_ecommerce_1p", cor=CORES["secundaria"]), _spec(fonte, "vendas_marketplace_3p", cor=CORES["acento"]), _spec(fonte, "participacao_ecommerce", eixo=2, cor=CORES["primaria"], largura=3)], evs, "Mix E-commerce e Participação", y1_titulo="R$ milhões", y2_titulo="%", fmt_y2="pct", ano_ini=ano_ini, ano_fim=ano_fim, mostrar_rotulos=mostrar, empilhar=True), width="stretch")
 
-        st.header("2. O retorno dos investimentos e a percepção do mercado")
+        st.header("O retorno dos investimentos e a percepção do mercado")
         df_inv = pd.DataFrame({"Tecnologia": fonte.trimestral("invest_tecnologia"), "Logística": fonte.trimestral("invest_logistica"), "Lojas Físicas": fonte.trimestral("invest_lojas")})
         if not df_inv.dropna(how="all").empty:
             fig = g5.serie_com_eventos([dict(nome=c, serie=df_inv[c].dropna(), tipo="barra", eixo=1, fmt="num", cor=CORES["invest"] if c=="Tecnologia" else (CORES["secundaria"] if c=="Logística" else CORES["acento"])) for c in df_inv.columns] + [_spec(fonte, "ebitda", eixo=2, cor=CORES["acento"], largura=3)], evs, "Investimentos × EBITDA", y1_titulo="R$ milhões", y2_titulo="EBITDA", fmt_y2="num", ano_ini=ano_ini, ano_fim=ano_fim, mostrar_rotulos=mostrar, empilhar=True)
             st.plotly_chart(fig, width="stretch")
 
-        st.subheader("Base 100 — desempenho operacional × percepção de mercado")
+        st.subheader("Desempenho Operacional × Percepção de Mercado (base 100)")
         series_base = {"Receita": fonte.anual("receita_liquida"), "EBITDA": fonte.anual("ebitda"), "Lucro": fonte.anual("lucro_liquido"), "Vendas Totais": fonte.anual("vendas_totais")}
         if not fonte.trimestral("mglu3").empty: series_base["MGLU3"] = fonte.anual("mglu3")
         df_base = pd.DataFrame({k: base_100(v) for k, v in series_base.items() if v is not None and not v.empty})
@@ -408,15 +409,21 @@ class PaginaV5OmnichannelMarketplace:
         evs = _evs(["marketplace", "virada_4t23", "reversao_2t26", "covid"], ano_ini, ano_fim)
         _avisar_faltantes(fonte, ["vendas_lojas_fisicas", "vendas_ecommerce_1p", "vendas_marketplace_3p", "vendas_totais", "share_3p", "margem_ebitda"])
 
-        st.header("1. O mix de canais")
+        st.header("O mix de canais")
         st.plotly_chart(g5.serie_com_eventos([_spec(fonte, "vendas_lojas_fisicas", cor=CORES["secundaria"]), _spec(fonte, "vendas_ecommerce_1p", cor=CORES["invest"]), _spec(fonte, "vendas_marketplace_3p", cor=CORES["acento"]), _spec(fonte, "participacao_ecommerce", eixo=2, cor=CORES["primaria"], largura=3)], evs, "Mix de canais", y1_titulo="R$ milhões", y2_titulo="%", fmt_y2="pct", ano_ini=ano_ini, ano_fim=ano_fim, mostrar_rotulos=mostrar, empilhar=True), width="stretch")
 
-        st.subheader("Receita por loja × Receita por m²")
+        st.subheader("Receita por Loja × Receita por m²")
         rec_loja = (fonte.trimestral("vendas_lojas_fisicas") / fonte.trimestral("numero_lojas").replace(0, np.nan)).dropna()
         rec_m2 = (fonte.trimestral("vendas_lojas_fisicas") / fonte.trimestral("area_vendas").replace(0, np.nan)).dropna()
-        if not rec_loja.empty or not rec_m2.empty: st.plotly_chart(g5.omni_receita_por_loja_e_m2(rec_loja, rec_m2), width="stretch")
+        
+        # Busca o evento da Pandemia para destacar no gráfico
+        ev_pandemia = _evs(["covid"], ano_ini, ano_fim)
+        
+        if not rec_loja.empty or not rec_m2.empty: 
+            # Passa os eventos para o gráfico
+            st.plotly_chart(g5.omni_receita_por_loja_e_m2(rec_loja, rec_m2, eventos=ev_pandemia), width="stretch")
 
-        st.header("2. Marketplace, margem e rentabilidade")
+        st.header("Marketplace, Margem e Rentabilidade")
         st.plotly_chart(g5.serie_com_eventos([_spec(fonte, "vendas_marketplace_3p", cor=CORES["acento"]), _spec(fonte, "share_3p", eixo=2, cor=CORES["primaria"], largura=3)], evs, "Marketplace 3P × Participação", y1_titulo="R$ milhões", y2_titulo="%", fmt_y2="pct", ano_ini=ano_ini, ano_fim=ano_fim, mostrar_rotulos=mostrar), width="stretch")
         st.plotly_chart(g5.serie_com_eventos([_spec(fonte, "share_3p", cor=CORES["acento"], largura=3), _spec(fonte, "margem_bruta", cor=CORES["secundaria"]), _spec(fonte, "margem_ebitda", cor=CORES["positivo"], largura=3)], evs, "Marketplace × Margens", y1_titulo="%", fmt_y1="pct", ano_ini=ano_ini, ano_fim=ano_fim, mostrar_rotulos=mostrar), width="stretch")
 
@@ -443,30 +450,49 @@ class PaginaV5Cliente:
         unidade = st.sidebar.selectbox("Unidade (RA)", ["online", "fisica", "luizacred", "consorcio"], key="v5_cli_uni")
         evs = _evs(["covid", "kabum", "followon", "virada_4t23", "reversao_2t26"], ano_ini, ano_fim)
 
-        st.header("Caso 6 · Marca e interesse do consumidor")
+        st.header("Marca e interesse do consumidor")
         trends_m = fonte.trends_mensal()
         if not trends_m.empty:
-            bf = st.checkbox("Marcar Black Friday", value=True, key="v5_cli_bf")
+            bf = st.checkbox("Marcar Black Friday", value=False, key="v5_cli_bf")
             fig = g5.serie_com_eventos([dict(nome="Google Trends (mensal)", serie=trends_m, tipo="linha", eixo=1, fmt="indice", cor=CORES["trends"], largura=2), _spec(fonte, "vendas_totais", eixo=2, cor=CORES["secundaria"], opacidade=0.35)], evs, "Google Trends × Vendas Totais", y1_titulo="Interesse", y2_titulo="Vendas", fmt_y2="num", ano_ini=ano_ini, ano_fim=ano_fim, mostrar_rotulos=mostrar, eventos_leves=black_fridays(ano_ini, ano_fim) if bf else None)
             st.plotly_chart(fig, width="stretch")
             
+            _warning(
+                "**O marketing (interesse de busca) gera vendas ou as vendas geram marketing (boca a boca)?** ."
+            )
             corr = correlacao_por_defasagem(fonte.trimestral("trends"), fonte.trimestral("vendas_totais"), range(-4, 5), "aa")
             st.plotly_chart(g5.barras_defasagem(corr, "Trends(t) × Vendas(t+k)", r_critico(int(corr["n"].median()) if not corr.empty else 0)), width="stretch")
+            # --- Explicação do gráfico (no padrão _warning) ---
+            _warning(
+                "**Como interpretar o gráfico de correlação acima?**\n\n"
+                "* **Correlação de Pearson (eixo Y):** Mede a força da relação linear entre as variáveis, variando de -1 a +1. "
+                "Quanto mais alto o valor, mais forte é a associação. Valores acima da linha tracejada são estatisticamente significativos.\n"
+                "* **Defasagem (eixo X):** Mede o tempo entre os eventos. O valor **0** indica o mesmo trimestre. "
+                "Valores **positivos** (ex: +1) indicam que o interesse de busca **antecedeu** as vendas. Valores negativos indicam o contrário.\n"
+                "* **n=30:** Representa o número de trimestres (observações) usados no cálculo. Uma amostra acima de 30 é considerada estatisticamente robusta.\n"
+                "* **Leitura:** O maior pico de correlação ocorre na defasagem **+1**. Isso sugere que o aumento do interesse de busca antecede o aumento das vendas em 1 trimestre. "
+                "**Atenção:** correlação não implica causalidade, mas a força dessa associação indica que o Google Trends é um importante termômetro para o volume de vendas futuro."
+            )
         else:
             _warning("Google Trends indisponível.")
 
-        st.header("Caso 7 · Reputação do consumidor (Reclame Aqui)")
-        _warning("**Limite dos dados:** O Reclame Aqui cobre apenas 2024, 2025 e 1S2026. Isso não permite testar eventos de 2020–2023 e impede correlações longas.")
+        st.header("Reputação do consumidor (Reclame Aqui)")
+        _warning("**Limite dos dados:** O Reclame Aqui cobre apenas 2024, 2025 e 1S2026.")
+        
         ra = getattr(repositorio, "reclame_aqui", None)
         if ra is None:
             _info("Reclame Aqui indisponível.")
         else:
+            # Filtra o DataFrame para remover a linha 'Geral' ANTES de plotar
+            df_ra_raw = ra.desempenho(unidade)
+            df_ra = df_ra_raw[~df_ra_raw.index.astype(str).str.lower().isin(["geral", "total"])].copy()
+            
             if unidade == "online":
-                st.plotly_chart(g5.cliente_ra_vs_vendas_online(ra.desempenho(unidade), fonte.trimestral("vendas_ecommerce_total")), width="stretch")
+                st.plotly_chart(g5.cliente_ra_vs_vendas_online(df_ra, fonte.trimestral("vendas_ecommerce_total")), width="stretch")
             elif unidade == "fisica":
-                st.plotly_chart(g5.cliente_ra_vs_vendas_fisica(ra.desempenho(unidade), fonte.trimestral("vendas_lojas_fisicas")), width="stretch")
+                st.plotly_chart(g5.cliente_ra_vs_vendas_fisica(df_ra, fonte.trimestral("vendas_lojas_fisicas")), width="stretch")
             elif unidade == "luizacred":
-                st.plotly_chart(g5.cliente_luizacred(ra.desempenho(unidade), fonte.trimestral("luizacred_faturamento"), fonte.trimestral("luizacred_lucro")), width="stretch")
+                st.plotly_chart(g5.cliente_luizacred(df_ra, fonte.trimestral("luizacred_faturamento"), fonte.trimestral("luizacred_lucro")), width="stretch")
             else:
                 _info("Sem cruzamento específico para esta unidade.")
 
@@ -633,6 +659,16 @@ class PaginaInicio:
             " o 'Lucro Antes de Juros, Impostos, Depreciação e Amortização'."
             " \nUm indicador que mede a performance operacional de uma empresa sem considerar efeitos financeiros," 
             " tributários e contábeis. Ele mostra quanto o negócio gera de resultado apenas com suas atividades principais."
+            ""
+        )
+        st.info(
+            " \nO termo BASE 100 é uma técnica clássica de visualização financeira. "
+            " \nEle é usado quando você quer comparar o desempenho de duas ou mais variáveis que têm escalas completamente diferentes "
+            " Exemplo: o preço de uma ação em R, a receita em R$ bilhões e a Selic em %."
+            " \nTodos os indicadores partem do valor 100 no período inicial (neste caso, 2018)."
+            " \nSe uma linha estiver em 150, significa que aquele indicador cresceu 50% desde o início."
+            " \nSe estiver em 80, caiu 20%. Isso permite comparar visualmente a trajetória dos fundamentos "
+            "da empresa com a percepção do mercado (cotação)."
             ""
         )
 
