@@ -170,8 +170,8 @@ class PaginaAbertura:
             
             # Cartões Acadêmicos
             cards_academicos = [
-                ("📚 Objetivo do Projeto", "Fontes e Escopo", "Detalhes sobre a origem e coleta de dados."),
-                ("📚 Carga e Higienização", "Transparência", "Como os dados foram limpos e preparados.")
+                ("Objetivo do Projeto", "Fontes e Escopo", "Detalhes sobre a origem e coleta de dados."),
+                ("Carga e Higienização", "Transparência", "Como os dados foram limpos e preparados.")
             ]
             
             for title, subtitle, desc in cards_academicos:

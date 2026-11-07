@@ -50,7 +50,7 @@ SEP_ACADEMICO = "Acadêmico"
 SEP_OUTROS    = "─────────────────"
 
 PAGINAS = {
-    MENU_ABERTURA: PaginaAbertura(),
+    "Apresentação": PaginaAbertura(),
     SEP_VISUAL: None,
     MENU_V4_TL: PaginaV3Timeline(),
     MENU_V4_EI: PaginaV3EventosIndicadores(),
