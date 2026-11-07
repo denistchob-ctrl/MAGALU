@@ -51,7 +51,7 @@ SEP_OUTROS    = "─────────────────"
 
 PAGINAS = {
     "Apresentação": PaginaAbertura(),
-    SEP_VISUAL: None,
+    # SEP_VISUAL: None,
     MENU_V4_TL: PaginaV3Timeline(),
     MENU_V4_EI: PaginaV3EventosIndicadores(),
     MENU_V4_JUR: PaginaV3Juros(),
@@ -59,8 +59,8 @@ PAGINAS = {
     MENU_V4_OMNI: PaginaV4OmnichannelMarketplace(),
     MENU_V4_CLI: PaginaV2Cliente(),
     MENU_V4_PROJ: PaginaV4Projecoes(),
-    SEP_OUTROS: None,
-    SEP_ACADEMICO: None,
+    #SEP_OUTROS: None,
+    #SEP_ACADEMICO: None,
     "Objetivo do Projeto": PaginaInicio(),
     "Carga e Higienização": PaginaCargaHigienizacao(),
 }
@@ -78,8 +78,6 @@ def main():
     except:
         pass
     
-    st.sidebar.markdown("---")
-
     # Inicializa a página padrão se não existir
     if 'pagina_atual' not in st.session_state:
         st.session_state['pagina_atual'] = MENU_ABERTURA
