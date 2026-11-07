@@ -36,7 +36,7 @@ from paginas_executivas import (
 st.set_page_config(page_title="Magazine Luiza — Dashboard Executivo", page_icon="📊", layout="wide")
 
 # --- Menu ---
-MENU_ABERTURA = "🏠 Apresentação"
+MENU_ABERTURA = "Apresentação"
 MENU_V4_TL    = "1️⃣ Linha do Tempo Estratégica"
 MENU_V4_EI    = "2️⃣ Eventos × Indicadores"
 MENU_V4_JUR   = "3️⃣ Juros, Lucro e Virada"
@@ -46,7 +46,7 @@ MENU_V4_CLI   = "6️⃣ Cliente, Marca e Reputação"
 MENU_V4_PROJ  = "7️⃣ Projeções Preditivas"
 
 SEP_VISUAL    = "──────────────"
-SEP_ACADEMICO = "📚 Acadêmico"
+SEP_ACADEMICO = "Acadêmico"
 SEP_OUTROS    = "─────────────────"
 
 PAGINAS = {

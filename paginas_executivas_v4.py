@@ -76,7 +76,7 @@ class PaginaAbertura:
         except:
             pass
         
-        st.title("📊 Dashboard Executivo — Magazine Luiza")
+        st.title("Dashboard Executivo — Magazine Luiza")
         
         st.markdown(
             """
