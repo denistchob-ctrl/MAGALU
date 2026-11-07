@@ -461,7 +461,7 @@ class PaginaV4Projecoes:
             
             trends_m = fonte.trends_mensal()
             
-            # Fallback para backup caso a API não traga dados
+            # Fallback para backup
             if trends_m.empty:
                 try:
                     caminho_backup = os.path.join("BD", "ultimaLeituraGA.csv")
@@ -475,29 +475,35 @@ class PaginaV4Projecoes:
             
             if len(trends_m) > 12:
                 try:
-                    # 1. Prepara dados
+                    # 1. Prepara dados para o Prophet
                     df_prophet = trends_m.reset_index()
                     df_prophet.columns = ['ds', 'y']
                     df_prophet['ds'] = pd.to_datetime(df_prophet['ds']).dt.tz_localize(None)
                     df_prophet['y'] = pd.to_numeric(df_prophet['y'], errors='coerce')
                     df_prophet = df_prophet.dropna(subset=['ds', 'y'])
+                    
+                    # Remove duplicatas de datas (o Prophet quebra se houver)
+                    df_prophet = df_prophet.drop_duplicates(subset=['ds'], keep='last').sort_values('ds')
 
-                    # 2. Treina
+                    # 2. Treina o modelo
                     m = Prophet(yearly_seasonality=True, weekly_seasonality=False, daily_seasonality=False)
                     m.fit(df_prophet)
                     
-                    # 3. Previsão
-                    futuro = m.make_future_dataframe(periods=6)
+                    # 3. Previsão para os próximos 6 meses
+                    futuro = m.make_future_dataframe(periods=6, freq='ME') # 'ME' para Month End
                     forecast = m.predict(futuro)
                     
-                    # 4. Separa Histórico e Futuro para o plot
-                    # Filtrar histórico para exibir apenas a partir de 2024 (evita esmagar o gráfico)
-                    historico_plot = df_prophet[df_prophet['ds'] >= '2024-01-01']
+                    # 4. Separa os dados para exibição
+                    # Filtra o histórico para mostrar apenas os últimos 36 meses (3 anos) -> evita esmagar a projeção
+                    limite_historico = df_prophet['ds'].max() - pd.DateOffset(months=36)
+                    historico_plot = df_prophet[df_prophet['ds'] >= limite_historico]
+                    
+                    # Filtra a projeção apenas para o futuro
                     futuro_plot = forecast[forecast['ds'] > df_prophet['ds'].max()]
                     
                     fig = go.Figure()
                     
-                    # Histórico
+                    # Linha histórica
                     fig.add_trace(go.Scatter(
                         x=historico_plot['ds'], 
                         y=historico_plot['y'], 
@@ -506,11 +512,10 @@ class PaginaV4Projecoes:
                         line=dict(color=CORES["trends"], width=2)
                     ))
                     
-                    # Ponto de conexão (último valor real) para unir a linha histórica com a projeção
+                    # Ponto de conexão e Linha de Projeção
                     ultimo_real = pd.DataFrame({'ds': [df_prophet['ds'].iloc[-1]], 'y': [df_prophet['y'].iloc[-1]]})
                     proj_plot = pd.concat([ultimo_real, futuro_plot[['ds', 'yhat']].rename(columns={'yhat': 'y'})])
                     
-                    # Projeção (começando do último ponto real)
                     fig.add_trace(go.Scatter(
                         x=proj_plot['ds'], 
                         y=proj_plot['y'], 
@@ -519,7 +524,7 @@ class PaginaV4Projecoes:
                         line=dict(color=CORES["negativo"], width=3, dash='dash')
                     ))
                     
-                    # Faixa de confiança (apenas no futuro)
+                    # Faixa de confiança
                     fig.add_trace(go.Scatter(
                         x=futuro_plot['ds'].tolist() + futuro_plot['ds'].tolist()[::-1],
                         y=futuro_plot['yhat_upper'].tolist() + futuro_plot['yhat_lower'].tolist()[::-1],
@@ -530,9 +535,19 @@ class PaginaV4Projecoes:
                         showlegend=False
                     ))
                     
-                    fig.update_layout(title="Projeção de Interesse de Busca (0-100)", template="plotly_white", height=400,
-                                      legend=dict(orientation="h", yanchor="bottom", y=1.02),
-                                      hovermode="x unified")
+                    fig.update_layout(
+                        title="Projeção de Interesse de Busca (0-100)", 
+                        template="plotly_white", 
+                        height=400,
+                        legend=dict(orientation="h", yanchor="bottom", y=1.02),
+                        hovermode="x unified"
+                    )
+                    
+                    # 5. Força o eixo X a mostrar um zoom na janela de interesse (últimos 24 meses do histórico + projeção)
+                    limite_x_inicio = df_prophet['ds'].max() - pd.DateOffset(months=24)
+                    limite_x_fim = futuro_plot['ds'].max() + pd.DateOffset(months=1)
+                    fig.update_xaxes(range=[limite_x_inicio, limite_x_fim])
+                    
                     st.plotly_chart(fig, width="stretch")
                     
                     # Mensagem Executiva
@@ -543,6 +558,7 @@ class PaginaV4Projecoes:
                     st.error(f"Erro no modelo Prophet: {e}")
             else:
                 st.warning(f"Dados insuficientes para treinar o Prophet. A série tem apenas {len(trends_m)} pontos.")
+
 
         _como_interpretar(
             "As projeções não são 'bolas de cristal'. Elas usam o comportamento passado (sazonalidade e tendência) "
