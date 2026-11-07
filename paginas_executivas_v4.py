@@ -16,6 +16,8 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objects as go  # <-- Necessário para os gráficos de projeção
 
+import os
+
 from config_indicadores import CORES, MIN_OBSERVACOES_CORRELACAO
 from formatos import formata_moeda, formata_pct
 from validacoes import mensagem_sem_dados
@@ -489,8 +491,8 @@ class PaginaV4Projecoes:
                     forecast = m.predict(futuro)
                     
                     # 4. Separa Histórico e Futuro para o plot
-                    # Filtrar histórico para exibir apenas a partir de 2021 (evita esmagar o gráfico)
-                    historico_plot = df_prophet[df_prophet['ds'] >= '2021-01-01']
+                    # Filtrar histórico para exibir apenas a partir de 2024 (evita esmagar o gráfico)
+                    historico_plot = df_prophet[df_prophet['ds'] >= '2024-01-01']
                     futuro_plot = forecast[forecast['ds'] > df_prophet['ds'].max()]
                     
                     fig = go.Figure()
