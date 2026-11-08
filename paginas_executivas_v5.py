@@ -152,7 +152,7 @@ class PaginaAbertura:
 
         col_esq, col_dir = st.columns([3, 1])
         with col_esq:
-            st.markdown('<div class="section-header">Análise Executiva (7 Blocos)</div>', unsafe_allow_html=True)
+            st.markdown('<div class="section-header">Análise Executiva</div>', unsafe_allow_html=True)
             cards = [
                 ("1. Linha do Tempo", "Contexto.", "Eventos externos e decisões internas."),
                 ("2. Eventos × Indicadores", "Diagnóstico.", "Ferramenta interativa para testar hipóteses."),
